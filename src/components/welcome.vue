@@ -33,20 +33,16 @@ export default {
           url: '',
         },
         {
-          label: '新手指引',
-          content: '介绍+快速上手',
+          label: '更新日志',
+          content: '日志',
           url: '',
         },
         {
-          label: '新手指引',
-          content: '介绍+快速上手',
+          label: '关于ARK',
+          content: '官网',
           url: '',
         },
-        {
-          label: '新手指引',
-          content: '介绍+快速上手',
-          url: '',
-        },
+
       ],
     };
   },
