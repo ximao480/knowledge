@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 axios.interceptors.request.use((config) => {
+  config.url = `/arkshare-app${config.url}`
   return config;
 });
 
