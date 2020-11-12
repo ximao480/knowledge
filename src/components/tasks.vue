@@ -47,7 +47,7 @@ export default {
     return {
       Timelines:[],
       urlMap:{  //接口映射
-        tasks: '/p/cs/ark_share/workbench/user_notice',
+        tasks: '/p/cs/ark_share/workbech/need_to_deal',
         dynamic: '/p/cs/ark_share/workbench/user_notice',
         knowledge: '/p/cs/ark_share/workbench/repositoryNotice'
       },

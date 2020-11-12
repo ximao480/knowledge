@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="workbench" >
     <router-view></router-view>
   </div>
 </template>
@@ -19,7 +19,7 @@ html,body{
   width: 100%;
   height: 100%;
 }
-#app {
+#workbench {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

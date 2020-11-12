@@ -1,7 +1,17 @@
 import axios from 'axios';
 
 axios.interceptors.request.use((config) => {
-  config.url = `/arkshare-app${config.url}`
+  if(process.env.NODE_ENV !== 'development'){
+    config.url = `/arkshare-app${config.url}`
+  }
+
+  let data = config.data
+  data = Object.assign({},data,{
+    pageNum: 1,
+    pageSize: 20,
+    userId: (<any>window).localStorage.getItem('userInfoShare')?(<any>window).localStorage.getItem('userInfoShare').id:null,
+  })
+  config.data = data
   return config;
 });
 
