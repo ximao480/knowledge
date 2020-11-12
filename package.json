@@ -13,8 +13,6 @@
     "axios": "^0.21.0",
     "copy-webpack-plugin": "^6.3.0",
     "core-js": "^3.6.5",
-    "less": "^3.12.2",
-    "less-loader": "^7.0.2",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "single-spa-vue": "^1.1.0",
     "vue": "^2.6.11",
@@ -34,6 +32,8 @@
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-vue": "^6.2.2",
     "typescript": "~3.9.3",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "less": "^3.0.4",
+    "less-loader": "^5.0.0"
   }
 }
