@@ -9,7 +9,7 @@ axios.interceptors.request.use((config) => {
   data = Object.assign({},data,{
     pageNum: 1,
     pageSize: 20,
-    userId: (<any>window).localStorage.getItem('userInfoShare')?(<any>window).localStorage.getItem('userInfoShare').id:null,
+    userId: (<any>window).localStorage.getItem('userInfoShare')?JSON.parse((<any>window).localStorage.getItem('userInfoShare')).id:null,
   })
   config.data = data
   return config;
