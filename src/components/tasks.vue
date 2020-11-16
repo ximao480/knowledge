@@ -5,10 +5,10 @@
       :hiddenContent="current.name != 'dynamic'"
     >
       <div slot="tasks" slot-scope="item" v-if="current.name === 'tasks'">
-        <p class="content">{{item.data.message}}</p>
+        <p class="content" @click="openChanDao(item)">{{item.data.message}}</p>
       </div>
       <div slot="knowledge" slot-scope="item" v-if="current.name === 'knowledge'">
-        <p class="content" v-html="messageHtml(item.data)"></p>
+        <p class="content" @click="openKnowledge(item)" v-html="messageHtml(item.data)"></p>
       </div>
     </TimeLineBlock>
   </div>
@@ -89,7 +89,7 @@ export default {
             let data = res.data.data.noticeMessage;
             data.map(item => {
               let date = new DateUtil(new Date(item.creationdate));
-              item.creationdate = date.toLocaleDateString();
+              item.creationdate = item.creationdate?date.toLocaleDateString():item.creationdate;
               return item
             })
 
@@ -97,6 +97,12 @@ export default {
           };
         });
     },
+    openKnowledge (item) {  //打开文档
+      window.open(item.route)
+    },
+    openChanDao (item) {  //打开禅道
+      window.open(item.linkPath)
+    }
   },
   created() {
     this.init();
