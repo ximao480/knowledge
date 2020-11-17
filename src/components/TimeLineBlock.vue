@@ -10,7 +10,7 @@
             </slot>
             <slot name="tasks" :data="item" v-if="hiddenContent">
             </slot>
-            <span v-else>{{item.message}}</span>
+            <span v-else>{{item.message.replace(/<[^>]+>/g,"")}}</span>
             <span>{{item.creationdate}}</span>
           </p>
         </TimelineItem>

@@ -98,7 +98,11 @@ export default {
         });
     },
     openKnowledge (item) {  //打开文档
-      window.open(item.route)
+      window.$DocOpen({
+        id: item.id,
+        fileType: item.fileType,
+        ptype: item.ptype
+      })
     },
     openChanDao (item) {  //打开禅道
       window.open(item.linkPath)
