@@ -1,6 +1,7 @@
 <template>
   <div class="Tasks">
     <TimeLineBlock
+      v-if="Timelines.length > 0"
       :lists="Timelines"
       :hiddenContent="current.name != 'dynamic'"
     >
@@ -11,6 +12,10 @@
         <p class="content" @click="openKnowledge(item.data)" v-html="messageHtml(item.data)"></p>
       </div>
     </TimeLineBlock>
+
+    <svg v-if="Timelines.length === 0" class="icon" aria-hidden="true" >
+      <use xlink:href="#iconnone-data"></use>
+    </svg>
   </div>
 </template>
 <script>

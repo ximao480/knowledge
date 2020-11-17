@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 axios.interceptors.request.use((config) => {
-  if(process.env.NODE_ENV !== 'development'){
+  if(true){
     config.url = `/arkshare-app${config.url}`
   }
 
