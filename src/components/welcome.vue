@@ -44,7 +44,11 @@ export default {
         },
 
       ],
+      userName: null,
     };
   },
+  mounted(){
+    this.userName =  window.localStorage.getItem('userInfoShare')?JSON.parse(window.localStorage.getItem('userInfoShare')).name:null
+  }
 };
 </script>
