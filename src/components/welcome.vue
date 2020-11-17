@@ -2,7 +2,7 @@
   <div class="welcome">
     <div class="logo"></div>
     <div class="content">
-      <p>Hi 六月，欢迎使用ARK Share</p>
+      <p>Hi {{userName}}，欢迎使用ARK Share</p>
       <p>ARK Share 是一站式敏捷研发协作平台， 帮助团队透明工作进展，提升协作效率</p>
 
       <div>
