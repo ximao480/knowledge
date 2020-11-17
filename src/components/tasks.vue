@@ -99,7 +99,7 @@ export default {
     },
     openKnowledge (item) {  //打开文档
       window.$DocOpen({
-        id: item.id,
+        id: item.fileId,
         fileType: item.fileType,
         ptype: item.ptype
       })
