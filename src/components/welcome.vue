@@ -48,7 +48,7 @@ export default {
     };
   },
   mounted(){
-    this.userName =  window.localStorage.getItem('userInfoShare')?JSON.parse(window.localStorage.getItem('userInfoShare')).name:null
+    this.userName =  window.localStorage.getItem('userInfoShare')?JSON.parse(window.localStorage.getItem('userInfoShare')).eName:null
   }
 };
 </script>
