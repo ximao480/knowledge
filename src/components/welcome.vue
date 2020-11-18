@@ -12,7 +12,7 @@
           <li v-for="(item,index) in guides" :key="index">
               <span class="dot"></span>
               <span class="label">{{item.label}}:</span>
-              <router-link :to="item.url">{{item.content}}</router-link>
+              <a :href="item.url">{{item.content}}</a>
           </li>
         </ul>
       </div>
@@ -35,7 +35,7 @@ export default {
         {
           label: '更新日志',
           content: '日志',
-          url: '',
+          url: 'http://ark-share-base.dev.burgeononline.com/version',
         },
         {
           label: '关于ARK',
