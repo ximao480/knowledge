@@ -104,7 +104,7 @@ export default {
     },
     openKnowledge (item) {  //打开文档
       if(item.fileType === 7){
-        this.$router.push(`/repository#/?fileType=${item.fileType}&folderId=${item.fileId}&pageType=workbench`)
+        window.basevm.$router.push(`/repository#/?fileType=${item.fileType}&folderId=${item.fileId}&pageType=workbench`)
       }else{
         window.$DocOpen({
           id: item.fileId,
