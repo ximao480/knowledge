@@ -78,6 +78,12 @@ export default {
         7:{
           icon: 'iconmy-project'
         }, //文件夹
+        8:{
+          icon: 'iconothers'
+        }, //其他
+        7:{
+          icon: 'iconppt'
+        }, //ppt
       },
     };
   },
