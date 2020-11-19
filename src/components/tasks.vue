@@ -81,7 +81,7 @@ export default {
         8:{
           icon: 'iconothers'
         }, //其他
-        7:{
+        9:{
           icon: 'iconppt'
         }, //ppt
       },
