@@ -115,7 +115,12 @@ export default {
 
     },
     openChanDao (item) {  //打开禅道
-      window.open(item.linkPath)
+      if(item.type === 1){
+
+      }else{
+        window.open(item.linkPath)
+      }
+
     }
   },
   created() {
