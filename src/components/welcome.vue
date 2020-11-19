@@ -12,7 +12,7 @@
           <li v-for="(item,index) in guides" :key="index">
               <span class="dot"></span>
               <span class="label">{{item.label}}:</span>
-              <a :href="item.url">{{item.content}}</a>
+              <a :href="item.url" target="_blank">{{item.content}}</a>
           </li>
         </ul>
       </div>

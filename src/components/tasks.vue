@@ -103,11 +103,16 @@ export default {
         });
     },
     openKnowledge (item) {  //打开文档
-      window.$DocOpen({
-        id: item.fileId,
-        fileType: item.fileType,
-        ptype: item.ptype
-      })
+      if(item.fileType === 7){
+        this.$router.push(`/repository#/?fileType=${item.fileType}&folderId=${item.fileId}`)
+      }else{
+        window.$DocOpen({
+          id: item.fileId,
+          fileType: item.fileType,
+          ptype: item.ptype
+        })
+      }
+
     },
     openChanDao (item) {  //打开禅道
       window.open(item.linkPath)
