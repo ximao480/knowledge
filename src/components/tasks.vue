@@ -6,7 +6,7 @@
       :hiddenContent="current.name != 'dynamic'"
     >
       <div slot="tasks" slot-scope="item" v-if="current.name === 'tasks'">
-        <p class="content" @click="openChanDao(item.data)">{{item.data.message}}</p>
+        <p class="content" :class="item.type == 1?'noActive':''" @click="openChanDao(item.data)">{{item.data.message}}</p>
       </div>
       <div slot="knowledge" slot-scope="item" v-if="current.name === 'knowledge'">
         <p class="content" @click="openKnowledge(item.data)" v-html="messageHtml(item.data)"></p>
