@@ -20,7 +20,7 @@
 </template>
 <script>
 import TimeLineBlock from './TimeLineBlock.vue';
-import { getTasks } from '../utils/api';
+import { getTasks, checkZenTao, goZenTao } from '../utils/api';
 import DateUtil from '../utils/dateApi';
 // @ is an alias to /src
 export default {
@@ -124,7 +124,19 @@ export default {
       if(item.type === 1){
 
       }else{
-        window.open(item.linkPath)
+        checkZenTao().then(res => {
+
+          // 模拟登录禅道
+          var iframe = document.createElement("iframe");
+          iframe.style.display = "none";
+          iframe.id = "iframe";
+          document.body.appendChild(iframe);
+          document.getElementById("iframe").src = res.data.data;
+
+          window.open(item.linkPath)
+
+        })
+
       }
 
     }
