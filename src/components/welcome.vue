@@ -30,7 +30,7 @@ export default {
         {
           label: '新手指引',
           content: '介绍+快速上手',
-          url: '',
+          url: 'http://online-editor.pro.burgeononline.com/p/c/online/editor?data=JTdCJTIyY2FsbGJhY2tVcmwlMjIlM0ElMjJodHRwJTNBJTJGJTJGYXJrLXNoYXJlLWJhc2UtcHJvLmRldi5idXJnZW9ub25saW5lLmNvbSUyRmFya3NoYXJlLWFwcCUyRnAlMkZjJTJGYXJrX3NoYXJlJTJGb25saW5lJTJGY2FsbEJhY2slMjIlMkMlMjJmaWxlSWQlMjIlM0E4MTMlMkMlMjJmaWxlTmFtZSUyMiUzQSUyMkFSSyUyMFNoYXJlJUU2JTk2JUIwJUU3JTg5JTg4JUU0JUJEJUJGJUU3JTk0JUE4JUU2JTk2JTg3JUU2JUExJUEzJTIyJTJDJTIyZmlsZVR5cGUlMjIlM0E0JTJDJTIyZmlsZVVybCUyMiUzQSUyMmh0dHAlM0ElMkYlMkZhcmstc2hhcmUub3NzLWNuLXNoYW5naGFpLmFsaXl1bmNzLmNvbSUyRmFya3NoYXJlLXBybyUyRmFya2RvY3MlMkY4MTMlMkZBUkslMjBTaGFyZSVFNiU5NiVCMCVFNyU4OSU4OCVFNCVCRCVCRiVFNyU5NCVBOCVFNiU5NiU4NyVFNiVBMSVBMy5kb2N4JTIyJTJDJTIycHR5cGUlMjIlM0ExJTJDJTIydXNlcklkJTIyJTNBMTMzNCUyQyUyMnVzZXJOYW1lJTIyJTNBJTIyJUU5JTgzJUFEJUU1JUJBJTg2JUU0JUJDJThEJTIyJTdE',
         },
         {
           label: '更新日志',
@@ -40,7 +40,7 @@ export default {
         {
           label: '关于ARK',
           content: '官网',
-          url: '',
+          url: 'http://ark.dev.syman.cn/',
         },
 
       ],
