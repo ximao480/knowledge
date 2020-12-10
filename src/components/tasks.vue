@@ -9,7 +9,8 @@
         <p class="content" :class="item.type == 1?'noActive':''" @click="openChanDao(item.data)">{{item.data.message}}</p>
       </div>
       <div slot="knowledge" slot-scope="item" v-if="current.name === 'knowledge'">
-        <p class="content" @click="openKnowledge(item.data)" v-html="messageHtml(item.data)"></p>
+        <p class="content" v-html="messageHtml(item.data)" @click="look(item)"></p>
+        <!-- <span  v-html="messageHtml(item)"></span> -->
       </div>
     </TimeLineBlock>
 
@@ -39,11 +40,24 @@ export default {
       }
     },
     messageHtml(current) {
+    //  console.log(current);
       return (current) => {
+         console.log(current)
         let icon = this.xlinkHref(current);
         let html = `<svg class="icon" aria-hidden="true">
             <use xlink:href="${icon}"></use>
           </svg>`
+          console.log(`${current.ename}邀请你协作${html}<span style="text-decoration:underline">${current.fileName}</span>`)
+          // current.message.
+          return `${current.ename}邀请你协作${html}<span style="text-decoration:underline">${current.fileName}</span>`
+        // return current.message.replace('${}',html)
+      }
+    },
+   assistantHtml(current) {
+     console.log(current);
+      return (current) => {
+         console.log(current)
+        let html = `${this.assistant.fileName}`
         return current.message.replace('${}',html)
       }
     },
@@ -51,6 +65,7 @@ export default {
   data() {
     return {
       Timelines:[],
+      // assistant:[],
       urlMap:{  //接口映射
         tasks: '/p/cs/ark_share/workbech/need_to_deal',
         dynamic: '/p/cs/ark_share/workbench/user_notice',
@@ -87,7 +102,15 @@ export default {
       },
     };
   },
+  mounted () {
+      //  console.log(this.assistant);
+       console.log(this.urlMap)
+       console.log(this.current.name)
+  },
   methods: {
+    look(item){
+      console.log(item);
+    },
     init() {
       this.getData();
     },
@@ -95,20 +118,24 @@ export default {
       getTasks(this.urlMap[this.current.name],{
 
       })
-        .then(res => {
+       .then(res => {
           if(res.data.code === 0){
             let data = res.data.data.noticeMessage;
+         
             data.map(item => {
               let date = new DateUtil(new Date(item.creationdate));
               item.creationdate = item.creationdate?date.toLocaleDateString():item.creationdate;
-              return item
+              // item.message = item.message.substring(0,12)//切割字符串
+              // console.log(item)
+              // this.assistant.push(item)
+             return item
             })
-
             this.Timelines = data;
+            
           };
         });
     },
-    openKnowledge (item) {  //打开文档
+    openKnowledge (item) {  //打开文
       if(item.fileType === 7){
         window.basevm.$router.push(`/repository#/?fileType=${item.fileType}&folderId=${item.fileId}&pageType=workbench`)
       }else{
