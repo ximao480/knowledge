@@ -16,13 +16,9 @@ module.exports = {
       // library的值在所有子应用中需要唯一
       library: 'workbench',
       libraryTarget: 'umd',
-      jsonpFunction: `webpackJsonp_calendar`,
     },
   },
   devServer: {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
     proxy: {
       '/p/cs': {
         target: 'http://yapi.dev.syman.cn/mock/268',
