@@ -125,14 +125,6 @@ export default {
 
       }else{
         checkZenTao().then(res => {
-
-          // 模拟登录禅道
-          var iframe = document.createElement("iframe");
-          iframe.style.display = "none";
-          iframe.id = "iframe";
-          document.body.appendChild(iframe);
-          document.getElementById("iframe").src = res.data.data;
-
           window.open(item.linkPath)
 
         })
