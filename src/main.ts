@@ -31,7 +31,7 @@ const appOptions = {
 
 // 支持应用独立运行、部署，不依赖于基座应用
 if (!(window as any).singleSpaNavigate) {
-  delete appOptions.el;
+  delete appOptions.el
   new Vue(appOptions).$mount('#app')
 }
 
