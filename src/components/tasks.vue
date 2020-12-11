@@ -13,7 +13,7 @@
           class="icon icons"
           aria-hidden="true"
           style="
-            width: 20px;
+            width: 15px;
             height: 25px;
             margin: 0 2px 0px 5px;
             vertical-align: text-bottom;
