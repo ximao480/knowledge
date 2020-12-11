@@ -78,7 +78,7 @@ export default {
           </svg>`
           console.log(`${current.ename}邀请你协作${html}<span style="text-decoration:underline">${current.fileName}</span>`)
           // current.message.
-          return `${current.ename}邀请你协作${html}<span style="text-decoration:underline">${current.fileName}</span>`
+          return `${current.ename}邀请你协作${html}<span class='span1' style="text-decoration:underline">${current.fileName}</span>`
         // return current.message.replace('${}',html)
       }
     },
