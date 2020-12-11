@@ -27,7 +27,7 @@
 
 
       <div slot="knowledge" slot-scope="item" v-if="current.name === 'knowledge'">
-        <p class="content" v-html="messageHtml(item.data)" @click="look(item)"></p>
+        <p class="content" v-html="messageHtml(item.data)" @click="openKnowledge(item.data)"></p>
       </div>
     </TimeLineBlock>
 
@@ -77,7 +77,6 @@ export default {
             <use xlink:href="${icon}"></use>
           </svg>`
           console.log(`${current.ename}邀请你协作${html}<span style="text-decoration:underline">${current.fileName}</span>`)
-          // current.message.
           return `${current.ename}邀请你协作${html}<span class='span1' style="text-decoration:underline">${current.fileName}</span>`
         // return current.message.replace('${}',html)
       }
@@ -168,7 +167,7 @@ export default {
           };
         });
     },
-    openKnowledge (item) {  //打开文
+    openKnowledge (item) {  //打开文件
       if(item.fileType === 7){
         window.basevm.$router.push(`/repository#/?fileType=${item.fileType}&folderId=${item.fileId}&pageType=workbench`)
       }else{
