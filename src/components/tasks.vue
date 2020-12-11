@@ -6,11 +6,28 @@
       :hiddenContent="current.name != 'dynamic'"
     >
       <div slot="tasks" slot-scope="item" v-if="current.name === 'tasks'">
-        <p class="content" :class="item.type == 1?'noActive':''" @click="openChanDao(item.data)">{{item.data.message}}</p>
+                                                                                      <!--  -->
+        <p class="content" :class="item.type == 1?'noActive':''" @click="openChanDao(item.data)">{{item.data.message.slice(0,5)}}创建了：</p>
+        
+        <svg
+          class="icon icons"
+          aria-hidden="true"
+          style="
+            width: 15px;
+            height: 25px;
+            margin: 0 2px 0px 5px;
+            vertical-align: text-bottom;
+          "
+        >
+          <use :xlink:href="'#' + svgType(item)" />
+        </svg>
+        <span class="content" :class="item.type == 1?'noActive':''">{{item.data.message.slice(10,-4)}}</span>  
+        <span class="content spans" :class="item.type == 1?'noActive':''" @click="openChanDao(item.data)" style="text-decoration:underline;" >{{item.data.message.slice(-4,-1)}}</span>
       </div>
+
+
       <div slot="knowledge" slot-scope="item" v-if="current.name === 'knowledge'">
-        <p class="content" v-html="messageHtml(item.data)" @click="look(item)"></p>
-        <!-- <span  v-html="messageHtml(item)"></span> -->
+        <p class="content" v-html="messageHtml(item.data)" @click="openKnowledge(item.data)"></p>
       </div>
     </TimeLineBlock>
 
@@ -34,6 +51,18 @@ export default {
     }
   },
   computed:{
+    svgType(current){
+      return (current) => {
+        console.log(current)
+        if(current.data.type === 1) {
+          console.log('%c'+'1','color:green')
+          return 'icongitee'
+        }else{
+          console.log('%c'+'2','color:green')
+          return 'iconchandao1'
+        }
+      }
+    },
     xlinkHref(current) {
       return (current) => {
         return `#${this.iconMap[Number(current.fileType)].icon}`
@@ -48,8 +77,7 @@ export default {
             <use xlink:href="${icon}"></use>
           </svg>`
           console.log(`${current.ename}邀请你协作${html}<span style="text-decoration:underline">${current.fileName}</span>`)
-          // current.message.
-          return `${current.ename}邀请你协作${html}<span style="text-decoration:underline">${current.fileName}</span>`
+          return `${current.ename}邀请你协作${html}<span class='span1' style="text-decoration:underline">${current.fileName}</span>`
         // return current.message.replace('${}',html)
       }
     },
@@ -64,6 +92,7 @@ export default {
   },
   data() {
     return {
+      xlink:'',
       Timelines:[],
       // assistant:[],
       urlMap:{  //接口映射
@@ -98,14 +127,17 @@ export default {
         }, //其他
         9:{
           icon: 'iconppt'
-        }, //ppt
+        },
+        10:{
+          icon:'gitee'
+        } //ppt
       },
     };
   },
   mounted () {
       //  console.log(this.assistant);
        console.log(this.urlMap)
-       console.log(this.current.name)
+       console.log(this.current)
   },
   methods: {
     look(item){
@@ -135,7 +167,7 @@ export default {
           };
         });
     },
-    openKnowledge (item) {  //打开文
+    openKnowledge (item) {  //打开文件
       if(item.fileType === 7){
         window.basevm.$router.push(`/repository#/?fileType=${item.fileType}&folderId=${item.fileId}&pageType=workbench`)
       }else{
@@ -148,10 +180,20 @@ export default {
 
     },
     openChanDao (item) {  //打开禅道
+    console.log(item);
+    
       if(item.type === 1){
 
       }else{
         checkZenTao().then(res => {
+
+          // 模拟登录禅道
+          var iframe = document.createElement("iframe");
+          iframe.style.display = "none";
+          iframe.id = "iframe";
+          document.body.appendChild(iframe);
+          document.getElementById("iframe").src = res.data.data;
+
           window.open(item.linkPath)
 
         })
