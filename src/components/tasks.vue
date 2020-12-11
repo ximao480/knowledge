@@ -69,16 +69,12 @@ export default {
       }
     },
     messageHtml(current) {
-    //  console.log(current);
       return (current) => {
-         console.log(current)
         let icon = this.xlinkHref(current);
         let html = `<svg class="icon" aria-hidden="true">
             <use xlink:href="${icon}"></use>
           </svg>`
-          console.log(`${current.ename}邀请你协作${html}<span style="text-decoration:underline">${current.fileName}</span>`)
           return `${current.ename}邀请你协作${html}<span class='span1' style="text-decoration:underline">${current.fileName}</span>`
-        // return current.message.replace('${}',html)
       }
     },
    assistantHtml(current) {
@@ -180,10 +176,7 @@ export default {
 
     },
     openChanDao (item) {  //打开禅道
-    console.log(item);
-    
       if(item.type === 1){
-
       }else{
         checkZenTao().then(res => {
 
