@@ -176,10 +176,9 @@ export default {
 
     },
     openChanDao (item) {  //打开禅道
-      if(item.type === 1){
-      }else{
+      // if(item.type === 1){
+      // }else{
         checkZenTao().then(res => {
-
           // 模拟登录禅道
           var iframe = document.createElement("iframe");
           iframe.style.display = "none";
@@ -192,8 +191,7 @@ export default {
         })
 
       }
-
-    }
+    // }
   },
   created() {
     this.init();
