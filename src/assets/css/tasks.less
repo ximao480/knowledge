@@ -13,19 +13,21 @@
     margin: auto;
   }
   .content{
+    vertical-align:middle;
     display:inline-block;
     cursor: pointer;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     word-break: break-all;
-
+    
     &.noActive{
       cursor: default;
     }
   }
 
   .item{
+    margin-top: -3px !important;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -62,4 +64,8 @@
 }
 .content.spans:hover{
   color:#3A7BF5;
+}
+
+.icon.icons{
+  vertical-align:middle
 }

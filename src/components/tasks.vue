@@ -9,8 +9,9 @@
                                                                                       <!--  -->
         <p class="content" :class="item.type == 1?'noActive':''" @click="openChanDao(item.data)" v-html="namehtml(item.data)"></p>
         
-        <svg
-          class="icon icons"
+        <span  class="icon icons">
+           <svg
+          class="icon"
           aria-hidden="true"
           style="
             width: 15px;
@@ -21,6 +22,7 @@
         >
           <use :xlink:href="'#' + svgType(item)" />
         </svg>
+        </span>
         <span class="content" :class="item.type == 1?'noActive':''" v-html="contentHtml(item.data)"></span>  
         <span class="content spans" :class="item.type == 1?'noActive':''" @click="openChanDao(item.data)" style="text-decoration:underline;" >请查看！</span>
       </div>
