@@ -5,7 +5,7 @@
       :lists="Timelines"
       :hiddenContent="current.name != 'dynamic'"
     >
-      <div slot="tasks" slot-scope="item" v-if="current.name === 'tasks'">
+      <div slot="tasks" slot-scope="item" v-if="current.name === 'tasks'" class="show">
                                                                                       <!--  -->
         <p class="content" :class="item.type == 1?'noActive':''" @click="openChanDao(item.data)" v-html="namehtml(item.data)"></p>
         
@@ -21,7 +21,7 @@
           "
         >
           <use :xlink:href="'#' + svgType(item)" />
-        </svg>
+        </svg> 
         </span>
         <span class="content" :class="item.type == 1?'noActive':''" v-html="contentHtml(item.data)"></span>  
         <span class="content spans" :class="item.type == 1?'noActive':''" @click="openChanDao(item.data)" style="text-decoration:underline;" >请查看！</span>
@@ -180,8 +180,8 @@ export default {
         });
     },
     openKnowledge (item) {  //打开文件
-      if(item.fileType === 7){
-        window.basevm.$router.push(`/repository#/?fileType=${item.fileType}&folderId=${item.fileId}&pageType=workbench`)
+      if(item.fileType === 7){//fileType=${item.fileType}
+        window.basevm.$router.push(`/repository#/?folderId=${item.fileId}&pageType=workbench`)
       }else{
         window.$DocOpen({
           id: item.fileId,
@@ -204,7 +204,6 @@ export default {
           document.getElementById("iframe").src = res.data.data;
           window.open(item.linkPath)
         })
-
       }
     // }
   },
