@@ -5,12 +5,13 @@
       :lists="Timelines"
       :hiddenContent="current.name != 'dynamic'"
     >
-      <div slot="tasks" slot-scope="item" v-if="current.name === 'tasks'">
+      <div slot="tasks" slot-scope="item" v-if="current.name === 'tasks'" class="show">
                                                                                       <!--  -->
-        <p class="content" :class="item.type == 1?'noActive':''" @click="openChanDao(item.data)">{{item.data.message.slice(0,5)}}创建了：</p>
+        <p class="content" :class="item.type == 1?'noActive':''" @click="openChanDao(item.data)" v-html="namehtml(item.data)"></p>
         
-        <svg
-          class="icon icons"
+        <span  class="icon icons">
+           <svg
+          class="icon"
           aria-hidden="true"
           style="
             width: 15px;
@@ -20,9 +21,10 @@
           "
         >
           <use :xlink:href="'#' + svgType(item)" />
-        </svg>
-        <span class="content" :class="item.type == 1?'noActive':''">{{item.data.message.slice(10,-4)}}</span>  
-        <span class="content spans" :class="item.type == 1?'noActive':''" @click="openChanDao(item.data)" style="text-decoration:underline;" >{{item.data.message.slice(-4,-1)}}</span>
+        </svg> 
+        </span>
+        <span class="content" :class="item.type == 1?'noActive':''" v-html="contentHtml(item.data)"></span>  
+        <span class="content spans" :class="item.type == 1?'noActive':''" @click="openChanDao(item.data)" style="text-decoration:underline;" >请查看！</span>
       </div>
 
 
@@ -51,14 +53,38 @@ export default {
     }
   },
   computed:{
+    contentHtml(current){
+         return (current)=>{
+        // console.log(current);
+        let cjl = current.message.indexOf("创建了")
+        // console.log(smm);
+        let qck = current.message.indexOf("请查看")
+        console.log(qck);
+        
+        if(qck == -1){
+          return current.message.slice(cjl+3) 
+        }else{
+           return current.message.slice(cjl+3,-4) 
+        }
+            
+      }
+    },
+    namehtml(current){
+      return (current)=>{
+        console.log(current);
+        let smm = current.message.indexOf("创建了")
+        console.log(smm);
+         return current.message.slice(0,smm+3)//+":"
+      }
+    },
     svgType(current){
       return (current) => {
         console.log(current)
         if(current.data.type === 1) {
-          console.log('%c'+'1','color:green')
+          // console.log('%c'+'1','color:green')
           return 'icongitee'
         }else{
-          console.log('%c'+'2','color:green')
+          // console.log('%c'+'2','color:green')
           return 'iconchandao1'
         }
       }
@@ -69,26 +95,15 @@ export default {
       }
     },
     messageHtml(current) {
-    //  console.log(current);
       return (current) => {
-         console.log(current)
         let icon = this.xlinkHref(current);
         let html = `<svg class="icon" aria-hidden="true">
             <use xlink:href="${icon}"></use>
           </svg>`
-          console.log(`${current.ename}邀请你协作${html}<span style="text-decoration:underline">${current.fileName}</span>`)
           return `${current.ename}邀请你协作${html}<span class='span1' style="text-decoration:underline">${current.fileName}</span>`
-        // return current.message.replace('${}',html)
       }
     },
-   assistantHtml(current) {
-     console.log(current);
-      return (current) => {
-         console.log(current)
-        let html = `${this.assistant.fileName}`
-        return current.message.replace('${}',html)
-      }
-    },
+ 
   },
   data() {
     return {
@@ -157,9 +172,6 @@ export default {
             data.map(item => {
               let date = new DateUtil(new Date(item.creationdate));
               item.creationdate = item.creationdate?date.toLocaleDateString():item.creationdate;
-              // item.message = item.message.substring(0,12)//切割字符串
-              // console.log(item)
-              // this.assistant.push(item)
              return item
             })
             this.Timelines = data;
@@ -168,8 +180,8 @@ export default {
         });
     },
     openKnowledge (item) {  //打开文件
-      if(item.fileType === 7){
-        window.basevm.$router.push(`/repository#/?fileType=${item.fileType}&folderId=${item.fileId}&pageType=workbench`)
+      if(item.fileType === 7){//fileType=${item.fileType}
+        window.basevm.$router.push(`/repository#/?folderId=${item.fileId}&pageType=workbench`)
       }else{
         window.$DocOpen({
           id: item.fileId,
@@ -180,27 +192,20 @@ export default {
 
     },
     openChanDao (item) {  //打开禅道
-    console.log(item);
-    
-      if(item.type === 1){
-
-      }else{
+      // if(item.type === 1){
+      // }else{
         checkZenTao().then(res => {
-
+         console.log(res);
           // 模拟登录禅道
           var iframe = document.createElement("iframe");
           iframe.style.display = "none";
           iframe.id = "iframe";
           document.body.appendChild(iframe);
           document.getElementById("iframe").src = res.data.data;
-
           window.open(item.linkPath)
-
         })
-
       }
-
-    }
+    // }
   },
   created() {
     this.init();

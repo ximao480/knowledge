@@ -35,5 +35,9 @@ export default {
       ],
     },
   },
+  mounted() {
+   console.log( this.lists);
+   
+  },
 };
 </script>
