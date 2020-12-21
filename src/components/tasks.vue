@@ -59,7 +59,7 @@ export default {
         let cjl = current.message.indexOf("创建了")
         // console.log(smm);
         let qck = current.message.indexOf("请查看")
-        console.log(qck);
+        // console.log(qck);
         
         if(qck == -1){
           return current.message.slice(cjl+3) 
@@ -71,24 +71,19 @@ export default {
     },
     namehtml(current){
       return (current)=>{
-        console.log(current);
         let smm = current.message.indexOf("创建了")
-        console.log(smm);
          return current.message.slice(0,smm+3)//+":"
       }
     },
     svgType(current){
       return (current) => {
-        console.log(current)
         if(current.data.type === 1) {
-          // console.log('%c'+'1','color:green')
           return 'icongitee'
         }else{
-          // console.log('%c'+'2','color:green')
           return 'iconchandao1'
         }
       }
-    },
+    },  
     xlinkHref(current) {
       return (current) => {
         return `#${this.iconMap[Number(current.fileType)].icon}`
@@ -149,15 +144,7 @@ export default {
       },
     };
   },
-  mounted () {
-      //  console.log(this.assistant);
-       console.log(this.urlMap)
-       console.log(this.current)
-  },
   methods: {
-    look(item){
-      console.log(item);
-    },
     init() {
       this.getData();
     },
@@ -195,7 +182,6 @@ export default {
       // if(item.type === 1){
       // }else{
         checkZenTao().then(res => {
-         console.log(res);
           // 模拟登录禅道
           var iframe = document.createElement("iframe");
           iframe.style.display = "none";
