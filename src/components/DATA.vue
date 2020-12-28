@@ -6,7 +6,7 @@
              <template>
                 <Row>
                     <Col span="12">
-                        <DatePicker  type="date" placeholder="2020" style="width: 200px" v-model="queryTime" @on-change="changetimes"></DatePicker>
+                        <DatePicker  type="date" placeholder="请选择日期" style="width: 200px" v-model="queryTime" @on-change="changetimes"></DatePicker>
                     </Col>
                 </Row>
              </template>
@@ -14,13 +14,12 @@
           <div class="rc" @click="pop">+新增日程</div>
           <div class="qb" @click="skip">查看全部</div>
          </div>
-      <div> 
+      <div class="content"> 
           <div class="items" v-if="schedulelist.length < 1 ? false:true" >
             <p class="">时间    <span>日程内容</span></p>
           </div>
            <div v-for="(item,index) in schedulelist" :key="index" class="items" >
              <p class="calendarshows" @click="detail(item)">{{item.startTime}} <span>{{item.title}}</span></p>
-
           </div>
       </div>
       <Modal></Modal>
@@ -39,7 +38,7 @@ import  Modal from './Modal'
      data () {
          return {
              value:"",
-             flag:"3",
+             flag:"1",
              queryTime:"",
              todayDatesss: moment(new Date()).format("YYYY-MM-DD hh:mm:ss"),
              schedulelist:[],
@@ -58,7 +57,7 @@ import  Modal from './Modal'
          },
         changetimes(ee){//INPUT查询
           this.todayDatesss= ee
-          this.flag="1"
+          // this.flag="1"
           this.changetime()
         },
         changetime(){//封装请求
@@ -78,7 +77,8 @@ import  Modal from './Modal'
      },
      mounted () {
       //  console.log(this.schedulelist);
-       this.changetime(),
+      //  this.changetime(),
+
        globalBus.$on("modificationlist",(schedulelist)=>{
             this.schedulelist = schedulelist
        });  
@@ -91,9 +91,12 @@ import  Modal from './Modal'
 }
 .Calendar{
     position: relative;
-    overflow-y: auto !important;
-    /* */
+  overflow-y: auto !important;
 }
+.content{
+  overflow-y: auto !important;
+}
+
 .contentkk{
         display: flex;
   }
@@ -108,6 +111,10 @@ import  Modal from './Modal'
 }
 .calendarshows{
     width:100% ;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
 
 } 
 .calendarshows:hover{

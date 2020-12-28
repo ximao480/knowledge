@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div v-for="(item, index) in moduleLists" :key="index" class="item">
-       <p class="title" v-if="item.name==='tasks'">{{ item.title }} <span>查看全部</span></p>
+       <p class="title" v-if="item.name==='tasks'">{{ item.title }}</p>
        <p v-if="item.name==='tasks'" class="position">
         <span class="taskdescription">任务描述:</span>
          <span class="span3" sortable: true>

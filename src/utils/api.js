@@ -9,7 +9,7 @@ export  const getOKR = (data)=>axios({
     data:data
 })
 // 添加okr
-export const SetORK =(data)=>axios({
+export const SetOKR =(data)=>axios({
    url:"/p/cs/ark_share/save_okr",
    method:"post",
    data:data

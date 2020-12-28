@@ -506,10 +506,10 @@ export default {
        this.GRTQUERYScheduledate(data)
       
     });
-    // 增加dalog
+    // 显示增加dalog
     globalBus.$on("pops", (data) => {
       console.log(data);
-      this.SchedulePopUpModal = data;
+      this.SchedulePopUpModal = data; 
     });
     getoPtions().then((res) => {
       this.scheduleRemindList = res.data.data;

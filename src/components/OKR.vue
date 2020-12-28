@@ -6,7 +6,7 @@
         <template>   
        <Row>
          <Col span="12">
-             <DatePicker type="month"  placeholder="Select month" style="width: 300px" v-model="value7" @on-change="changemonth" ></DatePicker>
+             <DatePicker type="month" size="small" placeholder="请选择日期" style="width: 300px" v-model="value7" @on-change="changemonth" ></DatePicker>
          </Col>
       </Row>
     </template>
@@ -24,18 +24,6 @@
         <span>{{ item.okrDivide }}</span>
       </div>
     </div>
-   
-    <!-- <div class="modalork"   style="border: 1px solid #ccc;" v-if="flag">
-         <template >
-           <div style="display: inline-block">
-                <Input v-model="valued" size="large" placeholder="Enter something..." style="width: 500px; height:40px; margin-left: 50px; " />        
-           </div>
-           <div  style="display: inline-block">
-                 <Input v-model="value1" size="large" placeholder="Enter something..." style="width: 100px;height:40px;margin-left:50px;" />
-           </div>
-            -->
-    <!-- </template>    -->
-    <!-- </div> -->
     <div class="moadlokr">
       <Modal v-model="modal1" 
       title="新增OKR"
@@ -63,7 +51,7 @@
   </div>
 </template>
 <script>
-import { getOKR,SetORK } from "../utils/api.js";
+import { getOKR,SetOKR } from "../utils/api.js";
 import moment from "moment";
 
 export default {
@@ -102,7 +90,7 @@ export default {
     changemonth(){
       setTimeout(() => {
        this.showOKR();    
-      }, 2000);
+      }, 1000);
     },
     examine(){
       this.$router.push('/DetailsPage') 
@@ -124,12 +112,13 @@ export default {
         return 
       }else{
         this.modal1 = false;
-        SetORK({
+        SetOKR({
           id:null,
           okrInfo:this.value,
           okrDivide:this.value1,
           }).then(res=>{
-            // console.log(res);
+            console.log(res);
+            // console.log(this.value7);
             this.showOKR()
           })
       }
@@ -139,8 +128,7 @@ export default {
     },
   // 搜索okr
     showOKR() {
-      if(this.value7 === ""){
-         
+      if(this.value7 === ""){   
            let data={
             okrYear:this.year,
             okrQuarter:this.month
@@ -149,9 +137,7 @@ export default {
            console.log(res.data.data.arkOkrList)
           this.columns1=res.data.data.arkOkrList
           });
-
       }else{
-    
           let html = moment(this.value7).format("YYYY-M")
           this.year = html.slice(0,4)
           let html3 = html.slice(5) 
@@ -164,23 +150,19 @@ export default {
           }else{
             this.month="4"
           }
-
             let data={
             okrYear:this.year,
             okrQuarter:this.month
            }
            getOKR(data).then((res) => {
            console.log(res.data.data.arkOkrList)
-          this.columns1=res.data.data.arkOkrList
+           this.columns1=res.data.data.arkOkrList
           });
       }
-       
-
-      
     },
   },
   mounted() {
-    // this.showOKR();
+    this.showOKR();
   },
 };
 </script>
@@ -206,8 +188,8 @@ export default {
 }
 
 .ark-input {
-  height: 40px !important;
-  /* margin-left: 50px; */
+  height: 20px !important; 
+  margin-left: 50px;
 }
 .Calendar {
   position: relative;
