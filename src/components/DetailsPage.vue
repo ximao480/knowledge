@@ -114,7 +114,7 @@
   </div>
 </template>
 <script>
-import { getOKR,SetORK } from "../utils/api.js";
+import { getOKR,SetOKR } from "../utils/api.js";
 import moment from "moment";
 
 export default {
@@ -273,7 +273,7 @@ export default {
         return 
       }else{
         this.flag = false;
-        SetORK({
+        SetOKR({
           id:null,
           okrInfo:this.value4,
           okrDivide:this.value3,
