@@ -1,8 +1,11 @@
+import { navigateToUrl } from 'single-spa'
 import Vue from 'vue'
 import App from './App.vue'
 
-Vue.config.productionTip = false
+import bus from './utils/bus.js'
+Vue.prototype.$bus=bus
 
+Vue.config.productionTip = false
 // new Vue({
 //   render: h => h(App),
 // }).$mount('#app')
@@ -27,16 +30,16 @@ const vueLifecycle = singleSpaVue({
 
 
 export function bootstrap (props: any) {
-  console.log('app1 bootstrap')
+  // console.log('app1 bootstrap')
   return vueLifecycle.bootstrap(() => {})
 }
 
 export function mount (props: any) {
-  console.log('app1 mount')
+  // console.log('app1 mount')
   return vueLifecycle.mount(() => {})
 }
 
 export function unmount (props: any) {
-  console.log('app1 unmount')
+  // console.log('app1 unmount')
   return vueLifecycle.unmount(() => {})
 }

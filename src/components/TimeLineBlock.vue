@@ -2,9 +2,6 @@
   <div class="Timeline">
     <Timeline>
         <TimelineItem color="blue" v-for="(item,index) in lists" :key="index">
-          <svg class="icon" aria-hidden="true" slot="dot">
-            <use xlink:href="#iconpoint"></use>
-          </svg>
           <p class="item">
             <slot name="knowledge" :data="item" v-if="hiddenContent">
             </slot>
@@ -18,6 +15,7 @@
   </div>
 </template>
 <script>
+import { globalBus } from "../utils/bus.js";
 export default {
   name: 'TimeLineBlock',
   props:{
@@ -35,9 +33,22 @@ export default {
       ],
     },
   },
+  //  watch: {
+
+  //    lists:{  //参数新的值newVal。 没有旧的值
+  //         handler(newVal,oldval){//handler函数名是固定的
+  //           console.log('新的',oldval);
+  //         },
+  //          deep:true//开启深度监听
+  //   }
+  // },
   mounted() {
-   console.log( this.lists);
-   
-  },
+   globalBus.$on("ascendingOrder",()=>{
+      this.lists.sort((a,b)=>{return ( b.level -a.level)})
+   });
+   globalBus.$on("descendingorder",()=>{
+      this.lists.sort((a,b)=>{return (a.level- b.level)})
+   })
+   }
 };
 </script>

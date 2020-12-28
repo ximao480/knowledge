@@ -12,6 +12,9 @@ export default Vue.extend({
   components: {
 
   },
+  mounted() {
+   
+  },
 });
 </script>
 <style lang="less">

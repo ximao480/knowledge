@@ -51,7 +51,10 @@ export default {
     this.userName =  window.localStorage.getItem('userInfoShare')?JSON.parse(window.localStorage.getItem('userInfoShare')).eName:null
   },
   methods:{
+  
+    
     open(item,index){
+      
       if(index === 0){
         window.$DocOpen({
           fileType: 4,

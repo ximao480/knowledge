@@ -5,192 +5,254 @@
       :lists="Timelines"
       :hiddenContent="current.name != 'dynamic'"
     >
-      <div slot="tasks" slot-scope="item" v-if="current.name === 'tasks'" class="show">
-                                                                                      <!--  -->
-        <p class="content" :class="item.type == 1?'noActive':''" @click="openChanDao(item.data)" v-html="namehtml(item.data)"></p>
-        
-        <span  class="icon icons">
-           <svg
-          class="icon"
-          aria-hidden="true"
-          style="
-            width: 15px;
-            height: 25px;
-            margin: 0 2px 0px 5px;
-            vertical-align: text-bottom;
-          "
-        >
-          <use :xlink:href="'#' + svgType(item)" />
-        </svg> 
+      <div  slot="tasks" slot-scope="item"  v-if="current.name === 'tasks'" :class="['show',{'actives':item.type == 3}]" @click="open(item.data)">
+        <span class="icon icons" v-if="shows(item)">
+          <svg
+            class="icon"
+            aria-hidden="true"
+            style="
+              width: 15px;
+              height: 25px;
+              margin: 0 2px 0px 5px;
+              vertical-align: text-bottom;">
+            <use :xlink:href="'#' + svgType(item)" />
+          </svg>
         </span>
-        <span class="content" :class="item.type == 1?'noActive':''" v-html="contentHtml(item.data)"></span>  
-        <span class="content spans" :class="item.type == 1?'noActive':''" @click="openChanDao(item.data)" style="text-decoration:underline;" >请查看！</span>
+        <span
+          class="content"
+          :class="item.type == 1 ? 'noActive' : ''"
+          v-html="namehtml(item.data)"
+        ></span>
+        <span
+          :class="['contents',item.type == 1 ? 'noActive' : '']"
+          v-html="contentHtml(item.data)"
+        ></span>
+
+         <span class="icon" v-html="svgbug(item.data)">
+            
+         </span>
+        
       </div>
-
-
-      <div slot="knowledge" slot-scope="item" v-if="current.name === 'knowledge'">
+      <!-- <div slot="knowledge" slot-scope="item" v-if="current.name === 'knowledge'">
         <p class="content" v-html="messageHtml(item.data)" @click="openKnowledge(item.data)"></p>
-      </div>
+     </div> -->
     </TimeLineBlock>
-
-    <svg v-if="Timelines.length === 0" class="icon" aria-hidden="true" >
+    <!--时间 -->
+    <svg v-if="Timelines.length === 0" class="icon" aria-hidden="true">
       <use xlink:href="#iconnone-data"></use>
     </svg>
   </div>
 </template>
 <script>
-import TimeLineBlock from './TimeLineBlock.vue';
-import { getTasks, checkZenTao, goZenTao } from '../utils/api';
-import DateUtil from '../utils/dateApi';
+import TimeLineBlock from "./TimeLineBlock.vue";
+import { getTasks, checkZenTao, goZenTao } from "../utils/api";
+import DateUtil from "../utils/dateApi";
 // @ is an alias to /src
 export default {
-  name: 'Tasks',
+  name: "Tasks",
   components: { TimeLineBlock },
-  props:{
-    current:{
+  props: {
+    current: {
       type: Object,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
-  computed:{
-    contentHtml(current){
-         return (current)=>{
-        // console.log(current);
-        let cjl = current.message.indexOf("创建了")
-        // console.log(smm);
-        let qck = current.message.indexOf("请查看")
-        // console.log(qck);
-        
-        if(qck == -1){
-          return current.message.slice(cjl+3) 
-        }else{
-           return current.message.slice(cjl+3,-4) 
-        }
-            
-      }
-    },
-    namehtml(current){
-      return (current)=>{
-        let smm = current.message.indexOf("创建了")
-         return current.message.slice(0,smm+3)//+":"
-      }
-    },
-    svgType(current){
+  computed: {
+    contentHtml(current) {
       return (current) => {
-        if(current.data.type === 1) {
-          return 'icongitee'
-        }else{
-          return 'iconchandao1'
+        let cjl = current.message.indexOf("创建了");
+        let you = current.message.indexOf("邀请你协作");
+
+        if (cjl !== -1) {
+          return current.message.slice(cjl + 3);
+        } else {
+          return current.message.slice(you + 5);
         }
-      }
-    },  
+      };
+    },
+    namehtml(current) {
+      return (current) => {
+        // console.log(current);
+        let cjl = current.message.indexOf("创建了");
+        if(cjl !== -1){
+         return current.message.slice(0, cjl + 3);
+        }else{
+        let you = current.message.indexOf("邀请你协作");
+        let content = current.message.slice(0, you + 5);
+        let icons ='icondesign1'
+        let html = ` <svg
+            class="icon"
+            aria-hidden="true"
+            style="
+              width: 15px;
+              height: 25px;
+              margin: 0 2px 0px 5px;
+              vertical-align: text-bottom;">
+            <use xlink:href="#${icons}" />
+          </svg>`
+            console.log("触发了");
+          if(current.type == 3){
+           return `${content}${html}`
+          }else{
+             return `${content}`
+          }
+        
+        }
+      };
+    },
+    shows(current){
+     return(current)=>{
+        if(current.data.type==3){
+          return false
+        }else{
+          return true
+        }
+     }
+    },
+    svgbug(current){
+     return(current)=>{
+        if(current.level==4){
+          let html = `<svg  t="1608788227843" class="icon svgs" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7594" width="200" height="200"><path d="M898.56 539.136c-16.384-106.496-98.304-212.992-106.496-217.088-8.192-16.384-28.672-20.48-49.152-16.384s-32.768 20.48-36.864 40.96c0 24.576-8.192 69.632-16.384 106.496-4.096-40.96-12.288-94.208-28.672-143.36-77.824-217.088-270.336-241.664-278.528-241.664-16.384-4.096-32.768 4.096-45.056 16.384-12.288 12.288-12.288 28.672-8.192 45.056 4.096 12.288 40.96 131.072 12.288 249.856v-4.096c-36.864-73.728-102.4-94.208-110.592-98.304-16.384-4.096-36.864 0-49.152 12.288-12.288 12.288-16.384 32.768-12.288 49.152 0 0 12.288 45.056-16.384 114.688-32.768 73.728-36.864 118.784-28.672 200.704 28.672 184.32 180.224 303.104 372.736 303.104 24.576 0 49.152 0 73.728-4.096 110.592-16.384 204.8-69.632 266.24-151.552 53.248-73.728 77.824-167.936 61.44-262.144z m-90.112 237.568c-53.248 73.728-139.264 118.784-241.664 135.168-200.704 32.768-368.64-77.824-397.312-262.144-12.288-73.728-8.192-114.688 16.384-184.32 32.768-81.92 16.384-139.264 16.384-143.36-4.096-4.096 0-8.192 0-8.192 0-4.096 4.096-4.096 8.192-4.096 8.192 0 57.344 16.384 86.016 77.824 8.192 16.384 16.384 32.768 20.48 53.248 4.096 8.192 12.288 16.384 20.48 16.384s16.384-4.096 20.48-12.288c8.192-12.288 12.288-28.672 16.384-40.96 40.96-135.168-8.192-274.432-12.288-290.816v-8.192c4.096-4.096 4.096-4.096 8.192-4.096 8.192 4.096 176.128 24.576 245.76 217.088 28.672 77.824 28.672 155.648 24.576 192.512 0 8.192 4.096 16.384 12.288 20.48 8.192 4.096 16.384 0 20.48-4.096 16.384-16.384 32.768-36.864 45.056-65.536 20.48-40.96 28.672-102.4 28.672-110.592 0-4.096 0-8.192 4.096-8.192h4.096c4.096 0 8.192 4.096 8.192 4.096 0 4.096 81.92 102.4 98.304 196.608 12.288 86.016-4.096 167.936-53.248 233.472z" p-id="7595" fill="#f4ea2a"></path><path d="M574.464 538.624h-54.784l-105.984 151.552v46.592h116.224v57.344h44.544V737.28h28.672v-39.424h-28.672v-159.232z m-45.056 159.232h-76.8v-2.048l74.24-108.544h2.048v110.592z" p-id="7596" fill="#f4ea2a"></path></svg>`
+          return html
+        }else if(current.level==3){
+          let html = `<svg t="1608788208694" class="icon svgs" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7407" width="200" height="200"><path d="M541.184 662.528v-2.048c14.336-4.608 25.088-11.776 32.256-20.48 7.168-9.216 10.752-20.992 10.752-35.84 0-12.288-2.048-23.04-6.144-32.256-4.096-8.704-10.24-15.872-17.92-21.504s-16.896-9.216-28.16-11.776-23.552-3.584-37.376-3.584c-10.752 0-20.992 0.512-31.232 2.048-10.24 1.536-18.432 3.072-24.576 5.12v37.888c7.168-2.048 15.872-4.096 25.088-5.12 9.216-1.536 17.92-2.048 25.6-2.048 15.872 0 27.648 2.56 36.352 7.168 8.704 5.12 12.8 13.824 12.8 26.624 0 13.312-5.632 23.04-16.384 29.184-10.752 6.144-26.112 8.704-45.568 8.704h-19.456v35.84h19.968c20.992 0 37.376 2.56 49.152 8.192s17.408 15.872 17.408 31.232c0 7.68-1.536 14.336-4.608 19.456-3.072 5.12-7.168 9.216-12.8 11.776s-11.776 5.12-18.944 6.144c-7.168 1.024-14.848 2.048-23.04 2.048-9.728 0-18.944-0.512-28.16-1.536-8.704-1.024-18.432-2.56-28.16-4.608v39.936c8.704 1.536 17.408 3.072 27.136 3.584 9.216 0.512 19.968 1.024 31.232 1.024 69.632 0 104.448-25.088 104.448-75.264 0-16.384-4.096-29.696-12.288-39.936-8.192-9.728-20.48-16.896-37.376-19.968z" p-id="7408" fill="#f4ea2a"></path><path d="M898.56 539.136c-16.384-106.496-98.304-212.992-106.496-217.088-8.192-16.384-28.672-20.48-49.152-16.384s-32.768 20.48-36.864 40.96c0 24.576-8.192 69.632-16.384 106.496-4.096-40.96-12.288-94.208-28.672-143.36-77.824-217.088-270.336-241.664-278.528-241.664-16.384-4.096-32.768 4.096-45.056 16.384-12.288 12.288-12.288 28.672-8.192 45.056 4.096 12.288 40.96 131.072 12.288 249.856v-4.096c-36.864-73.728-102.4-94.208-110.592-98.304-16.384-4.096-36.864 0-49.152 12.288-12.288 12.288-16.384 32.768-12.288 49.152 0 0 12.288 45.056-16.384 114.688-32.768 73.728-36.864 118.784-28.672 200.704 28.672 184.32 180.224 303.104 372.736 303.104 24.576 0 49.152 0 73.728-4.096 110.592-16.384 204.8-69.632 266.24-151.552 53.248-73.728 77.824-167.936 61.44-262.144z m-90.112 237.568c-53.248 73.728-139.264 118.784-241.664 135.168-200.704 32.768-368.64-77.824-397.312-262.144-12.288-73.728-8.192-114.688 16.384-184.32 32.768-81.92 16.384-139.264 16.384-143.36-4.096-4.096 0-8.192 0-8.192 0-4.096 4.096-4.096 8.192-4.096 8.192 0 57.344 16.384 86.016 77.824 8.192 16.384 16.384 32.768 20.48 53.248 4.096 8.192 12.288 16.384 20.48 16.384s16.384-4.096 20.48-12.288c8.192-12.288 12.288-28.672 16.384-40.96 40.96-135.168-8.192-274.432-12.288-290.816v-8.192c4.096-4.096 4.096-4.096 8.192-4.096 8.192 4.096 176.128 24.576 245.76 217.088 28.672 77.824 28.672 155.648 24.576 192.512 0 8.192 4.096 16.384 12.288 20.48 8.192 4.096 16.384 0 20.48-4.096 16.384-16.384 32.768-36.864 45.056-65.536 20.48-40.96 28.672-102.4 28.672-110.592 0-4.096 0-8.192 4.096-8.192h4.096c4.096 0 8.192 4.096 8.192 4.096 0 4.096 81.92 102.4 98.304 196.608 12.288 86.016-4.096 167.936-53.248 233.472z" p-id="7409" fill="#f4ea2a"></path></svg>`
+           return html
+        }else if(current.level==2){
+          let html =`<svg t="1608788642234" class="icon svgs" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8109" width="200" height="200"><path d="M898.56 539.136c-16.384-106.496-98.304-212.992-106.496-217.088-8.192-16.384-28.672-20.48-49.152-16.384s-32.768 20.48-36.864 40.96c0 24.576-8.192 69.632-16.384 106.496-4.096-40.96-12.288-94.208-28.672-143.36-77.824-217.088-270.336-241.664-278.528-241.664-16.384-4.096-32.768 4.096-45.056 16.384-12.288 12.288-12.288 28.672-8.192 45.056 4.096 12.288 40.96 131.072 12.288 249.856v-4.096c-36.864-73.728-102.4-94.208-110.592-98.304-16.384-4.096-36.864 0-49.152 12.288-12.288 12.288-16.384 32.768-12.288 49.152 0 0 12.288 45.056-16.384 114.688-32.768 73.728-36.864 118.784-28.672 200.704 28.672 184.32 180.224 303.104 372.736 303.104 24.576 0 49.152 0 73.728-4.096 110.592-16.384 204.8-69.632 266.24-151.552 53.248-73.728 77.824-167.936 61.44-262.144z m-90.112 237.568c-53.248 73.728-139.264 118.784-241.664 135.168-200.704 32.768-368.64-77.824-397.312-262.144-12.288-73.728-8.192-114.688 16.384-184.32 32.768-81.92 16.384-139.264 16.384-143.36-4.096-4.096 0-8.192 0-8.192 0-4.096 4.096-4.096 8.192-4.096 8.192 0 57.344 16.384 86.016 77.824 8.192 16.384 16.384 32.768 20.48 53.248 4.096 8.192 12.288 16.384 20.48 16.384s16.384-4.096 20.48-12.288c8.192-12.288 12.288-28.672 16.384-40.96 40.96-135.168-8.192-274.432-12.288-290.816v-8.192c4.096-4.096 4.096-4.096 8.192-4.096 8.192 4.096 176.128 24.576 245.76 217.088 28.672 77.824 28.672 155.648 24.576 192.512 0 8.192 4.096 16.384 12.288 20.48 8.192 4.096 16.384 0 20.48-4.096 16.384-16.384 32.768-36.864 45.056-65.536 20.48-40.96 28.672-102.4 28.672-110.592 0-4.096 0-8.192 4.096-8.192h4.096c4.096 0 8.192 4.096 8.192 4.096 0 4.096 81.92 102.4 98.304 196.608 12.288 86.016-4.096 167.936-53.248 233.472z" p-id="8110" fill="#f4ea2a"></path><path d="M479.232 753.152l15.872-12.288c19.456-15.36 35.328-29.184 47.616-40.96 12.288-11.776 22.016-22.528 29.184-32.256s11.776-19.456 14.336-29.184c2.56-9.216 4.096-19.456 4.096-30.208 0-24.576-7.68-43.008-23.04-54.784-15.36-11.776-36.864-17.92-64-17.92-11.776 0-23.04 0.512-34.304 2.048-10.752 1.536-20.992 3.584-30.208 6.144v38.912c10.752-3.072 20.48-5.632 29.696-6.656 9.216-1.024 18.432-2.048 26.624-2.048 6.656 0 12.8 0.512 18.944 2.048 6.144 1.024 10.752 3.072 15.36 6.144 4.096 3.072 7.68 7.168 10.24 12.288s3.584 11.776 3.584 18.944c0 7.68-1.536 15.872-5.12 24.064s-9.728 17.408-18.944 28.16c-9.216 10.24-21.504 22.528-36.864 36.352-15.36 13.824-35.328 30.208-59.392 49.152v43.52h175.616v-38.912H479.232v-2.56z" p-id="8111" fill="#f4ea2a"></path></svg>`
+           return html
+        }else if(current.level==1){
+          let html =`<svg t="1608788287597" class="icon svgs" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7922" width="200" height="200"><path d="M898.56 539.136c-16.384-106.496-98.304-212.992-106.496-217.088-8.192-16.384-28.672-20.48-49.152-16.384s-32.768 20.48-36.864 40.96c0 24.576-8.192 69.632-16.384 106.496-4.096-40.96-12.288-94.208-28.672-143.36-77.824-217.088-270.336-241.664-278.528-241.664-16.384-4.096-32.768 4.096-45.056 16.384-12.288 12.288-12.288 28.672-8.192 45.056 4.096 12.288 40.96 131.072 12.288 249.856v-4.096c-36.864-73.728-102.4-94.208-110.592-98.304-16.384-4.096-36.864 0-49.152 12.288-12.288 12.288-16.384 32.768-12.288 49.152 0 0 12.288 45.056-16.384 114.688-32.768 73.728-36.864 118.784-28.672 200.704 28.672 184.32 180.224 303.104 372.736 303.104 24.576 0 49.152 0 73.728-4.096 110.592-16.384 204.8-69.632 266.24-151.552 53.248-73.728 77.824-167.936 61.44-262.144z m-90.112 237.568c-53.248 73.728-139.264 118.784-241.664 135.168-200.704 32.768-368.64-77.824-397.312-262.144-12.288-73.728-8.192-114.688 16.384-184.32 32.768-81.92 16.384-139.264 16.384-143.36-4.096-4.096 0-8.192 0-8.192 0-4.096 4.096-4.096 8.192-4.096 8.192 0 57.344 16.384 86.016 77.824 8.192 16.384 16.384 32.768 20.48 53.248 4.096 8.192 12.288 16.384 20.48 16.384s16.384-4.096 20.48-12.288c8.192-12.288 12.288-28.672 16.384-40.96 40.96-135.168-8.192-274.432-12.288-290.816v-8.192c4.096-4.096 4.096-4.096 8.192-4.096 8.192 4.096 176.128 24.576 245.76 217.088 28.672 77.824 28.672 155.648 24.576 192.512 0 8.192 4.096 16.384 12.288 20.48 8.192 4.096 16.384 0 20.48-4.096 16.384-16.384 32.768-36.864 45.056-65.536 20.48-40.96 28.672-102.4 28.672-110.592 0-4.096 0-8.192 4.096-8.192h4.096c4.096 0 8.192 4.096 8.192 4.096 0 4.096 81.92 102.4 98.304 196.608 12.288 86.016-4.096 167.936-53.248 233.472z" p-id="7923" fill="#f4ea2a"></path><path d="M438.784 553.984v39.424l62.976-12.288v213.504h47.104v-256h-33.792z" p-id="7924" fill="#f4ea2a"></path></svg>`
+           return html
+        }
+     }
+    },
+    
+    svgType(current) {
+      return (current) => {
+        if (current.data.type === 1) {
+            //  this.flag=true;
+             return "icongitee";  
+        } else if (current.data.type === 2) {
+            return "iconchandao1";
+        }else{
+           return "";
+        }
+        
+      };
+
+    },
     xlinkHref(current) {
       return (current) => {
-        return `#${this.iconMap[Number(current.fileType)].icon}`
-      }
+        return `#${this.iconMap[Number(current.fileType)].icon}`;
+      };
     },
-    messageHtml(current) {
-      return (current) => {
-        let icon = this.xlinkHref(current);
-        let html = `<svg class="icon" aria-hidden="true">
-            <use xlink:href="${icon}"></use>
-          </svg>`
-          return `${current.ename}邀请你协作${html}<span class='span1' style="text-decoration:underline">${current.fileName}</span>`
-      }
-    },
- 
   },
   data() {
     return {
-      xlink:'',
-      Timelines:[],
+      flag:true,
+      xlink: "",
+      Timelines: [],
       // assistant:[],
-      urlMap:{  //接口映射
-        tasks: '/p/cs/ark_share/workbech/need_to_deal',
-        dynamic: '/p/cs/ark_share/workbench/user_notice',
-        knowledge: '/p/cs/ark_share/workbench/repositoryNotice'
+      urlMap: {
+        //接口映射
+        tasks: "/p/cs/ark_share/workbech/need_to_deal",
+        dynamic: "/p/cs/ark_share/workbench/user_notice",
+        knowledge: "/p/cs/ark_share/workbench/repositoryNotice",
       },
-      iconMap:{
-        1:{
-          icon: 'iconarkmind',
-        },  //思维导图
+      iconMap: {
+        1: {
+          icon: "iconarkmind",
+        }, //思维导图
         2: {
-          icon: 'iconmarkdown1',
+          icon: "iconmarkdown1",
         }, //markdown
         3: {
-          icon: 'iconexcel1',
-        },  //表格
+          icon: "iconexcel1",
+        }, //表格
         4: {
-          icon: 'icontext',
+          icon: "icontext",
         }, //文档
-        5:{
-          icon: 'iconaxure1',
+        5: {
+          icon: "iconaxure1",
         }, //原型
-        6:{
-          icon: 'icondesign1',
+        6: {
+          icon: "icondesign1",
         }, //视图
-        7:{
-          icon: 'iconmy-project'
+        7: {
+          icon: "iconmy-project",
         }, //文件夹
-        8:{
-          icon: 'iconothers'
+        8: {
+          icon: "iconothers",
         }, //其他
-        9:{
-          icon: 'iconppt'
+        9: {
+          icon: "iconppt",
         },
-        10:{
-          icon:'gitee'
-        } //ppt
+        10: {
+          icon: "gitee",
+        }, //ppt
       },
     };
+  },
+  mounted() {
+    // this.$nextTick(()=>{
+    //   console.log(this.Timelines);
+    // })
   },
   methods: {
     init() {
       this.getData();
+      // console.log(333);
     },
-    getData() {  //获取数据
-      getTasks(this.urlMap[this.current.name],{
+    getData() {
+      //获取数据
+      getTasks(this.urlMap[this.current.name], {}).then((res) => {
+        // console.log(res);
+        if (res.data.code === 0) {
+          let data = res.data.data.noticeMessage;
+          data.map((item) => {
+            let date = new DateUtil(new Date(item.creationdate));
+            item.creationdate = item.creationdate ? date.toLocaleDateString(): item.creationdate;
+            return item;
+          });
+        
+          this.Timelines = data;
+          console.log( this.Timelines);
 
-      })
-       .then(res => {
-          if(res.data.code === 0){
-            let data = res.data.data.noticeMessage;
-         
-            data.map(item => {
-              let date = new DateUtil(new Date(item.creationdate));
-              item.creationdate = item.creationdate?date.toLocaleDateString():item.creationdate;
-             return item
-            })
-            this.Timelines = data;
-            
-          };
-        });
+        }
+      });
     },
-    openKnowledge (item) {  //打开文件
-      if(item.fileType === 7){//fileType=${item.fileType}
-        window.basevm.$router.push(`/repository#/?folderId=${item.fileId}&pageType=workbench`)
-      }else{
+    open(item){
+     window.open(item.linkPath);
+    },
+    openKnowledge(item) {
+      //打开文件
+      if (item.fileType === 7) {
+        //fileType=${item.fileType}
+        window.basevm.$router.push(
+          `/repository#/?folderId=${item.fileId}&pageType=workbench`
+        );
+      } else {
         window.$DocOpen({
           id: item.fileId,
           fileType: item.fileType,
-          ptype: item.ptype
-        })
+          ptype: item.ptype,
+        });
       }
-
     },
-    openChanDao (item) {  //打开禅道
+    openChanDao(item) {
+      //打开禅道
       // if(item.type === 1){
       // }else{
-        checkZenTao().then(res => {
-          // 模拟登录禅道
-          var iframe = document.createElement("iframe");
-          iframe.style.display = "none";
-          iframe.id = "iframe";
-          document.body.appendChild(iframe);
-          document.getElementById("iframe").src = res.data.data;
-          window.open(item.linkPath)
-        })
-      }
+      checkZenTao().then((res) => {
+        // 模拟登录禅道
+        var iframe = document.createElement("iframe");
+        iframe.style.display = "none";
+        iframe.id = "iframe";
+        document.body.appendChild(iframe);
+        document.getElementById("iframe").src = res.data.data;
+        window.open(item.linkPath);
+      });
+    },
     // }
   },
   created() {
