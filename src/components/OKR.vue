@@ -10,11 +10,7 @@
          </Col>
       </Row>
     </template>
-      
-   
-      </div>
-      <div class="addOKR">
-        <Button type="primary" @click="addORK">新增OKR</Button>
+
       </div>
       <div class="qb" @click="examine">查看全部</div>
     </div>
@@ -24,36 +20,11 @@
         <span>{{ item.okrDivide }}</span>
       </div>
     </div>
-    <div class="moadlokr">
-      <Modal v-model="modal1" 
-      title="新增OKR"
-      :closable="true"
-      :footer-hide="true"
-      >
-        <p class="p1" style="padding-left: 90px; margin-bottom:10px;">OKR:<Input  v-model="value"   size="large" style="width: 300px;" /></p>
-        <p class="p1" style="padding-left: 90px; margin-bottom:10px;">分值:<Input v-model="value1"  size="large" style="width: 300px;" /></p>
-           <div class="SchedulePopUpModal-footer">
-        <Button
-          type="fcdefault"
-          @click="ScheduleCancel"
-          style="margin-right: 10px; width: 60px; height: 30px"
-          >取消</Button
-        >
-        <Button
-          type="primary"
-          style="margin-right: 10px; width: 60px; height: 30px"
-          @click="ScheduleOk"
-          >确定</Button
-        >
-      </div>
-      </Modal>
-    </div>
   </div>
 </template>
 <script>
 import { getOKR,SetOKR } from "../utils/api.js";
 import moment from "moment";
-
 export default {
   data() {
     return {
@@ -61,26 +32,11 @@ export default {
       model9: "",
       modal1: false,//新增
       modal3: true,
-      value:"",
-      value1:"",
       value7:"",//获取选择时间
       year:"2020",//转换年
       month:"4",//转换季度
       flag: false,
-      schedulelist: [
-        {
-          time: "时间",
-          content: "日程内容",
-        },
-        {
-          time: "10:00",
-          content: "上午10：00需求评审",
-        },
-        {
-          time: "10:00",
-          content: "上午10：00需求评审",
-        },
-      ],
+      schedulelist: [],
       columns1: [],//搜索数据列表
        
       
@@ -94,37 +50,6 @@ export default {
     },
     examine(){
       this.$router.push('/DetailsPage') 
-    },
-    changeOKR(e){
-      // console.log(this.value);
-      // console.log(this.value1);
-    },
-    addORK() {
-      this.modal1 = true;
-    },
-  // 确定提交按钮
-    ScheduleOk() {
-      if(!this.value){
-        this.$Message.warning("请填写OKR");
-        return 
-      }else if (!this.value1) {
-        this.$Message.warning("请输入分值");
-        return 
-      }else{
-        this.modal1 = false;
-        SetOKR({
-          id:null,
-          okrInfo:this.value,
-          okrDivide:this.value1,
-          }).then(res=>{
-            console.log(res);
-            // console.log(this.value7);
-            this.showOKR()
-          })
-      }
-    },
-    ScheduleCancel() {
-        this.modal1 = false;
     },
   // 搜索okr
     showOKR() {

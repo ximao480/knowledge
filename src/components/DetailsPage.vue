@@ -138,7 +138,7 @@ export default {
           title: "人员",
           key: "NAME",
           render: (h, params) => {
-            console.log(params.row);
+            // console.log(params.row);
             return h(
               "div",
               {
@@ -319,7 +319,7 @@ export default {
             this.animal= this.animal==="有风险" ? 2:3
           }
 
-        SetORK({
+        SetOKR({
           id:this.rowlist.ID,
           okrCompletePercent:this.value,
           okrStatues:this.animal,
