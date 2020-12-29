@@ -74,14 +74,16 @@
         :footer-hide="true"
       >
         <div class="wcd">
-          <p>完成度:</p>
+          <p>完成分值:</p>
           <div>
             <Input
               placeholder="0"
-              v-model="value"
+              v-model="value2"
+             
               style="width: 350px; height: 30px"
             />
-            <span class="percentSign">%</span>
+              <!-- type="number" -->
+            <!-- <span class="percentSign">%</span> -->
           </div>
 
           <p>状态:</p>
@@ -89,7 +91,7 @@
             <RadioGroup v-model="animal" >
               <Radio label="正常"></Radio>
               <Radio label="有风险" style="margin-left: 50px"></Radio>
-              <Radio label="以延期" style="margin-left: 50px"></Radio>
+              <Radio label="已延期" style="margin-left: 50px"></Radio>
             </RadioGroup>
           </div>
            <p>进展:</p>
@@ -123,18 +125,18 @@ export default {
   data() {
     return {
       value3:"",//新增
-      value4:"",//新增
-      value7:"",//获取选择时间
+      value4:"",//新增 
       year:"2020",//转换年
       month:"4",//转换季度
       flag:false,
       value8:"",
       model9: "",
-      value: "", //输入框
+      value2: '', //输入框
       animal: "", //单选框状态 
       value6:"",//文本域
       rowlist:[],//行数据
       isshowamendProgressBar: false,
+      value7:['2020','4'],//获取选择时间
       data: [{
                value: '2020',
                label: '2020年',
@@ -250,18 +252,6 @@ export default {
   },
 // 搜索okr
      showOKR() {
-      if(this.value7.length===0){
-         
-           let data={
-            okrYear:this.year,
-            okrQuarter:this.month
-           }
-           getOKR(data).then((res) => {
-           console.log(res.data.data.arkOkrList)
-          this.data1=res.data.data.arkOkrList
-          });
-
-      }else{
             let data={
             okrYear:this.value7[0],
             okrQuarter:this.value7[1]
@@ -270,10 +260,6 @@ export default {
            console.log(res.data.data.arkOkrList)
           this.data1=res.data.data.arkOkrList
           });
-      }
-       
-
-      
     },
 //回车添加
     enterAddOKR(){
@@ -282,6 +268,9 @@ export default {
         return 
       }else if (!this.value3) {
         this.$Message.warning("请输入分值");
+        return 
+      }else if(typeof(this.value3) !=="number"){
+         this.$Message.warning("请重新输入分值，类型为数值！");
         return 
       }else{
         this.flag = false;
@@ -292,9 +281,20 @@ export default {
           okrQuarter:"4",
           okrYear:"2020"
           }).then(res=>{
-            this.showOKR()
-            this.value4=""
-            this.value3=""
+
+            if(res.data.code===0){
+              this.$Message.success(res.data.message);
+              this.showOKR()
+              this.value4=""
+              this.value3=""
+            
+            }else{
+              this.$Message.error(res.data.message);
+                this.showOKR()
+                this.value4=""
+                this.value3=""
+            }
+          
           })
       }
      },
@@ -303,7 +303,7 @@ export default {
       this.rowlist = row//获取点击svg 的row数据
       console.log(row);
 // 控制数据回显
-      this.value= row.okrCompletePercent
+      this.value2= row.okrCompletePercent
        if(row.okrStatues==="1"){
             this.animal="正常"
         }else{
@@ -315,11 +315,16 @@ export default {
 
 // 修改弹框确定按钮
     ScheduleOk(){
-      if(!this.value){
+      
+      if(!this.value2){
       this.$Message.warning("请输入完成度！");
-      } else if(this.value>100){
-      this.$Message.warning("进度最高100%！");
-      }else if(!this.animal){
+      } else if(this.value2>this.rowlist.okrDivide){
+      this.$Message.warning("完成度不能超过设定值！");
+      } 
+      else if(typeof(this.value2) !=="number"){
+      this.$Message.warning("请重新输入分值，类型为数值！");
+      } 
+      else if(!this.animal){
        this.$Message.warning("请选择抓状态！");
       }else if(!this.value6){
        this.$Message.warning("请输入进展！");
@@ -330,16 +335,24 @@ export default {
           }else{
             this.animal= this.animal==="有风险" ? 2:3
           }
+         let percentage = this.value2/this.rowlist.okrDivide*100
+     
 
+
+
+         console.log();
+
+
+         
         SetOKR({
           id:this.rowlist.ID,
-          okrCompletePercent:this.value,
+          okrCompletePercent:percentage,
           okrStatues:this.animal,
           okrEvolve:this.value6,
           }).then(res=>{
             this.showOKR()
             this.isshowamendProgressBar=false
-             this.value = "",
+             this.value2 = "",
              this.animal = "",
              this.value6 =""
           })
@@ -350,7 +363,7 @@ export default {
 // 取消按钮
     ScheduleCancel(){
       this.isshowamendProgressBar=false
-        this.value = "",
+        this.value2 = "",
         this.animal = "",
         this.value6 =""
     },
@@ -360,7 +373,7 @@ export default {
     },
   },
   mounted() {
-  //  this.showOKR()
+   this.showOKR()
   },
 };
 </script>
@@ -381,11 +394,11 @@ export default {
 .textarea{
   width: 350px;
 }
-.percentSign {
+/* .percentSign {
   position: absolute;
   top: 40px;
   left: 326px;
-}
+} */
 .found {
   height: 50px;
   width: 100%;

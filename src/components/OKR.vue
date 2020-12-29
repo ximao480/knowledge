@@ -20,7 +20,9 @@
     <div class="calendars">
       <div v-for="(item, index) in columns1" :key="index" class="itemss">
         <span>{{ item.okrInfo }}</span>
-        <span>{{ item.okrDivide }}</span>
+           <div style="display:inline-block;width: 200px;">
+           <Progress :percent="item.okrCompletePercent ? item.okrCompletePercent :0" status="active"  />
+           </div>
       </div>
     </div>
   </div>
@@ -201,5 +203,8 @@ export default {
   color: #a5a5a5;
   text-align: left;
   vertical-align: top;
+}
+.qb:hover {
+  cursor: pointer;
 }
 </style>
