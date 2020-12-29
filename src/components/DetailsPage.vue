@@ -214,6 +214,14 @@ export default {
                   },
                   params.row.ownerename
                 ),
+              //   h('span',{
+              //   style:{
+              //     width:"60px",
+              //     height:"30px",
+              //     display: "inline-block",
+              //     border:"1px solid red"
+              //   }
+              // },),
               ]
             );
           },
@@ -265,12 +273,12 @@ export default {
   Deletes(row){
     console.log(row.row);
     
-    // Delete({
-    //   folderId:row.row.ID
-    // }).then(res=>{
-    //   console.log(res);
-      
-    // })
+    Delete({
+      id:row.row.ID
+    }).then(res=>{
+      // console.log(res);
+      this.showOKR()
+    })
    
   },
 //选择日期变化

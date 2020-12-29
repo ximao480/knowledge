@@ -16,7 +16,7 @@ export const SetOKR =(data)=>axios({
 })
 // 删除okr
 export const Delete = (data)=>axios({
-   url:"/p/cs/ark_share/folder/delete",
+   url:"/p/cs/ark_share/del_okr",
    method:"post",
    data:data
 })
