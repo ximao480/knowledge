@@ -238,10 +238,15 @@ export default {
           render: (h, params) => {
             return h('div',{
               style:{
-                width:'100px',
+                width:'50px',
                 height:'50px',
-                "padding-top": "14px"
+                color:"#95B7F9",
+                "padding-top": "14px",
+                cursor: "pointer"
               },
+              class:{//添加类名
+                    delete:true//布尔值控制类名是否添加//true添加//flase不添加
+                },
                on: {
                     click: () => {
                     this.Deletes(params)
@@ -433,6 +438,9 @@ export default {
 .found:hover {
   cursor: pointer;
 }
+/* .delete:hover {
+  cursor: pointer !important;
+} */
 .ark-table-wrapper {
   border: none;
 }
