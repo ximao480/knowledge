@@ -116,7 +116,7 @@
   </div>
 </template>
 <script>
-import { getOKR,SetOKR } from "../utils/api.js";
+import { getOKR,SetOKR,Delete } from "../utils/api.js";
 import moment from "moment";
 
 export default {
@@ -232,12 +232,42 @@ export default {
           key: "okrCompletePercent",
           slot: "action"
         },
+        {
+          title: "操作",
+          key: "Delete",
+          render: (h, params) => {
+            return h('div',{
+              style:{
+                width:'100px',
+                height:'50px',
+                "padding-top": "14px"
+              },
+               on: {
+                    click: () => {
+                    this.Deletes(params)
+                    }
+                  }
+            },'删除')
+          }
+        },
 
       ],
       data1: []//表格数据
     }
   },
   methods: {
+// 删除
+  Deletes(row){
+    console.log(row.row);
+    
+    // Delete({
+    //   folderId:row.row.ID
+    // }).then(res=>{
+    //   console.log(res);
+      
+    // })
+   
+  },
 //选择日期变化
   changemonth(){
    setTimeout(() => {
@@ -276,7 +306,7 @@ export default {
           id:null,
           okrInfo:this.value4,
           okrDivide:this.value3,
-          okrQuarter:"4",
+          okrQuarter:this.value7,
           okrYear:"2020"
           }).then(res=>{
 

@@ -14,6 +14,12 @@ export const SetOKR =(data)=>axios({
    method:"post",
    data:data
 })
+// 删除okr
+export const Delete = (data)=>axios({
+   url:"/p/cs/ark_share/folder/delete",
+   method:"post",
+   data:data
+})
 
 export  const getoPtions = ()=>axios.get('/p/cs/getScheduleDictionary')
 

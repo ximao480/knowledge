@@ -6,7 +6,8 @@
              <template>
                 <Row>
                     <Col span="12">
-                        <DatePicker  type="date" :placeholder="todayDatesss" style="width: 200px" v-model="queryTime" @on-change="changetimes"></DatePicker>
+                    <!-- :placeholder="todayDatesss" -->
+                        <DatePicker  type="date"  style="width: 200px;color:#000" v-model="queryTime" @on-change="changetimes"></DatePicker>
                     </Col>
                 </Row>
              </template>
@@ -15,9 +16,9 @@
           <div class="qb" @click="skip">查看全部</div>
          </div>
       <div class="content"> 
-          <div class="items" v-if="schedulelist.length < 1 ? false:true" >
-            <p class="">时间    <span style="margin-left:20px">日程内容</span></p>
-          </div>
+          <!-- <div class="items" v-if="schedulelist.length < 1 ? false:true" >
+            <p class="">时间<span style="margin-left:20px">日程内容</span></p>
+          </div> -->
            <div v-for="(item,index) in schedulelist" :key="index" class="items" >
              <p class="calendarshows" @click="detail(item)">{{item.startTime}} <span>{{item.title}}</span></p>
           </div>
@@ -39,7 +40,7 @@ import  Modal from './Modal'
          return {
              value:"",
              flag:"1",
-             queryTime:"",
+             queryTime:moment(new Date()).format("YYYY-MM-DD"),
              todayDatesss: moment(new Date()).format("YYYY-MM-DD"),
              schedulelist:[],
              flag1:true,
@@ -83,6 +84,7 @@ import  Modal from './Modal'
  }
 </script>
 <style scoped>
+
 .actives{
  /* background: url('../assets/img/person.png') no-repeat center;  */
 }

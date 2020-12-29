@@ -79,23 +79,24 @@ export default {
         }else{
         let you = current.message.indexOf("邀请你协作");
         let content = current.message.slice(0, you + 5);
-        let icons ='icondesign1'
-        let html = ` <svg
-            class="icon"
-            aria-hidden="true"
-            style="
-              width: 15px;
-              height: 25px;
-              margin: 0 2px 0px 5px;
-              vertical-align: text-bottom;">
-            <use xlink:href="#${icons}" />
-          </svg>`
-            console.log("触发了");
-          if(current.type == 3){
-           return `${content}${html}`
-          }else{
+
+        // let icons ='icondesign1'
+        // let html = ` <svg
+        //     class="icon"
+        //     aria-hidden="true"
+        //     style="
+        //       width: 15px;
+        //       height: 25px;
+        //       margin: 0 2px 0px 5px;
+        //       vertical-align: text-bottom;">
+        //     <use xlink:href="#${icons}" />
+        //   </svg>`
+        //     console.log("触发了");
+          // if(current.type == 3){
+          //  return `${content}${html}`
+          // }else{
              return `${content}`
-          }
+          // }
         
         }
       };
@@ -225,7 +226,10 @@ export default {
       });
     },
     open(item){
-     window.open(item.linkPath);
+      checkZenTao().then((res) => {
+        window.open(item.linkPath);
+      });
+     
     },
     openKnowledge(item) {
       //打开文件
@@ -242,21 +246,6 @@ export default {
         });
       }
     },
-    openChanDao(item) {
-      //打开禅道
-      // if(item.type === 1){
-      // }else{
-      checkZenTao().then((res) => {
-        // 模拟登录禅道
-        var iframe = document.createElement("iframe");
-        iframe.style.display = "none";
-        iframe.id = "iframe";
-        document.body.appendChild(iframe);
-        document.getElementById("iframe").src = res.data.data;
-        window.open(item.linkPath);
-      });
-    },
-    // }
   },
   created() {
     this.init();
