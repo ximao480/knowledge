@@ -2,8 +2,8 @@
   <div class="home">
     <div v-for="(item, index) in moduleLists" :key="index" class="item">
        <p class="title" v-if="item.name==='tasks'">{{ item.title }}</p>
-       <p v-if="item.name==='tasks'" class="position">
-        <span class="taskdescription">任务描述:</span>
+       <p v-if="item.name==='tasks'" :class="['position',{istitles:istitle.length<1}]">
+        <span class="taskdescription">任务描述</span>
          <span class="span3" sortable: true>
             级别:
         <div style="display: inline-block;position: relative;">
@@ -34,8 +34,6 @@
             <use :xlink:href="'#' + 'iconmd-arrow-dropup'" />
           </svg>
           </div>
-         
-          
          </span>
          <span class="span4" sortable: true>时间:</span>
       </p>
@@ -58,6 +56,7 @@ export default {
   data() {
     return {
       defaultCol: 2,
+      istitle:[]
     };
     taskDescription
   },
@@ -68,6 +67,13 @@ export default {
     SendDescendingOrder(){
      globalBus.$emit("descendingorder");  
     },
+  },
+  mounted () {
+    globalBus.$on("isshowtitle",(data)=>{
+      //  console.log(data);
+      this.istitle=data
+       
+    })
   },
   computed: {
     ...mapState({

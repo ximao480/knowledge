@@ -276,7 +276,7 @@ export default {
   },
   data() {
     return {
-        flag:"1",
+      flag:"1",
       todayDatesss: moment(new Date()).format("YYYY-MM-DD hh:mm:ss"),
       SchedulePopUpModal: false,
       //input v-model
@@ -413,7 +413,7 @@ export default {
       } else {
         this.SchedulePopUpModal = false;
           if (this.SchedulePopUpModalTitle == "编辑日程") {
-          this.updateScheduleDate({
+           this.updateScheduleDate({
             id: this.queryScheduleDate.id,
             title: this.scheduleName, //日程名称
             startTime: moment(this.scheduleStartTime).format(
@@ -436,6 +436,9 @@ export default {
                 console.log(res.data.data);
                 globalBus.$emit("modificationlist",res.data.data);  
             })
+             this.scheduleName=""
+             this.scheduleStartTime=""
+             this.scheduleEndTime=""
           });
         } else {
           addScheduleDate({
@@ -450,21 +453,19 @@ export default {
             dictionaryId: this.scheduleNailingNotice ? this.scheduleRemind : "", //字典id
             addScheduleParticipateList: this.addScheduleParticipateList,
           }).then((res) => {
-              // alert("添加成功");
-            // this.getQueryMySimpleScheduleDate({
-            //   flag: this.flag, //日周月标识，1日 2周 3月
-            //   queryTime: this.todayDate, //2020-12-05 00:00:00 查询时间
-            // });
+            
               getQueryMySimpleScheduleDate(
-            {
+              {
                 flag:this.flag,
-                queryTime:this.todayDatesss
-            }
-            ).then((res)=>{
+                queryTime: moment(this.scheduleStartTime).format("YYYY-MM-DD HH:mm:ss")
+              }).then((res)=>{
                 //  alert("增加更新完毕")
-                // console.log(res.data.data);
-                globalBus.$emit("modificationlist",res.data.data);  
+                 globalBus.$emit("modificationlist",res.data.data);  
             })
+              
+             this.scheduleName=""
+             this.scheduleStartTime=""
+             this.scheduleEndTime=""
           });
         }
 
@@ -502,13 +503,18 @@ export default {
     console.log(this.queryScheduleDate);
     globalBus.$on("popss", (data) => {
       // console.log(data);
-       this.ScheduleReadPopUpModal = true;
-       this.GRTQUERYScheduledate(data)
+    this.ScheduleReadPopUpModal = true;
+    this.GRTQUERYScheduledate(data)
       
     });
     // 显示增加dalog
-    globalBus.$on("pops", (data) => {
-      this.SchedulePopUpModal = data; 
+    globalBus.$on("pops", (flag) => {
+      this.SchedulePopUpModal = flag; 
+      this.SchedulePopUpModalTitle = "新建日程";
+      this.scheduleName=""
+      this.scheduleStartTime=""
+      this.scheduleEndTime=""
+
     });
     getoPtions().then((res) => {
       this.scheduleRemindList = res.data.data;

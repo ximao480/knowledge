@@ -46,6 +46,7 @@
 import TimeLineBlock from "./TimeLineBlock.vue";
 import { getTasks, checkZenTao, goZenTao } from "../utils/api";
 import DateUtil from "../utils/dateApi";
+import { globalBus } from '../utils/bus';
 // @ is an alias to /src
 export default {
   name: "Tasks",
@@ -217,6 +218,7 @@ export default {
           // });
         
           this.Timelines = data;
+          globalBus.$emit("isshowtitle",this.Timelines)
           console.log( data);
 
         }

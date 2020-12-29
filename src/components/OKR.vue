@@ -3,17 +3,11 @@
     <div class="contentkk">
       <div class="my">我的OKR</div>
       <div class="Select">
-        <template>
-          <Cascader :data="data"  v-model="value1"  size="small" @on-change="changemonth"></Cascader>
+         <template>
+          <Select v-model="value1" size="small"  @on-change="changemonth">
+           <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+         </Select>
        </template>
-        <!-- <template>   
-       <Row>
-         <Col span="12">
-             <DatePicker type="month" size="small" placeholder="请选择日期" style="width: 300px" v-model="value7" @on-change="changemonth" ></DatePicker>
-         </Col>
-      </Row>
-    </template> -->
-
       </div>
       <div class="qb" @click="examine">查看全部</div>
     </div>
@@ -33,41 +27,37 @@ import moment from "moment";
 export default {
   data() {
     return {
-      value1: [],//季度
+     
       flags:true,
       model9: "",
       modal1: false,//新增
       modal3: true,
       value7:"",//获取选择时间
       year:"2020",//转换年
-      month:"4",//转换季度
+      // month:"4",//转换季度
       flag: false,
       schedulelist: [],
       columns1: [],//搜索数据列表
-       data: [{
-               value: '2020',
-               label: '2020年',
-               children: [     
-                        {
-                           
-                            value: '1',
-                            label: '第一季度'
-                        },
-                        {
-                            value: '2',                         
-                            label: '第二季度'
-                        },
-                        {
-                            value: '3',
-                            label: '第三季度'
-                        },
-                        {
-                            value: '4',
-                            label: '第四季度'
-                        }
-                    ]
-              }
-        ]
+      value1: '4',//季度
+      cityList: [
+                  {               
+                       value: '1',
+                       label: '第一季度'
+                 },
+                {
+                      value: '2',                         
+                      label: '第二季度'
+                },
+                {
+                      value: '3',
+                      label: '第三季度'
+                },
+                {
+                     value: '4',
+                     label: '第四季度'
+                }
+                   
+                ],
     };
   },
   methods: {
@@ -81,26 +71,14 @@ export default {
     },
   // 搜索okr
     showOKR() {
-      if(this.value1.length === 0){   
-           let data={
-            okrYear:this.year,
-            okrQuarter:this.month
-           }
-           getOKR(data).then((res) => {
-           console.log(res.data.data.arkOkrList)
-          this.columns1=res.data.data.arkOkrList
-          });
-      }else{
-    
             let data={
-            okrYear:this.value1[0],
-            okrQuarter:this.value1[1]
+            okrYear:this.year,
+            okrQuarter:this.value1
            }
            getOKR(data).then((res) => {
            console.log(res.data.data.arkOkrList)
            this.columns1=res.data.data.arkOkrList
-          });
-      }
+          })
     },
   },
   mounted() {

@@ -6,7 +6,7 @@
              <template>
                 <Row>
                     <Col span="12">
-                        <DatePicker  type="date" placeholder="请选择日期" style="width: 200px" v-model="queryTime" @on-change="changetimes"></DatePicker>
+                        <DatePicker  type="date" :placeholder="todayDatesss" style="width: 200px" v-model="queryTime" @on-change="changetimes"></DatePicker>
                     </Col>
                 </Row>
              </template>
@@ -40,7 +40,7 @@ import  Modal from './Modal'
              value:"",
              flag:"1",
              queryTime:"",
-             todayDatesss: moment(new Date()).format("YYYY-MM-DD hh:mm:ss"),
+             todayDatesss: moment(new Date()).format("YYYY-MM-DD"),
              schedulelist:[],
              flag1:true,
              flag2:true
@@ -48,7 +48,7 @@ import  Modal from './Modal'
      },
      methods: {
         detail(item){//详情页面
-        //  console.log(item.id);
+        //  console.log(item);
          globalBus.$emit("popss",item);  
         },
         pop(){//控制Moadl
@@ -70,7 +70,7 @@ import  Modal from './Modal'
             })
          },
          skip(){
-            window.location.href = 'http://localhost:8080/calendar';
+            window.location.pathname = '/calendar';
          }
      },
      mounted () {

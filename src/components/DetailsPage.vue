@@ -2,16 +2,14 @@
   <div class="DetailsPage">
     <div class="Page">
       <div class="top">
-        <template>
+        <!-- <template>
           <Cascader :data="data"  v-model="value7"  size="small" @on-change="changemonth"></Cascader>
+       </template> -->
+         <template>
+          <Select v-model="value7" size="small"  @on-change="changemonth">
+           <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+        </Select>
        </template>
-          <!-- <template>   
-          <Row>
-           <Col span="12">
-             <DatePicker type="month"  placeholder="请选择日期" style="width: 200px" v-model="value7" @on-change="changemonth" ></DatePicker>
-           </Col>
-          </Row>
-        </template> -->
       </div>
       <div class="title">我的OKR</div>
       <div class="table-wrap">
@@ -35,14 +33,13 @@
            <!-- <div style="display:inline-block">
               <Avatar icon="ios-person" src=""  shape="circle" style="width:28px; height: 28px ;">55</Avatar> 
               <span>{{data}}</span>
-
-           </div> -->
-             
+           </div> --> 
           <div style="display:inline-block;margin-left:100px;margin-right:100px;width:60%;">
               <Input v-model="value4" type="text" size="large" :rows="2" placeholder="列如：让OKR成为团队管理方式，输入后回车创建" />
           </div>  
           <div  style="display:inline-block;width:100px;">
-              <Input v-model="value3" type="text" size="large" :rows="2" placeholder="请输入分值" />
+              <!-- <input type="text"> -->
+              <Input v-model="value3" :max="100" :min='1' size="large" :rows="2" placeholder="请输入分值" />
           </div>
            
         </div>
@@ -54,7 +51,7 @@
               style="
                 width: 15px;
                 height: 15px;
-                color: blue;
+                color: #3A7BF5;
                 margin: 0 2px 0px 5px;
                 vertical-align: text-bottom;
               "
@@ -76,13 +73,14 @@
         <div class="wcd">
           <p>完成分值:</p>
           <div>
-            <Input
+            <!-- <Input
               placeholder="0"
               v-model="value2"
-             
+              type="number"
               style="width: 350px; height: 30px"
-            />
-              <!-- type="number" -->
+            /> -->
+           <InputNumber  placeholder="0" v-model="value2"  style="width: 350px; height: 30px" :min='1' size="large" :rows="2" />
+            
             <!-- <span class="percentSign">%</span> -->
           </div>
 
@@ -124,43 +122,39 @@ import moment from "moment";
 export default {
   data() {
     return {
-      value3:"",//新增
+      value3:'',//新增
       value4:"",//新增 
       year:"2020",//转换年
       month:"4",//转换季度
       flag:false,
       value8:"",
       model9: "",
-      value2: '', //输入框
+      value2: '', //输入框  
+      score:'',
       animal: "", //单选框状态 
       value6:"",//文本域
       rowlist:[],//行数据
       isshowamendProgressBar: false,
-      value7:['2020','4'],//获取选择时间
-      data: [{
-               value: '2020',
-               label: '2020年',
-               children: [     
-                        {
-                           
-                            value: '1',
-                            label: '第一季度'
-                        },
-                        {
-                            value: '2',                         
-                            label: '第二季度'
-                        },
-                        {
-                            value: '3',
-                            label: '第三季度'
-                        },
-                        {
-                            value: '4',
-                            label: '第四季度'
-                        }
-                    ]
-              }
-        ],
+      value7:'4',//获取选择时间
+      cityList: [
+                  {               
+                       value: '1',
+                       label: '第一季度'
+                 },
+                {
+                      value: '2',                         
+                      label: '第二季度'
+                },
+                {
+                      value: '3',
+                      label: '第三季度'
+                },
+                {
+                     value: '4',
+                     label: '第四季度'
+                }
+                   
+                ],
       columns1: [
         {
           title: "人员",
@@ -253,8 +247,8 @@ export default {
 // 搜索okr
      showOKR() {
             let data={
-            okrYear:this.value7[0],
-            okrQuarter:this.value7[1]
+            okrYear:this.year,
+            okrQuarter:this.value7
            }
            getOKR(data).then((res) => {
            console.log(res.data.data.arkOkrList)
@@ -269,11 +263,15 @@ export default {
       }else if (!this.value3) {
         this.$Message.warning("请输入分值");
         return 
-      }else if(typeof(this.value3) !=="number"){
-         this.$Message.warning("请重新输入分值，类型为数值！");
-        return 
-      }else{
+      }
+      else if(this.value3>100){
+        this.$Message.warning("分值不能大于100");
+         return 
+      }
+      else{
         this.flag = false;
+        
+        // console.log(typeof(this.value3)==="string");
         SetOKR({
           id:null,
           okrInfo:this.value4,
@@ -321,9 +319,9 @@ export default {
       } else if(this.value2>this.rowlist.okrDivide){
       this.$Message.warning("完成度不能超过设定值！");
       } 
-      else if(typeof(this.value2) !=="number"){
-      this.$Message.warning("请重新输入分值，类型为数值！");
-      } 
+      // else if(typeof(this.value2) !=="number"){
+      // this.$Message.warning("请重新输入分值，类型为数值！");
+      // } 
       else if(!this.animal){
        this.$Message.warning("请选择抓状态！");
       }else if(!this.value6){
@@ -336,13 +334,6 @@ export default {
             this.animal= this.animal==="有风险" ? 2:3
           }
          let percentage = this.value2/this.rowlist.okrDivide*100
-     
-
-
-
-         console.log();
-
-
          
         SetOKR({
           id:this.rowlist.ID,
@@ -379,7 +370,9 @@ export default {
 </script>
 
 <style scoped>
-
+.ark-input-number.ark-input-number-large{
+ width: 100px;
+}
 .wcd {
   margin-top: 20px;
   margin-left: 80px;
@@ -404,7 +397,7 @@ export default {
   width: 100%;
   line-height: 50px;
   font-size: 14px;
-  color: blue;
+  color: #3A7BF5;
   border-bottom: 1px solid #dfdfdf;
 }
 .found:hover {
