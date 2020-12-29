@@ -112,8 +112,13 @@ export default {
   margin-left: 50px;
 }
 .Calendar {
+  width: 500px;
+  height: 500px;
   position: relative;
-
+}
+.isshowimg{
+  /* background:#fff url('../assets/img/pp.jpg') no-repeat center/100% 100% !important; */
+  /* background: url('https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fa1.att.hudong.com%2F62%2F02%2F01300542526392139955025309984.jpg&refer=http%3A%2F%2Fa1.att.hudong.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1611852146&t=ce0a5861d77b6f7078cf7dd85e129bd8') no-repeat center/100% 100%; */
 }
 .contentkk {
   display: flex;

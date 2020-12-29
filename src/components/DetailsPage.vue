@@ -271,14 +271,18 @@ export default {
   methods: {
 // 删除
   Deletes(row){
-    console.log(row.row);
-    
-    Delete({
-      id:row.row.ID
-    }).then(res=>{
-      // console.log(res);
-      this.showOKR()
-    })
+          // console.log(row.row);
+        if(row.row.okrQuarter<4){
+        this.$Message.warning("该季度数据不能删除");
+        }else{
+            Delete({
+                id:row.row.ID
+              }).then(res=>{
+                // console.log(res);
+                this.showOKR()
+              })
+        }
+  
    
   },
 //选择日期变化
@@ -341,8 +345,13 @@ export default {
      },
 // 点击svg，
     amendProgressBar(row) {
-      this.rowlist = row//获取点击svg 的row数据
-      console.log(row);
+
+       if(row.okrQuarter<4){
+           this.isshowamendProgressBar = false;
+           this.$Message.warning("该季度数据不能修改");
+       }else{
+
+     this.rowlist = row//获取点击svg 的row数据
 // 控制数据回显
       this.value2= row.okrCompletePercent
        if(row.okrStatues==="1"){
@@ -351,7 +360,10 @@ export default {
             this.animal= row.okrStatues==="2" ? "有风险":"已延期"
         }
         this.value6=row.okrEvolve
-      this.isshowamendProgressBar = true;
+        this.isshowamendProgressBar = true;
+       }
+      
+ 
     },
 
 // 修改弹框确定按钮
