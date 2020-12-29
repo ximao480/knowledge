@@ -2,14 +2,16 @@
   <div class="DetailsPage">
     <div class="Page">
       <div class="top">
-      
-          <template>   
+        <template>
+          <Cascader :data="data"  v-model="value7"  size="small" @on-change="changemonth"></Cascader>
+       </template>
+          <!-- <template>   
           <Row>
            <Col span="12">
              <DatePicker type="month"  placeholder="请选择日期" style="width: 200px" v-model="value7" @on-change="changemonth" ></DatePicker>
            </Col>
           </Row>
-        </template>
+        </template> -->
       </div>
       <div class="title">我的OKR</div>
       <div class="table-wrap">
@@ -133,6 +135,30 @@ export default {
       value6:"",//文本域
       rowlist:[],//行数据
       isshowamendProgressBar: false,
+      data: [{
+               value: '2020',
+               label: '2020年',
+               children: [     
+                        {
+                           
+                            value: '1',
+                            label: '第一季度'
+                        },
+                        {
+                            value: '2',                         
+                            label: '第二季度'
+                        },
+                        {
+                            value: '3',
+                            label: '第三季度'
+                        },
+                        {
+                            value: '4',
+                            label: '第四季度'
+                        }
+                    ]
+              }
+        ],
       columns1: [
         {
           title: "人员",
@@ -224,7 +250,7 @@ export default {
   },
 // 搜索okr
      showOKR() {
-      if(this.value7 === ""){
+      if(this.value7.length===0){
          
            let data={
             okrYear:this.year,
@@ -236,23 +262,9 @@ export default {
           });
 
       }else{
-    
-          let html = moment(this.value7).format("YYYY-M")
-          this.year = html.slice(0,4)
-          let html3 = html.slice(5) 
-          if(html3<=3){
-            this.month="1"
-          }else if(html3>3 && html3<=6){
-            this.month="2"
-          }else if(html3>6 && html3<=9){
-            this.month="3"
-          }else{
-            this.month="4"
-          }
-
             let data={
-            okrYear:this.year,
-            okrQuarter:this.month
+            okrYear:this.value7[0],
+            okrQuarter:this.value7[1]
            }
            getOKR(data).then((res) => {
            console.log(res.data.data.arkOkrList)
@@ -403,6 +415,7 @@ export default {
   overflow-y: auto;
 }
 .top {
+  width: 150px;
   margin-bottom: 40px;
 }
 .title {

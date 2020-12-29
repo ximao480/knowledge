@@ -13,7 +13,7 @@
             style="
               width: 15px;
               height: 25px;
-              margin: 0 2px 0px 5px;
+              margin: 0 2px 0px 0px;
               vertical-align: text-bottom;">
             <use :xlink:href="'#' + svgType(item)" />
           </svg>
@@ -27,12 +27,11 @@
           :class="['contents',item.type == 1 ? 'noActive' : '']"
           v-html="contentHtml(item.data)"
         ></span>
-
-         <span class="icon" v-html="svgbug(item.data)">
-            
-         </span>
-        
+         <div class="iconbody">
+            <span class="icon" v-html="svgbug(item.data)"></span>
+        </div>
       </div>
+     
       <!-- <div slot="knowledge" slot-scope="item" v-if="current.name === 'knowledge'">
         <p class="content" v-html="messageHtml(item.data)" @click="openKnowledge(item.data)"></p>
      </div> -->
@@ -151,7 +150,44 @@ export default {
     return {
       flag:true,
       xlink: "",
-      Timelines: [],
+      Timelines: [{
+        creationdate:"2020-12-15",
+        level: "1",
+        message:"和vuiguys v供货商完毕u氨基酸的比较成熟可能今年今胡百分比u四举报v四v试试吧v好吧v是年几年时间内就接口基础比较崇拜v讲科学传播v插线板v出现你举报初步具备基本的还是v不会",
+        type:1,
+      },
+      {
+        creationdate:"2020-12-15",
+        level: "1",
+        message:"和vuiguys v供货商完毕u氨基酸的比较成熟可能今年今年几年时间内就接口基础比较崇拜v讲科学传播v插线板v出现你举报初步具备基本的还是v不会",
+        type:1,
+      },
+      {
+        creationdate:"2020-12-15",
+        level: "1",
+        message:"和vuiguys v供货商完毕u氨基酸的比较成熟可能今年今年几年时间内就接口基础比较崇拜v讲科学传播v插线板v出现你举报初步具备基本的还是v不会",
+        type:2,
+      },
+      {
+        creationdate:"2020-12-15",
+        level: "1",
+        message:"和vuiguys v供货商完毕u氨基酸的比较成熟可能今年今年几年时间内就接口基础比较崇拜v讲科学传播v插线板v出现你举报初步具备基本的还是v不会",
+        type:3,
+      },
+      {
+        creationdate:"2020-12-15",
+        level: "1",
+        message:"和vuiguys v供货商完毕u氨基酸的比较成熟可能今年今年几年时间内就接口基础比较崇拜v讲科学传播v插线板v出现你举报初步具备基本的还是v不会",
+        type:3,
+      },
+      {
+        creationdate:"2020-12-15",
+        level: "1",
+        message:"和vuiguys v供货商完毕u氨基酸的比较成熟可能今年今年几年时间内就接口基础比较崇拜v讲科学传播v插线板v出现你举报初步具备基本的还是v不会",
+        type:1,
+      },
+      ],
+     
       // assistant:[],
       urlMap: {
         //接口映射
@@ -215,8 +251,8 @@ export default {
             return item;
           });
         
-          this.Timelines = data;
-          console.log( this.Timelines);
+          // this.Timelines = data;
+          console.log( data);
 
         }
       });

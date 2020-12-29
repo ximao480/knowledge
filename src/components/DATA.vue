@@ -16,7 +16,7 @@
          </div>
       <div class="content"> 
           <div class="items" v-if="schedulelist.length < 1 ? false:true" >
-            <p class="">时间    <span>日程内容</span></p>
+            <p class="">时间    <span style="margin-left:20px">日程内容</span></p>
           </div>
            <div v-for="(item,index) in schedulelist" :key="index" class="items" >
              <p class="calendarshows" @click="detail(item)">{{item.startTime}} <span>{{item.title}}</span></p>
@@ -51,13 +51,11 @@ import  Modal from './Modal'
         //  console.log(item.id);
          globalBus.$emit("popss",item);  
         },
-         pop(){//控制Moadl
-           console.log(this);
+        pop(){//控制Moadl
            globalBus.$emit("pops",this.flag1);  
          },
         changetimes(ee){//INPUT查询
           this.todayDatesss= ee
-          // this.flag="1"
           this.changetime()
         },
         changetime(){//封装请求
@@ -76,9 +74,8 @@ import  Modal from './Modal'
          }
      },
      mounted () {
-      //  console.log(this.schedulelist);
-      //  this.changetime(),
-
+       this.changetime(),
+       
        globalBus.$on("modificationlist",(schedulelist)=>{
             this.schedulelist = schedulelist
        });  
@@ -90,10 +87,11 @@ import  Modal from './Modal'
  /* background: url('../assets/img/person.png') no-repeat center;  */
 }
 .Calendar{
+    height: 100%;
     position: relative;
-  overflow-y: auto !important;
 }
 .content{
+  height: 100%;
   overflow-y: auto !important;
 }
 

@@ -277,7 +277,7 @@ export default {
   data() {
     return {
         flag:"1",
-        todayDatesss: moment(new Date()).format("YYYY-MM-DD hh:mm:ss"),
+      todayDatesss: moment(new Date()).format("YYYY-MM-DD hh:mm:ss"),
       SchedulePopUpModal: false,
       //input v-model
       scheduleName: "",
@@ -429,11 +429,11 @@ export default {
              getQueryMySimpleScheduleDate(
             {
                 flag:this.flag,
-                queryTime:this.todayDatesss
+                queryTime: moment(this.scheduleStartTime).format("YYYY-MM-DD HH:mm:ss")
+                // queryTime:this.todayDatesss
             }
             ).then((res)=>{
-                 alert("修改更新完毕")
-                // console.log(res.data.data);
+                console.log(res.data.data);
                 globalBus.$emit("modificationlist",res.data.data);  
             })
           });
@@ -508,7 +508,6 @@ export default {
     });
     // 显示增加dalog
     globalBus.$on("pops", (data) => {
-      console.log(data);
       this.SchedulePopUpModal = data; 
     });
     getoPtions().then((res) => {

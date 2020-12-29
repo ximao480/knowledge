@@ -3,13 +3,16 @@
     <div class="contentkk">
       <div class="my">我的OKR</div>
       <div class="Select">
-        <template>   
+        <template>
+          <Cascader :data="data"  v-model="value1"  size="small" @on-change="changemonth"></Cascader>
+       </template>
+        <!-- <template>   
        <Row>
          <Col span="12">
              <DatePicker type="month" size="small" placeholder="请选择日期" style="width: 300px" v-model="value7" @on-change="changemonth" ></DatePicker>
          </Col>
       </Row>
-    </template>
+    </template> -->
 
       </div>
       <div class="qb" @click="examine">查看全部</div>
@@ -28,6 +31,7 @@ import moment from "moment";
 export default {
   data() {
     return {
+      value1: [],//季度
       flags:true,
       model9: "",
       modal1: false,//新增
@@ -38,12 +42,34 @@ export default {
       flag: false,
       schedulelist: [],
       columns1: [],//搜索数据列表
-       
-      
+       data: [{
+               value: '2020',
+               label: '2020年',
+               children: [     
+                        {
+                           
+                            value: '1',
+                            label: '第一季度'
+                        },
+                        {
+                            value: '2',                         
+                            label: '第二季度'
+                        },
+                        {
+                            value: '3',
+                            label: '第三季度'
+                        },
+                        {
+                            value: '4',
+                            label: '第四季度'
+                        }
+                    ]
+              }
+        ]
     };
   },
   methods: {
-    changemonth(){
+    changemonth(ev){
       setTimeout(() => {
        this.showOKR();    
       }, 1000);
@@ -53,7 +79,7 @@ export default {
     },
   // 搜索okr
     showOKR() {
-      if(this.value7 === ""){   
+      if(this.value1.length === 0){   
            let data={
             okrYear:this.year,
             okrQuarter:this.month
@@ -63,21 +89,10 @@ export default {
           this.columns1=res.data.data.arkOkrList
           });
       }else{
-          let html = moment(this.value7).format("YYYY-M")
-          this.year = html.slice(0,4)
-          let html3 = html.slice(5) 
-          if(html3<=3){
-            this.month="1"
-          }else if(html3>3 && html3<=6){
-            this.month="2"
-          }else if(html3>6 && html3<=9){
-            this.month="3"
-          }else{
-            this.month="4"
-          }
+    
             let data={
-            okrYear:this.year,
-            okrQuarter:this.month
+            okrYear:this.value1[0],
+            okrQuarter:this.value1[1]
            }
            getOKR(data).then((res) => {
            console.log(res.data.data.arkOkrList)
@@ -118,7 +133,7 @@ export default {
 }
 .Calendar {
   position: relative;
-  overflow-y: auto !important;
+
 }
 .contentkk {
   display: flex;
@@ -133,7 +148,9 @@ export default {
 }
 
 .calendars {
+  height: 100%;
   margin-top: 10px;
+  overflow-y: auto !important;
 }
 .found {
   height: 50px;
@@ -169,7 +186,7 @@ export default {
 }
 .Select {
   margin-left: 10px;
-  width: 300px;
+  width: 150px;
 }
 .addOKR {
   position: absolute;
