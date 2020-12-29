@@ -112,8 +112,7 @@ export default {
   margin-left: 50px;
 }
 .Calendar {
-  width: 500px;
-  height: 500px;
+  
   position: relative;
 }
 .isshowimg{

@@ -20,7 +20,7 @@
             <p class="">时间<span style="margin-left:20px">日程内容</span></p>
           </div> -->
            <div v-for="(item,index) in schedulelist" :key="index" class="items" >
-             <p class="calendarshows" @click="detail(item)">{{item.startTime}} <span style="margin-left: 20px;">{{item.title}}</span></p>
+             <p class="calendarshows" @click="detail(item)">{{item.startTime}} <span>{{item.title}}</span></p>
           </div>
       </div>
       <Modal></Modal>
@@ -120,7 +120,11 @@ import  Modal from './Modal'
 .calendarshows:hover{
     cursor:pointer 
   }
-
+/* .item>span{
+ text-align: left;
+    width: 52px;
+    background: red;
+} */
 .items{
   height: 50px;
   width: 100%;
