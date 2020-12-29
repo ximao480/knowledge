@@ -35,7 +35,7 @@
               <span>{{data}}</span>
            </div> --> 
           <div style="display:inline-block;margin-left:100px;margin-right:100px;width:60%;">
-              <Input v-model="value4" type="text" size="large" :rows="2" placeholder="列如：让OKR成为团队管理方式，输入后回车创建" />
+              <Input v-model="value4" type="text" size="large" :rows="2" placeholder="例如：让OKR成为团队管理方式，输入后回车创建" />
           </div>  
           <div  style="display:inline-block;width:100px;">
               <!-- <input type="text"> -->
@@ -279,6 +279,7 @@ export default {
                 id:row.row.ID
               }).then(res=>{
                 // console.log(res);
+                 this.$Message.success('删除成功');
                 this.showOKR()
               })
         }

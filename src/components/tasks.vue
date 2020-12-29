@@ -23,13 +23,16 @@
           :class="item.type == 1 ? 'noActive' : ''"
           v-html="namehtml(item.data)"
         ></span>
+
         <span
           :class="['contents',item.type == 1 ? 'noActive' : '']"
           v-html="contentHtml(item.data)"
         ></span>
+
+
          <div class="iconbody">
             <span class="icon" v-html="svgbug(item.data)"></span>
-        </div>
+         </div>
       </div>
      
       <!-- <div slot="knowledge" slot-scope="item" v-if="current.name === 'knowledge'">
