@@ -30,16 +30,12 @@
           </Table>
         </template>
         <div class="found" @keydown.enter="enterAddOKR" v-if="flag" data="data1">
-           <!-- <div style="display:inline-block">
-              <Avatar icon="ios-person" src=""  shape="circle" style="width:28px; height: 28px ;">55</Avatar> 
-              <span>{{data}}</span>
-           </div> --> 
           <div style="display:inline-block;margin-left:100px;margin-right:100px;width:60%;">
               <Input v-model="value4" type="text" size="large" :rows="2" placeholder="例如：让OKR成为团队管理方式，输入后回车创建" />
           </div>  
           <div  style="display:inline-block;width:100px;">
-              <!-- <input type="text"> -->
-              <Input v-model="value3" :max="100" :min='1' size="large" :rows="2" placeholder="请输入分值" />
+             
+              <Input v-model="value3" :max="100"  :min='1' size="large" :rows="2" placeholder="请输入分值" />
           </div>
            
         </div>
@@ -79,7 +75,7 @@
               type="number"
               style="width: 350px; height: 30px"
             /> -->
-           <InputNumber  placeholder="0" v-model="value2"  style="width: 350px; height: 30px" :min='1' size="large" :rows="2" />
+           <Input  placeholder="0" v-model="value2"  style="width: 350px; height: 30px" :min='1' size="large" :rows="2" />
             
             <!-- <span class="percentSign">%</span> -->
           </div>
@@ -131,7 +127,7 @@ export default {
       model9: "",
       value2: '', //输入框  
       score:'',
-      animal: "", //单选框状态 
+      animal: "正常", //单选框状态 
       value6:"",//文本域
       rowlist:[],//行数据
       isshowamendProgressBar: false,
@@ -248,7 +244,7 @@ export default {
               style:{
                 width:'50px',
                 height:'50px',
-                color:"#95B7F9",
+                color:" #3A7BF5",
                 "padding-top": "14px",
                 cursor: "pointer"
               },
@@ -283,8 +279,6 @@ export default {
                 this.showOKR()
               })
         }
-  
-   
   },
 //选择日期变化
   changemonth(){
@@ -305,12 +299,18 @@ export default {
     },
 //回车添加
     enterAddOKR(){
+        let num = Number(this.value3)
+        let zt= isNaN(num)
+         
        if(!this.value4){
         this.$Message.warning("请填写OKR");
         return 
       }else if (!this.value3) {
         this.$Message.warning("请输入分值");
         return 
+      }else if(zt){
+        this.$Message.warning("请重新输入分值，类型为数值！");
+         return 
       }
       else if(this.value3>100){
         this.$Message.warning("分值不能大于100");
@@ -318,8 +318,7 @@ export default {
       }
       else{
         this.flag = false;
-        
-        // console.log(typeof(this.value3)==="string");
+        this.$Message.success('添加成功');
         SetOKR({
           id:null,
           okrInfo:this.value4,
@@ -352,9 +351,10 @@ export default {
            this.$Message.warning("该季度数据不能修改");
        }else{
 
-     this.rowlist = row//获取点击svg 的row数据
+      this.rowlist = row//获取点击svg 的row数据
 // 控制数据回显
-      this.value2= row.okrCompletePercent
+       console.log(row);
+      this.value2= row.okrCompleteDivide
        if(row.okrStatues==="1"){
             this.animal="正常"
         }else{
@@ -369,17 +369,19 @@ export default {
 
 // 修改弹框确定按钮
     ScheduleOk(){
-      
+        let num = Number(this.value2)
+        let zt= isNaN(num)
+
       if(!this.value2){
       this.$Message.warning("请输入完成度！");
       } else if(this.value2>this.rowlist.okrDivide){
       this.$Message.warning("完成度不能超过设定值！");
       } 
-      // else if(typeof(this.value2) !=="number"){
-      // this.$Message.warning("请重新输入分值，类型为数值！");
-      // } 
+      else if(zt){
+      this.$Message.warning("请重新输入分值，类型为数值！");
+      } 
       else if(!this.animal){
-       this.$Message.warning("请选择抓状态！");
+       this.$Message.warning("请选择状态！");
       }else if(!this.value6){
        this.$Message.warning("请输入进展！");
       }else{
@@ -390,9 +392,12 @@ export default {
             this.animal= this.animal==="有风险" ? 2:3
           }
          let percentage = this.value2/this.rowlist.okrDivide*100
+        //  console.log(percentage);
+         let num = Number(this.value2)
          
         SetOKR({
           id:this.rowlist.ID,
+          okrCompleteDivide:num,
           okrCompletePercent:percentage,
           okrStatues:this.animal,
           okrEvolve:this.value6,

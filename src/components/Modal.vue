@@ -23,7 +23,6 @@
             <DatePicker
               type="datetime"
               v-model="scheduleStartTime"
-              placeholder="开始时间"
               style="width: 142px"
             ></DatePicker>
             <span> - </span>
@@ -281,7 +280,7 @@ export default {
       SchedulePopUpModal: false,
       //input v-model
       scheduleName: "",
-      scheduleStartTime: "",
+      scheduleStartTime: moment(new Date()).format("YYYY-MM-DD hh:mm:ss"),
       scheduleEndTime: "",
       scheduleNailingNotice: true, //钉钉通知//提醒show
       scheduleRemindList: "", //钉钉option
@@ -437,7 +436,7 @@ export default {
                 globalBus.$emit("modificationlist",res.data.data);  
             })
              this.scheduleName=""
-             this.scheduleStartTime=""
+             this.scheduleStartTime=moment(new Date()).format("YYYY-MM-DD hh:mm:ss")
              this.scheduleEndTime=""
           });
         } else {
@@ -464,7 +463,7 @@ export default {
             })
               
              this.scheduleName=""
-             this.scheduleStartTime=""
+             this.scheduleStartTime=moment(new Date()).format("YYYY-MM-DD hh:mm:ss")
              this.scheduleEndTime=""
           });
         }
@@ -512,7 +511,7 @@ export default {
       this.SchedulePopUpModal = flag; 
       this.SchedulePopUpModalTitle = "新建日程";
       this.scheduleName=""
-      this.scheduleStartTime=""
+      this.scheduleStartTime=moment(new Date()).format("YYYY-MM-DD hh:mm:ss")
       this.scheduleEndTime=""
 
     });
@@ -541,6 +540,10 @@ body {
 </style>
 
 <style lang="less" scoped >
+
+.search-orgnize{
+ width: 330px;
+}
 .calendar_box {
   display: flex;
   overflow: hidden;

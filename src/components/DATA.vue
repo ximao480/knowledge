@@ -93,12 +93,13 @@ import  Modal from './Modal'
     position: relative;
 }
 .content{
-  height: 100%;
+  height: 256px;
   overflow-y: auto !important;
 }
 
 .contentkk{
-        display: flex;
+  margin-bottom: 10px;
+  display: flex;
   }
 .contentkk .ark-input-wrapper.ark-input-wrapper-default.ark-input-type.ark-date-picker-editor{
       width: 150px !important;
@@ -134,7 +135,7 @@ import  Modal from './Modal'
   font-size: 14px;
   color: #313231;
  background: #F4F7FD;
- margin-top: 10px;
+ margin-bottom: 10px;
  border-left: 2px solid #3A7BF5;
 }
 .my{
@@ -162,7 +163,7 @@ position: absolute;
 top: 0px;
 right: 67px;
 font-size: 14px;
-color: #A5A5A5;
+color: #3A7BF5;
 text-align: left;
 vertical-align: top;
 font-weight: 400;
@@ -175,7 +176,7 @@ position: absolute;
 right: 0px;
 top: 0px;
 font-size: 14px;
-color: #A5A5A5;
+color:  #3A7BF5;
 text-align: left;
 vertical-align: top;
 }

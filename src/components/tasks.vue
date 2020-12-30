@@ -65,11 +65,132 @@ export default {
       return (current) => {
         let cjl = current.message.indexOf("创建了");
         let you = current.message.indexOf("邀请你协作");
-
+       
         if (cjl !== -1) {
           return current.message.slice(cjl + 3);
-        } else {
-          return current.message.slice(you + 5);
+        } else if(you !==-1 && current.type ===3 ){
+             let sml = current.message.slice(you + 5);
+             
+             let svg1 = current.message.indexOf("${1}")
+             let svg2 = current.message.indexOf("${2}")
+             let svg3 = current.message.indexOf("${3}")
+             let svg4 = current.message.indexOf("${4}")
+             let svg5 = current.message.indexOf("${5}")
+             let svg6 = current.message.indexOf("${6}")
+             let svg7 = current.message.indexOf("${7}")
+             let svg8 = current.message.indexOf("${8}")
+          if(svg1!==-1){
+              let icons ='iconarkmind'
+             let html = ` <svg
+             class="icon"
+             aria-hidden="true"
+             style="
+              width: 15px;
+              height: 25px;
+              margin: 0 2px 0px 5px;
+              vertical-align: text-bottom;">
+            <use xlink:href="#${icons}" />
+            </svg>`
+          return sml.replace('${1}',html);
+          }else if(svg2!==-1){
+             let icons ='iconmarkdown1'
+             let html = ` <svg
+             class="icon"
+             aria-hidden="true"
+             style="
+              width: 15px;
+              height: 25px;
+              margin: 0 2px 0px 5px;
+              vertical-align: text-bottom;">
+            <use xlink:href="#${icons}" />
+           </svg>`
+          return sml.replace('${2}',html);
+          }else if(svg3!==-1){
+             let icons ='iconexcel1'
+             let html = ` <svg
+             class="icon"
+             aria-hidden="true"
+             style="
+              width: 15px;
+              height: 25px;
+              margin: 0 2px 0px 5px;
+              vertical-align: text-bottom;">
+            <use xlink:href="#${icons}" />
+           </svg>`
+          return sml.replace('${3}',html);
+          
+          }else if(svg4!==-1){
+             let icons ='icontext'
+             let html = ` <svg
+             class="icon"
+             aria-hidden="true"
+             style="
+              width: 15px;
+              height: 25px;
+              margin: 0 2px 0px 5px;
+              vertical-align: text-bottom;">
+            <use xlink:href="#${icons}" />
+           </svg>`
+          return sml.replace('${4}',html);
+          
+          }else if(svg5!==-1){
+             let icons ='iconaxure1'
+             let html = ` <svg
+             class="icon"
+             aria-hidden="true"
+             style="
+              width: 15px;
+              height: 25px;
+              margin: 0 2px 0px 5px;
+              vertical-align: text-bottom;">
+            <use xlink:href="#${icons}" />
+           </svg>`
+          return sml.replace('${5}',html);
+          
+          }else if(svg6!==-1){
+             let icons ='icondesign1'
+             let html = ` <svg
+             class="icon"
+             aria-hidden="true"
+             style="
+              width: 15px;
+              height: 25px;
+              margin: 0 2px 0px 5px;
+              vertical-align: text-bottom;">
+            <use xlink:href="#${icons}" />
+           </svg>`
+          return sml.replace('${6}',html);
+          
+          }else if(svg7!==-1){
+             let icons ='iconmy-project'
+             let html = ` <svg
+             class="icon"
+             aria-hidden="true"
+             style="
+              width: 15px;
+              height: 25px;
+              margin: 0 2px 0px 5px;
+              vertical-align: text-bottom;">
+            <use xlink:href="#${icons}" />
+           </svg>`
+          return sml.replace('${7}',html);
+          
+          }else if(svg8!==-1){
+             let icons ='iconothers'
+             let html = ` <svg
+             class="icon"
+             aria-hidden="true"
+             style="
+              width: 15px;
+              height: 25px;
+              margin: 0 2px 0px 5px;
+              vertical-align: text-bottom;">
+            <use xlink:href="#${icons}" />
+           </svg>`
+          return sml.replace('${8}',html);
+          }
+        }else{
+          // alert('没找到')
         }
       };
     },
@@ -83,7 +204,7 @@ export default {
         let you = current.message.indexOf("邀请你协作");
         let content = current.message.slice(0, you + 5);
 
-        // let icons ='icondesign1'
+        let icons ='icondesign1'
         // let html = ` <svg
         //     class="icon"
         //     aria-hidden="true"
@@ -95,11 +216,12 @@ export default {
         //     <use xlink:href="#${icons}" />
         //   </svg>`
         //     console.log("触发了");
-          // if(current.type == 3){
+          if(current.type == 3){
           //  return `${content}${html}`
-          // }else{
+           return `${content}`
+          }else{
              return `${content}`
-          // }
+          }
         
         }
       };
@@ -200,9 +322,7 @@ export default {
     };
   },
   mounted() {
-    // this.$nextTick(()=>{
-    //   console.log(this.Timelines);
-    // })
+
   },
   methods: {
     init() {
@@ -219,8 +339,7 @@ export default {
           //   let date = new DateUtil(new Date(item.creationdate));
           //   item.creationdate = item.creationdate ? date.toLocaleDateString(): item.creationdate;
           //   return item;
-          // });
-        
+          // });   
           this.Timelines = data;
           globalBus.$emit("isshowtitle",this.Timelines)
           console.log( data);

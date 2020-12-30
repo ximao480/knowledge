@@ -111,6 +111,8 @@ export default {
   height: 20px !important; 
   margin-left: 50px;
 }
+
+
 .Calendar {
   
   position: relative;
@@ -169,8 +171,12 @@ export default {
   letter-spacing: 0px;
 }
 .Select {
-  margin-left: 10px;
-  width: 150px;
+  margin-left: 11px;
+  width: 155px;
+}
+.ark-select-selection{
+  height: 26px !important;
+  padding-top: 2px;
 }
 .addOKR {
   position: absolute;
@@ -182,7 +188,7 @@ export default {
   right: 0px;
   top: 0px;
   font-size: 14px;
-  color: #a5a5a5;
+  color:  #3A7BF5;
   text-align: left;
   vertical-align: top;
 }
