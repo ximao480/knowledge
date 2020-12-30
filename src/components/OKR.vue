@@ -13,7 +13,7 @@
     </div>
     <div class="calendars">
       <div v-for="(item, index) in columns1" :key="index" class="itemss">
-        <span>{{ item.okrInfo }}</span>
+        <span style="display:inline-block;width: 200px;overflow: hidden;">{{ item.okrInfo }}</span>
            <div style="display:inline-block;width: 200px;">
            <Progress :percent="item.okrCompletePercent ? item.okrCompletePercent :0" status="active"  />
            </div>

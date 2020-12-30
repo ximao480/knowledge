@@ -280,7 +280,7 @@ export default {
       SchedulePopUpModal: false,
       //input v-model
       scheduleName: "",
-      scheduleStartTime: moment(new Date()).format("YYYY-MM-DD hh:mm:ss"),
+      scheduleStartTime: moment(new Date()).format("YYYY-MM-DD"),
       scheduleEndTime: "",
       scheduleNailingNotice: true, //钉钉通知//提醒show
       scheduleRemindList: "", //钉钉option

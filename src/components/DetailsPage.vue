@@ -21,7 +21,7 @@
               slot-scope="{ row, index }"
             > 
              <div style='width:300px;display: inline-block;word-wrap:break-word;margin-right:20px'>
-               <div style='display:inline-block;margin-right:10px;width:250px;overflow: hidden;margin-bottom: -5px;'>
+               <div style='display:inline-block;margin-right:10px;width:200px;overflow: hidden;margin-bottom: -5px;'>
                     {{row.okrInfo}}
                </div>
               <!-- border:1px solid #ccc; -->
@@ -52,7 +52,7 @@
             </template>
           </Table>
         </template>
-        <div class="found" @keydown.enter="enterAddOKR" v-if="flag" data="data1">
+        <div class="found" @keydown.enter="enterAddOKR" v-if="flag">
           <div style="display:inline-block;margin-left:100px;width:60%;">
               <Input v-model="value4" type="text" size="large" :rows="2" placeholder="例如：让OKR成为团队管理方式，输入后回车创建" />
           </div>  
@@ -171,7 +171,7 @@ export default {
           title: "人员",
           key: "NAME",
           render: (h, params) => {
-            console.log(params.row);
+            // console.log(params.row);
             return h(
               "div",
               {
@@ -237,7 +237,7 @@ export default {
           slot:"okrInfo"
         },
         {
-          title: "分值",
+          title: "目标分值",
           key: "okrDivide",
         },
 
@@ -277,12 +277,12 @@ export default {
   computed: {
     zthtml(data){
       return (data)=>{
-       console.log(data);
+      //  console.log(data);
        if(data.okrStatues==='1'){
          return '正常'
        }else if(data.okrStatues==='2'){
           return '有风险'
-       }else{
+       }else if(data.okrStatues==='3'){
         return '已延期'
       }
        
@@ -318,12 +318,13 @@ export default {
             okrQuarter:this.value7
            }
            getOKR(data).then((res) => {
-           console.log(res.data.data.arkOkrList)
+          //  console.log(res.data.data.arkOkrList)
           this.data1=res.data.data.arkOkrList
           });
     },
 //回车添加
     enterAddOKR(){
+    
         let num = Number(this.value3)
         let zt= isNaN(num)
          
@@ -343,7 +344,6 @@ export default {
       }
       else{
         this.flag = false;
-        this.$Message.success('添加成功');
         SetOKR({
           id:null,
           okrInfo:this.value4,
@@ -351,7 +351,7 @@ export default {
           okrQuarter:this.value7,
           okrYear:"2020"
           }).then(res=>{
-
+              this.$Message.success("cccc");
             if(res.data.code===0){
               this.$Message.success(res.data.message);
               this.showOKR()
@@ -377,7 +377,7 @@ export default {
 
       this.rowlist = row//获取点击svg 的row数据
 // 控制数据回显
-       console.log(this.rowlist);
+      //  console.log(this.rowlist);
       this.value2= row.okrCompleteDivide
        if(row.okrStatues==="1"){
             this.animal="正常"
@@ -409,7 +409,7 @@ export default {
       }else if(!this.value6){
        this.$Message.warning("请输入进展！");
       }else{
-           console.log(this.rowlist);
+          //  console.log(this.rowlist);
           if(this.animal==="正常"){
             this.animal=1
           }else{
@@ -448,7 +448,12 @@ export default {
     },
 //点击弹出增加输入框
     addORK(){
-      this.flag=true
+        if(this.value7<4){
+        this.$Message.warning("该季度不能增加数据");
+        }else{
+           this.flag=true
+        }
+     
     },
   },
   mounted() {
