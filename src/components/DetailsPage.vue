@@ -21,11 +21,12 @@
               slot-scope="{ row, index }"
             > 
              <div style='width:300px;display: inline-block;word-wrap:break-word;margin-right:20px'>
-               <div style='display: inline-block;'>
+               <div style='display:inline-block;margin-right:10px;width:250px;overflow: hidden;margin-bottom: -5px;'>
                     {{row.okrInfo}}
                </div>
-              
-                 <div style='width:60px;height:20px ;border-radius: 15px;border:1px solid red;display: inline-block;' >
+              <!-- border:1px solid #ccc; -->
+                 <div style='width:60px;height:20px ;text-align: center;border-radius: 15px;display: inline-block;'
+                  :class="[{'actives1':row.okrStatues==='1'},{'actives2':row.okrStatues==='2'},{'actives3':row.okrStatues==='3'}]" v-html='zthtml(row)' >
                 
                   </div>
                    <!-- <div style='height:40px ;display: inline-block;' v-html='zthtml(row)'></div> -->
@@ -273,6 +274,21 @@ export default {
       data1: []//表格数据
     }
   },
+  computed: {
+    zthtml(data){
+      return (data)=>{
+       console.log(data);
+       if(data.okrStatues==='1'){
+         return '正常'
+       }else if(data.okrStatues==='2'){
+          return '有风险'
+       }else{
+        return '已延期'
+      }
+       
+      }
+    }
+  },
   methods: {
 // 删除
   Deletes(row){
@@ -442,7 +458,21 @@ export default {
 </script>
 
 <style scoped>
-
+.actives1{
+  /* border:lpx solid red !important;*/
+  border:1px solid #3a7bf5; 
+  color:#3a7bf5 ;
+}
+.actives2{
+  /* border:lpx solid red !important;*/
+  border:1px solid #EFE088; 
+  color:#EFE088 ;
+}
+.actives3{
+  /* border:lpx solid red !important;*/
+  border:1px solid #B93835; 
+  color:#B93835 ;
+}
 
 .ark-input-number.ark-input-number-large{
  width: 100px;
