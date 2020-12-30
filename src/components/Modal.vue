@@ -277,7 +277,7 @@ export default {
     return {
       flag:"1",
       todayDatesss: moment(new Date()).format("YYYY-MM-DD hh:mm:ss"),
-      SchedulePopUpModal: false,
+      SchedulePopUpModal: true,
       //input v-model
       scheduleName: "",
       scheduleStartTime: moment(new Date()).format("YYYY-MM-DD"),
@@ -718,5 +718,15 @@ body {
       font-size: 14px;
     }
   }
+}
+.search-orgnize{
+  width: 200px !important;
+ left: 40%  !important;
+ background:red !important;
+}
+.float-search-people{
+  width: 200px !important;
+ left: 40%  !important;
+ background:red !important;
 }
 </style>

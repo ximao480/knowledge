@@ -351,7 +351,6 @@ export default {
           okrQuarter:this.value7,
           okrYear:"2020"
           }).then(res=>{
-              this.$Message.success("cccc");
             if(res.data.code===0){
               this.$Message.success(res.data.message);
               this.showOKR()
@@ -363,9 +362,9 @@ export default {
                 this.showOKR()
                 this.value4=""
                 this.value3=""
-            }
-          
+            } 
           })
+          
       }
      },
 // 点击svg，
@@ -406,8 +405,6 @@ export default {
       } 
       else if(!this.animal){
        this.$Message.warning("请选择状态！");
-      }else if(!this.value6){
-       this.$Message.warning("请输入进展！");
       }else{
           //  console.log(this.rowlist);
           if(this.animal==="正常"){
@@ -429,6 +426,7 @@ export default {
           okrStatues:this.animal,
           okrEvolve:this.value6,
           }).then(res=>{
+            this.$Message.success("修改成功");
             this.showOKR()
             this.isshowamendProgressBar=false
              this.value2 = "",
@@ -470,8 +468,8 @@ export default {
 }
 .actives2{
   /* border:lpx solid red !important;*/
-  border:1px solid #EFE088; 
-  color:#EFE088 ;
+  border:1px solid #F8C228; 
+  color:#F8C228 ;
 }
 .actives3{
   /* border:lpx solid red !important;*/
