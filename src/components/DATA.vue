@@ -5,10 +5,9 @@
           <div class="ss">
              <template>
                 <Row>
-                    <Col span="12">
-                    <!-- :placeholder="todayDatesss" -->
-                        <DatePicker  type="date"  style="width: 200px;color:#000" v-model="queryTime" @on-change="changetimes"></DatePicker>
-                    </Col>
+                  <Col span="12">
+                      <DatePicker type="date" style="width: 200px;color:#000" :clearable="flag3" v-model="queryTime" @on-change="changetimes"></DatePicker>
+                  </Col>
                 </Row>
              </template>
           </div>
@@ -20,7 +19,7 @@
             <p class="">时间<span style="margin-left:20px">日程内容</span></p>
           </div> -->
            <div v-for="(item,index) in schedulelist" :key="index" class="items" >
-             <p class="calendarshows" @click="detail(item)">{{item.startTime}} <span>{{item.title}}</span></p>
+             <p class="calendarshows" @click="detail(item)">{{item.startTime.slice(10)}} <span style="margin-left:20px">{{item.title}}</span></p>
           </div>
       </div>
       <Modal></Modal>
@@ -40,6 +39,7 @@ import  Modal from './Modal'
          return {
              value:"",
              flag:"1",
+             flag3:false,
              queryTime:moment(new Date()).format("YYYY-MM-DD"),
              todayDatesss: moment(new Date()).format("YYYY-MM-DD"),
              schedulelist:[],
@@ -127,7 +127,7 @@ import  Modal from './Modal'
     background: red;
 } */
 .items{
-  height: 50px;
+  height: 52px;
   width: 100%;
   line-height: 50px;
   display: flex;

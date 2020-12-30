@@ -15,25 +15,47 @@
       <div class="table-wrap">
         <template>
           <Table :columns="columns1" :data="data1" size="large">
+            
+             <template
+              slot="okrInfo"
+              slot-scope="{ row, index }"
+            > 
+             <div style='width:300px;display: inline-block;word-wrap:break-word;margin-right:20px'>
+               <div style='display: inline-block;'>
+                    {{row.okrInfo}}
+               </div>
+              
+                 <div style='width:60px;height:20px ;border-radius: 15px;border:1px solid red;display: inline-block;' >
+                
+                  </div>
+                   <!-- <div style='height:40px ;display: inline-block;' v-html='zthtml(row)'></div> -->
+              </div>
+             
+            </template>
+             
+
             <template
               slot="action"
               slot-scope="{ row, index }"
             >
-            <div style="width:250px;display: inline-block;">
-               <Progress :percent="row.okrCompletePercent ? row.okrCompletePercent :0" status="active"  />
+            <div style="width:200px;display: inline-block;">
+               <Progress :percent="row.okrCompletePercent ? Number(row.okrCompletePercent) :0" status="active"  />
             </div>
             
-              <div @click="amendProgressBar(row)" style="width:30px;display: inline-block; margin-left:100px; cursor: pointer;">
+              <div @click="amendProgressBar(row)" style="width:30px;display: inline-block; margin-left:30px; cursor: pointer;">
+                <Tooltip content="更新OKR完成度" placement="top">
               <svg t="1609149234998" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8242" width="200" height="200"><path d="M509.333333 332.266667c-57.6 0-101.333333 43.733333-101.333333 101.333333s43.733333 101.333333 101.333333 101.333333 101.333333-43.733333 101.333334-101.333333-43.733333-101.333333-101.333334-101.333333z" p-id="8243"></path><path d="M871.466667 275.2c-19.733333-48-48-87.466667-84.8-121.6-36.8-34.133333-76.266667-62.4-124.266667-82.133333-48-19.733333-99.2-30.933333-152.533333-30.933334C456 40.533333 405.333333 49.066667 357.333333 71.466667c-48 19.733333-90.666667 48-124.266666 82.133333S167.466667 229.866667 147.2 275.2c-19.733333 48-30.933333 99.2-30.933333 149.866667 0 76.266667 19.733333 147.2 53.866666 220.266666 28.266667 56.533333 67.733333 113.066667 118.933334 166.933334 84.8 90.666667 175.466667 147.2 200.533333 161.066666 5.866667 5.866667 17.066667 5.866667 22.4 5.866667 8.533333 0 17.066667-2.666667 22.4-5.866667 25.6-14.4 115.733333-70.933333 200.533333-161.066666 48-53.866667 90.666667-110.4 118.933334-166.933334 34.133333-70.933333 53.866667-147.2 53.866666-220.266666-5.333333-50.666667-13.866667-101.866667-36.266666-149.866667z m-362.133334 345.066667c-104.533333 0-186.666667-82.133333-186.666666-186.666667s82.133333-186.666667 186.666666-186.666667 186.666667 82.133333 186.666667 186.666667-82.133333 186.666667-186.666667 186.666667z" p-id="8244"></path></svg>
+               </Tooltip>
               </div>
+             
             </template>
           </Table>
         </template>
         <div class="found" @keydown.enter="enterAddOKR" v-if="flag" data="data1">
-          <div style="display:inline-block;margin-left:100px;margin-right:100px;width:60%;">
+          <div style="display:inline-block;margin-left:100px;width:60%;">
               <Input v-model="value4" type="text" size="large" :rows="2" placeholder="例如：让OKR成为团队管理方式，输入后回车创建" />
           </div>  
-          <div  style="display:inline-block;width:100px;">
+          <div  style="display:inline-block;width:100px;margin-left:100px">
              
               <Input v-model="value3" :max="100"  :min='1' size="large" :rows="2" placeholder="请输入分值" />
           </div>
@@ -69,15 +91,7 @@
         <div class="wcd">
           <p>完成分值:</p>
           <div>
-            <!-- <Input
-              placeholder="0"
-              v-model="value2"
-              type="number"
-              style="width: 350px; height: 30px"
-            /> -->
            <Input  placeholder="0" v-model="value2"  style="width: 350px; height: 30px" :min='1' size="large" :rows="2" />
-            
-            <!-- <span class="percentSign">%</span> -->
           </div>
 
           <p>状态:</p>
@@ -156,7 +170,7 @@ export default {
           title: "人员",
           key: "NAME",
           render: (h, params) => {
-            // console.log(params.row);
+            console.log(params.row);
             return h(
               "div",
               {
@@ -206,18 +220,12 @@ export default {
                 h(
                   "span",
                   {
-                    style: {},
+                    style: {
+                      
+                    },
                   },
                   params.row.ownerename
                 ),
-              //   h('span',{
-              //   style:{
-              //     width:"60px",
-              //     height:"30px",
-              //     display: "inline-block",
-              //     border:"1px solid red"
-              //   }
-              // },),
               ]
             );
           },
@@ -225,6 +233,7 @@ export default {
         {
           title: "OKR",
           key: "okrInfo",
+          slot:"okrInfo"
         },
         {
           title: "分值",
@@ -345,7 +354,6 @@ export default {
      },
 // 点击svg，
     amendProgressBar(row) {
-
        if(row.okrQuarter<4){
            this.isshowamendProgressBar = false;
            this.$Message.warning("该季度数据不能修改");
@@ -353,7 +361,7 @@ export default {
 
       this.rowlist = row//获取点击svg 的row数据
 // 控制数据回显
-       console.log(row);
+       console.log(this.rowlist);
       this.value2= row.okrCompleteDivide
        if(row.okrStatues==="1"){
             this.animal="正常"
@@ -391,14 +399,17 @@ export default {
           }else{
             this.animal= this.animal==="有风险" ? 2:3
           }
-         let percentage = this.value2/this.rowlist.okrDivide*100
+        //  let percentage = this.value2/this.rowlist.okrDivide*100
         //  console.log(percentage);
-         let num = Number(this.value2)
-         
+        //  let num = Number(this.value2)
+         let num =  +parseFloat(this.value2).toFixed(2)
+      
+        //  console.log(this.rowlist);   
         SetOKR({
           id:this.rowlist.ID,
-          okrCompleteDivide:num,
-          okrCompletePercent:percentage,
+         // okrCompletePercent:percentage,//百分比
+          okrCompleteDivide:num,//完成分值
+          okrDivide:this.rowlist.okrDivide,//目标分值
           okrStatues:this.animal,
           okrEvolve:this.value6,
           }).then(res=>{
@@ -431,6 +442,8 @@ export default {
 </script>
 
 <style scoped>
+
+
 .ark-input-number.ark-input-number-large{
  width: 100px;
 }
@@ -501,5 +514,11 @@ export default {
 }
 .SchedulePopUpModal-footer{
     border-top: 1px solid #ccc;
+}
+div.ark-table-cell.ark-table-cell-ellipsis{
+  width: 300px !important;
+}
+.ark-table-row>td:nth-of-type(2){
+    width: 300px !important;
 }
 </style>
