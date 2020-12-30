@@ -30,29 +30,29 @@
     </div>
     <ul class="float-search-people" v-if="showDataControl === 'searchPeople'">
       <li v-if="peopleList.length < 1">没有数据</li>
-       <li
+      <li
         v-for="(item, index) in peopleList"
         :key="index"
         class="people-item"
         @click="clickitem(item)"
       >
-       <span class="user-message">
+        <span class="user-message">
           <Avatar
             class="avatar"
             style="background: #3a7bf5"
             v-if="!item.AVATAR_URL"
             >{{ item.NAME.substr(0, 1) }}</Avatar
-          > 
-           <Avatar
+          >
+          <Avatar
             class="avatar"
             style="background: #3a7bf5"
             v-else
             :src="item.AVATAR_URL"
           >
           </Avatar>
-         <span>{{ item.NAME }}</span>
+          <span>{{ item.NAME }}</span>
         </span>
-        <span class="email">{{ item.EMAIL }}</span> 
+        <span class="email">{{ item.EMAIL }}</span>
       </li>
     </ul>
     <ul class="search-orgnize" v-if="showDataControl === 'searchOrg'">
@@ -60,7 +60,7 @@
       <li v-for="(item, index) in teamList" :key="index">
         <div class="org-list">
           <div class="orgname">{{ item.groupName }}</div>
-           <div class="org-num">{{ item.groupCount }}</div> 
+          <div class="org-num">{{ item.groupCount }}</div>
         </div>
         <div
           v-if="item.children && item.children.length > 0"
@@ -94,9 +94,9 @@ export default {
       iconClass: "iconios-arrow-up",
       selectList: [],
       setValue: "",
-      peopleList: [],//人列表
+      peopleList: [], //人列表
       teamList: [],
-      showDataControl: "",//动态类型
+      showDataControl: "", //动态类型
       idList: [], //存放部门id
       peopleNum: 0,
     };
@@ -119,9 +119,9 @@ export default {
       this.$emit("on-change", this.selectList, index);
     },
     onChange(event, instance) {
-                 // 事件对象  原型
+      // 事件对象  原型
       // console.log(event, instance, "dad");
-      this.showDataControl = "searchPeople";//搜索人
+      this.showDataControl = "searchPeople"; //搜索人
       // 调用请求接口
       this.getOrgPeople({ searchParam: this.setValue });
     },
@@ -146,7 +146,7 @@ export default {
       this.showDataControl = "";
       this.setValue = "";
       this.$emit("on-change", this.selectList);
-    }, 
+    },
     //单击人员行
     getItemOrg(item, index) {
       this.showDataControl = "searchOrg";
@@ -155,16 +155,14 @@ export default {
       this.getOrgPeople({ DEPT_ID: item.id, DEPT_TREE_LIST: this.idList });
     }, //点击部门获取部门下人员
     getOrgTree() {
-      axios
-        .post("/p/cs/ark_share/sys_setting/getOrgTree", {})
-        .then((res) => {
-          if (res.data.code === 0) {
-            if (res.data.data.groups.length > 0) {
-              this.teamList = [];
-              this.teamList = res.data.data.groups;
-            }
+      axios.post("/p/cs/ark_share/sys_setting/getOrgTree", {}).then((res) => {
+        if (res.data.code === 0) {
+          if (res.data.data.groups.length > 0) {
+            this.teamList = [];
+            this.teamList = res.data.data.groups;
           }
-        });
+        }
+      });
     }, //获取企业部门
     getChildNodes(treeNode) {
       treeNode.reduce((cur, pre) => {
@@ -181,7 +179,6 @@ export default {
       axios
         .post("/p/cs/ark_share/sys_setting/queryUserInfo", param)
         .then((res) => {
-         
           if (res.data.code === 0) {
             //  console.log(res.data);
             if (this.showDataControl === "searchOrg") {
@@ -214,12 +211,19 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .add-collaborators {
   padding: 10px 0 40px 0;
   display: flex;
   justify-content: center;
   position: relative;
+  .ark-avatar {
+    width: 28px;
+    height: 28px;
+  }
+  .ark-avatar > * {
+    line-height: 28px;
+  }
   .show-person {
     width: 356px;
     height: 120px;
