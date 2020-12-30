@@ -15,25 +15,25 @@
       <div class="table-wrap">
         <template>
           <Table :columns="columns1" :data="data1" size="large">
-            
+
              <template
               slot="okrInfo"
               slot-scope="{ row, index }"
-            > 
+            >
              <div style='width:300px;display: inline-block;word-wrap:break-word;margin-right:20px'>
-               <div style='display:inline-block;margin-right:10px;width:200px;overflow: hidden;margin-bottom: -5px;'>
+               <div style='display:inline-block;margin-right:10px;width:200px;overflow: hidden;margin-bottom: -5px;white-space: normal;'>
                     {{row.okrInfo}}
                </div>
               <!-- border:1px solid #ccc; -->
                  <div style='width:60px;height:20px ;text-align: center;border-radius: 15px;display: inline-block;'
                   :class="[{'actives1':row.okrStatues==='1'},{'actives2':row.okrStatues==='2'},{'actives3':row.okrStatues==='3'}]" v-html='zthtml(row)' >
-                
+
                   </div>
                    <!-- <div style='height:40px ;display: inline-block;' v-html='zthtml(row)'></div> -->
               </div>
-             
+
             </template>
-             
+
 
             <template
               slot="action"
@@ -42,25 +42,25 @@
             <div style="width:200px;display: inline-block;">
                <Progress :percent="row.okrCompletePercent ? Number(row.okrCompletePercent) :0" status="active"  />
             </div>
-            
+
               <div @click="amendProgressBar(row)" style="width:30px;display: inline-block; margin-left:30px; cursor: pointer;">
                 <Tooltip content="更新OKR完成度" placement="top">
               <svg t="1609149234998" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8242" width="200" height="200"><path d="M509.333333 332.266667c-57.6 0-101.333333 43.733333-101.333333 101.333333s43.733333 101.333333 101.333333 101.333333 101.333333-43.733333 101.333334-101.333333-43.733333-101.333333-101.333334-101.333333z" p-id="8243"></path><path d="M871.466667 275.2c-19.733333-48-48-87.466667-84.8-121.6-36.8-34.133333-76.266667-62.4-124.266667-82.133333-48-19.733333-99.2-30.933333-152.533333-30.933334C456 40.533333 405.333333 49.066667 357.333333 71.466667c-48 19.733333-90.666667 48-124.266666 82.133333S167.466667 229.866667 147.2 275.2c-19.733333 48-30.933333 99.2-30.933333 149.866667 0 76.266667 19.733333 147.2 53.866666 220.266666 28.266667 56.533333 67.733333 113.066667 118.933334 166.933334 84.8 90.666667 175.466667 147.2 200.533333 161.066666 5.866667 5.866667 17.066667 5.866667 22.4 5.866667 8.533333 0 17.066667-2.666667 22.4-5.866667 25.6-14.4 115.733333-70.933333 200.533333-161.066666 48-53.866667 90.666667-110.4 118.933334-166.933334 34.133333-70.933333 53.866667-147.2 53.866666-220.266666-5.333333-50.666667-13.866667-101.866667-36.266666-149.866667z m-362.133334 345.066667c-104.533333 0-186.666667-82.133333-186.666666-186.666667s82.133333-186.666667 186.666666-186.666667 186.666667 82.133333 186.666667 186.666667-82.133333 186.666667-186.666667 186.666667z" p-id="8244"></path></svg>
                </Tooltip>
               </div>
-             
+
             </template>
           </Table>
         </template>
         <div class="found" @keydown.enter="enterAddOKR" v-if="flag">
           <div style="display:inline-block;margin-left:100px;width:60%;">
               <Input v-model="value4" type="text" size="large" :rows="2" placeholder="例如：让OKR成为团队管理方式，输入后回车创建" />
-          </div>  
-          <div  style="display:inline-block;width:100px;margin-left:100px">
-             
-              <Input v-model="value3" :max="100"  :min='1' size="large" :rows="2" placeholder="请输入分值" />
           </div>
-           
+          <div  style="display:inline-block;width:100px;margin-left:100px">
+
+              <Input v-model="value3" :max="100"  :min='1' size="large" :rows="2" placeholder="请输入目标分值" />
+          </div>
+
         </div>
         <div >
           <div class="found" @click="addORK" ref="foundORK">
@@ -134,26 +134,26 @@ export default {
   data() {
     return {
       value3:'',//新增
-      value4:"",//新增 
+      value4:"",//新增
       year:"2020",//转换年
       month:"4",//转换季度
       flag:false,
       value8:"",
       model9: "",
-      value2: '', //输入框  
+      value2: '', //输入框
       score:'',
-      animal: "正常", //单选框状态 
+      animal: "正常", //单选框状态
       value6:"",//文本域
       rowlist:[],//行数据
       isshowamendProgressBar: false,
       value7:'4',//获取选择时间
       cityList: [
-                  {               
+                  {
                        value: '1',
                        label: '第一季度'
                  },
                 {
-                      value: '2',                         
+                      value: '2',
                       label: '第二季度'
                 },
                 {
@@ -164,7 +164,7 @@ export default {
                      value: '4',
                      label: '第四季度'
                 }
-                   
+
                 ],
       columns1: [
         {
@@ -222,7 +222,7 @@ export default {
                   "span",
                   {
                     style: {
-                      
+
                     },
                   },
                   params.row.ownerename
@@ -285,7 +285,7 @@ export default {
        }else if(data.okrStatues==='3'){
         return '已延期'
       }
-       
+
       }
     }
   },
@@ -324,23 +324,23 @@ export default {
     },
 //回车添加
     enterAddOKR(){
-    
+
         let num = Number(this.value3)
         let zt= isNaN(num)
-         
+
        if(!this.value4){
         this.$Message.warning("请填写OKR");
-        return 
+        return
       }else if (!this.value3) {
         this.$Message.warning("请输入分值");
-        return 
+        return
       }else if(zt){
         this.$Message.warning("请重新输入分值，类型为数值！");
-         return 
+         return
       }
       else if(this.value3>100){
         this.$Message.warning("分值不能大于100");
-         return 
+         return
       }
       else{
         this.flag = false;
@@ -356,15 +356,15 @@ export default {
               this.showOKR()
               this.value4=""
               this.value3=""
-            
+
             }else{
               this.$Message.error(res.data.message);
                 this.showOKR()
                 this.value4=""
                 this.value3=""
-            } 
+            }
           })
-          
+
       }
      },
 // 点击svg，
@@ -386,8 +386,8 @@ export default {
         this.value6=row.okrEvolve
         this.isshowamendProgressBar = true;
        }
-      
- 
+
+
     },
 
 // 修改弹框确定按钮
@@ -399,10 +399,10 @@ export default {
       this.$Message.warning("请输入完成度！");
       } else if(this.value2>this.rowlist.okrDivide){
       this.$Message.warning("完成度不能超过设定值！");
-      } 
+      }
       else if(zt){
       this.$Message.warning("请重新输入分值，类型为数值！");
-      } 
+      }
       else if(!this.animal){
        this.$Message.warning("请选择状态！");
       }else{
@@ -416,8 +416,8 @@ export default {
         //  console.log(percentage);
         //  let num = Number(this.value2)
          let num =  +parseFloat(this.value2).toFixed(2)
-      
-        //  console.log(this.rowlist);   
+
+        //  console.log(this.rowlist);
         SetOKR({
           id:this.rowlist.ID,
          // okrCompletePercent:percentage,//百分比
@@ -434,7 +434,7 @@ export default {
              this.value6 =""
           })
 
-       
+
       }
     },
 // 取消按钮
@@ -451,7 +451,7 @@ export default {
         }else{
            this.flag=true
         }
-     
+
     },
   },
   mounted() {
@@ -463,17 +463,17 @@ export default {
 <style scoped>
 .actives1{
   /* border:lpx solid red !important;*/
-  border:1px solid #3a7bf5; 
+  border:1px solid #3a7bf5;
   color:#3a7bf5 ;
 }
 .actives2{
   /* border:lpx solid red !important;*/
-  border:1px solid #F8C228; 
+  border:1px solid #F8C228;
   color:#F8C228 ;
 }
 .actives3{
   /* border:lpx solid red !important;*/
-  border:1px solid #B93835; 
+  border:1px solid #B93835;
   color:#B93835 ;
 }
 
@@ -518,7 +518,7 @@ export default {
 }
 .DetailsPage {
  /* background: url('../assets/img/person.png') no-repeat center;  */
-  
+
   padding: 10px;
   height: 100%;
   width: 100%;
