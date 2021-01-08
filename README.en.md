@@ -1,7 +1,7 @@
-# ark-share-workbench
+# r3-knowledge-base
 
 #### Description
-ark-share工作台子应用
+快速开发平台知识库 
 
 #### Software Architecture
 Software architecture description
