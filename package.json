@@ -1,6 +1,6 @@
 {
-  "name": "ark-share-workbench",
-  "version": "0.1.0",
+  "name": "r3-knowledge-base",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
