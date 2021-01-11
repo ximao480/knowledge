@@ -1,0 +1,40 @@
+.DetailsPage{
+  height: calc(100vh - 52px);
+  overflow: hidden;
+  display: flex;
+
+  .directory{
+    width: 240px;
+  }
+  .details{
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    header{
+      width: 100%;
+      position: relative;
+      z-index: 10;
+      padding: 0px 20px;
+      height: 44px;
+      display: flex;
+      -webkit-box-pack: justify;
+      justify-content: space-between;
+      -webkit-box-align: center;
+      align-items: center;
+      user-select: none;
+    }
+
+    footer{
+      height: fit-content;
+      width: 100%;
+      z-index: 200;
+    }
+
+    >div{
+      height: 1000px;
+      overflow: hidden;
+    }
+  }
+}
