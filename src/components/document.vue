@@ -97,9 +97,9 @@
         <div class="left">
           52字
         </div>
-        <div class="right">
+        <div class="right" @click="navigationToggle">
           <i class="iconfont iconios-list"></i>
-          <span @click="navigationToggle">大纲</span>
+          <span>大纲</span>
         </div>
       </div>
     </footer>
