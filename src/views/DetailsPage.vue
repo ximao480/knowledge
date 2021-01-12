@@ -2,7 +2,7 @@
   <div class="DetailsPage">
     <!-- 目录 -->
     <div class="directory">
-      1
+     <tree></tree>
     </div>
     <!-- 详情 -->
     <div class="details">
@@ -19,7 +19,10 @@
   </div>
 </template>
 <script>
+import tree from './Tree/Tree'
 export default {
-
+components:{
+  tree
+}
 }
 </script>

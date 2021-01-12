@@ -7,6 +7,14 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <link rel="stylesheet" href="//at.alicdn.com/t/font_2319734_s5c3we5ytr.css">
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <style>
+      html
+      /*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+      ::-webkit-scrollbar {
+        width: 6px !important;
+        height: 6px !important;
+      }
+    </style>
   </head>
   <body>
     <noscript>
@@ -14,5 +22,9 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/zTree.v3/3.5.24/js/jquery.ztree.core.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/zTree.v3/3.5.40/js/jquery.ztree.excheck.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/zTree.v3/3.5.40/js/jquery.ztree.exhide.min.js"></script>
   </body>
 </html>

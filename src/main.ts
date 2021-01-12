@@ -9,6 +9,7 @@ import '@syman/ark-ui/dist/styles/ark-ui.css';
 import '@syman/ark-ui/dist/styles/bjIconfonts/iconfont.css';
 import './assets/css/index.less';
 import singleSpaVue from 'single-spa-vue';
+import './assets/css/zTreeStyle.css';
 
 Vue.use(ArkUi);
 Vue.prototype.$network = network;
