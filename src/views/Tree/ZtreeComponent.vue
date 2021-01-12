@@ -11,7 +11,6 @@
 
 <script>
   import { fuzzySearch } from '../../../static/js/ztree/fuzzysearch';
-
   export default {
     name: 'ZTree',
     data() {
@@ -27,8 +26,6 @@
             nameIsHTML: true,
             dblClickExpand: false,
             showLine: false,
-            nodeClasses: { add: ['highlight'] }
-            // fontCss: this.setFontCss
           },
           callback: {
             beforeClick: this.beforeClick,
@@ -46,14 +43,9 @@
               enable: true,
               idKey: 'ID', // 树节点ID名称
               pIdKey: 'PARENT_ID', // 父节点ID名称
-            // rootPId: -1,//根节点ID
             }
           },
         },
-        isClick: false,
-        treeId: ''
-
-
       };
     },
     watch: {
@@ -80,7 +72,7 @@
 			if (treeNode.isParent) {
 				return true;
 			} else {
-         this.$emit('clickTreeNode',treeNode.ID);
+         this.$emit('clickTreeNode',treeNode);
 			}
 		},
     },

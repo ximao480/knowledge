@@ -11,20 +11,18 @@
       </p>
     </div>
     <div class="TreeContent">
-
-
         <treeMD
-          ref="tree"
-          :tree-datas="treeDatas"
-          @selectedTree='selectedTree'
+            ref="zTree"
+      :z-nodes="treeDatas.data"
+      @clickTreeNode="selectedTree"
         />
 
     </div>
   </div>
 </template>
 <script>
-  import treeMD from '../Tree/TreeMD';
   import jsonData from '../../../static/js/ztree/treeData.json';
+  import treeMD from './ZtreeComponent.vue';
 
   export default {
     components: {
@@ -44,13 +42,12 @@
       },
     },
     methods:{
-      selectedTree(selectedID){//处理点击输查询接口逻辑
-         // selectedID：当前点击节点ID
-         console.log('当前点击节点ID',selectedID)
+      selectedTree(selected){//处理点击输查询接口逻辑
+         // selected：当前点击节点数据
+         this.$emit('selectedTree',selected);
+
       }
     },
-    mounted() {
-    }
   };
 </script>
 <style lang="less" scoped>
