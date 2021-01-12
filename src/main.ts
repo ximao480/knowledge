@@ -4,12 +4,15 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import network from './utils/network';
+import mavonEditor from '@syman/ark-share-md'
+import '@syman/ark-share-md/dist/css/index.css'
 
 import '@syman/ark-ui/dist/styles/ark-ui.css';
 import '@syman/ark-ui/dist/styles/bjIconfonts/iconfont.css';
 import './assets/css/index.less';
 import singleSpaVue from 'single-spa-vue';
 
+Vue.use(mavonEditor)
 Vue.use(ArkUi);
 Vue.prototype.$network = network;
 
