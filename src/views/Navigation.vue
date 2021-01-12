@@ -4,12 +4,21 @@
       <div></div>
       <div class="right">
         <div class="search">
-          <Input placeholder="搜索知识页、知识本、知识库" style="width: 260px">
+          <!-- <Input placeholder="搜索知识页、知识本、知识库" style="width: 260px">
             <Icon type="ios-search" slot="prefix" />
-          </Input>
+          </Input> -->
+          <AutoComplete
+            icon="ios-search"
+            placeholder="搜索知识页、知识本、知识库"
+            style="width:260px"
+            clearable
+            :data="articleLists"
+            @on-search="searchArticle"
+          >
+          </AutoComplete>
         </div>
         <div class="help">
-          <Poptip trigger="hover" content="content" placement="bottom-end">
+          <Poptip trigger="hover"  content="content" placement="bottom-end">
             <i class="iconfont iconios-help-circle-outline"></i>
 
             <div slot="content">
@@ -28,6 +37,15 @@
 </template>
 <script>
 export default {
-
+  data() {
+    return {
+      articleLists:[]
+    }
+  },
+  methods:{
+    searchArticle(query) {
+      console.log(`查询条件:${query}`)
+    }
+  }
 }
 </script>

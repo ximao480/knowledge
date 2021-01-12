@@ -6,19 +6,91 @@
 
         </div>
         <div class="right">
-          <Button type="text">复制链接</Button>
+          <Button type="text" @click="copyUrl">复制链接</Button>
           <i class="iconfont iconyanshiPPT" @click="fullScreen"></i>
         </div>
       </div>
     </header>
-    <div>
+    <div class="content">
       <mavon-editor
+        class="editor"
         v-model="text"
         :toolbarsFlag="false"
         :editable="false"
         :subfield="false"
         :defaultOpen="'preview'"
+        :boxShadow="false"
+        previewBackground="#fff"
       ></mavon-editor>
+      <!-- 评论按钮 -->
+      <div class="fPaanK">
+        <div :class="switcher?'brDhtl':'kHWccG'" @mouseover="switcher = true" @mouseout="switcher = false">
+          <div class="hJVDku" @mouseover="switcher = true" v-show="!switcher">
+            <i class="iconfont iconios-arrow-back"></i>
+          </div>
+          <div class="hJVDku" v-show="switcher">
+            <Tooltip content="评论" placement="top">
+              <span @click="Drawer = true">
+                <i class="iconfont iconmd-text"></i>
+              </span>
+            </Tooltip>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 评论详情区 -->
+      <Drawer
+        :mask="false"
+        :inner="true"
+        :closable="false"
+        :transfer="false"
+        v-model="Drawer"
+      >
+        <div class="drawer">
+          <p class="title">
+            <span>评论</span>
+            <i class="iconfont iconbj_delete2" @click="Drawer = false"></i>
+          </p>
+          <p class="fresh">
+            <i class="iconfont iconios-refresh"></i>
+          </p>
+          <div class="comment">
+            <div class="commentItem">
+              <div>
+                <div class="title">
+                  <div>
+                    <span>
+                      <img src="https://static.dingtalk.com/media/lADPDgQ9qfyFXpLNAyrNAyk_809_810.jpg" alt="">
+                    </span>
+                    <span class="fvlLNV">
+                      谢世华
+                    </span>
+                  </div>
+                  <div class="time">
+                    33分钟前
+                  </div>
+                </div>
+                <div class="content">
+                  <article>1123123</article>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="publishBox">
+            <div class="input">
+              <Input
+                type="textarea"
+                :autosize="{ minRows: 2, maxRows: 4 }"
+                placeholder="输入评论"
+              />
+            </div>
+            <div class="publish">
+              <span>发送</span>
+            </div>
+          </div>
+        </div>
+      </Drawer>
     </div>
     <footer>
       <div>
@@ -26,20 +98,33 @@
           52字
         </div>
         <div class="right">
+          <i class="iconfont iconios-list"></i>
           <span @click="navigationToggle">大纲</span>
         </div>
       </div>
     </footer>
+
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
+      switcher: false,  //控制评论图标展示
+      Drawer: false,  //控制评论详情区
       text: '123213'
     }
   },
   methods:{
+    copyUrl() {  //复制链接
+      var input = document.createElement('input');
+      input.setAttribute('readonly', 'readonly'); // 防止手机上弹出软键盘
+      input.setAttribute('value', window.location.href);
+      document.body.appendChild(input);
+      input.select();
+      var res = document.execCommand('copy');
+      document.body.removeChild(input);
+    },
     fullScreen() {  //全屏展示
       console.log('全屏展示')
     },
