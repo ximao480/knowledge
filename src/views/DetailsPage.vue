@@ -3,26 +3,23 @@
     <!-- 目录 -->
     <div class="directory">
      <tree></tree>
+      <div class="flex-box-resizer">
+      </div>
     </div>
     <!-- 详情 -->
     <div class="details">
-      <header>
-        2
-      </header>
-      <div>
-        3
-      </div>
-      <footer>
-        4
-      </footer>
+      <document></document>
     </div>
   </div>
 </template>
 <script>
 import tree from './Tree/Tree'
+import document from '../components/document';
+
 export default {
 components:{
-  tree
+  tree,
+  document
 }
 }
 </script>
