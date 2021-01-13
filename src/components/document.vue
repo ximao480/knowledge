@@ -7,12 +7,13 @@
         </div>
         <div class="right">
           <Button type="text" @click="copyUrl">复制链接</Button>
-          <i class="iconfont iconyanshiPPT" @click="fullScreen"></i>
+          <i class="iconfont iconquanping" @click="fullScreen"></i>
         </div>
       </div>
     </header>
     <div class="content">
       <mavon-editor
+        ref="md"
         class="editor"
         v-model="text"
         :toolbarsFlag="false"
@@ -20,6 +21,7 @@
         :subfield="false"
         :defaultOpen="'preview'"
         :boxShadow="false"
+        showNavigationClose
         previewBackground="#fff"
       ></mavon-editor>
       <!-- 评论按钮 -->
@@ -112,7 +114,7 @@ export default {
     return {
       switcher: false,  //控制评论图标展示
       Drawer: false,  //控制评论详情区
-      text: '123213'
+      text: '**镜像名**: registry-vpc.cn-hangzhou.aliyuncs.com/syman-nj/ark-web-security\n**镜像Tag**: 1.0.11 （暂时没有latest:heavy_exclamation_mark:）\n\n`使用加密镜像需要前端配合，前端需要引入文件encryptingParameter进行加密:bangbang:`\n\n\n\n# 环境变量\n|  环境变量 |  描述 |\n| ------------ | ------------ |\n| PROXY_CONFIG |  proxy.json 设置代理文件地址 |\n| DIST_PATH |  dist静态资源文件地址 |\n| OSS_REGION |  oss的region  |\n| OSS_ACCESSKEYID |  oss的accessKeyId   |\n| OSS_ACCESSKEYSECRET |  oss的accessKeySecret    |\n| OSS_BUCKET |  oss的bucket     |\n\n### proxy.json配置  [fastify路由配置规则(新开浏览器)](https://www.fastify.cn/docs/latest/Routes/)\n    {\n      \"proxy\": [\n        {\n          \"route\": \"/p/:uri(^c.*)/*\",\n          \"domain\": \"http://r3-ishop.dev.syman.cn\"(需要转发的地址,同一集群下需要使用集群ip)\n        },\n        {\n          \"route\": \"/:gateway/p/:uri(^c.*)/*\",\n          \"domain\": \"http://r3-ishop.dev.syman.cn\"\n        }\n      ]\n    }\n'
     }
   },
   methods:{
@@ -126,10 +128,10 @@ export default {
       document.body.removeChild(input);
     },
     fullScreen() {  //全屏展示
-      console.log('全屏展示')
+      this.$refs.md.toolbar_right_click('read')
     },
     navigationToggle() { //切换大纲
-      console.log('切换大纲')
+      this.$refs.md.toolbar_right_click('navigation')
     }
   }
 }
