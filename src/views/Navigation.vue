@@ -36,6 +36,8 @@
   </div>
 </template>
 <script>
+import { queryList } from '../utils/api';
+import axios from 'axios';
 export default {
   data() {
     return {
@@ -44,7 +46,20 @@ export default {
   },
   methods:{
     searchArticle(query) {
-      console.log(`查询条件:${query}`)
+      console.log(`查询条件:${query}`,window.cancle)
+      window.cancle();
+      queryList({
+        name: query
+      }).then(res => {
+        console.log(res)
+      }).catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log('Rquest canceled'); // 请求如果被取消，这里是返回取消的message
+      } else {
+      // handle error
+        console.log(err);
+      }
+    });
     }
   }
 }

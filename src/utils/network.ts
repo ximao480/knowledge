@@ -1,7 +1,9 @@
 import axios from 'axios';
+const CancelToken = axios.CancelToken;
+(<any>window).cancle = null;
 
 axios.interceptors.request.use((config) => {
-  if(true){
+  if(!process.env.VUE_APP_PERMISSION){
     config.url = `/arkshare-app${config.url}`
   }
 
@@ -12,6 +14,12 @@ axios.interceptors.request.use((config) => {
     userId: (<any>window).localStorage.getItem('userInfoShare')?JSON.parse((<any>window).localStorage.getItem('userInfoShare')).id:null,
   })
   config.data = data
+  console.log(config)
+  config.headers = Object.assign({}, config.headers, {
+    cancelToken: new CancelToken(((c) => { // 在axios封装的函数中写上这句就可以了
+      (<any>window).cancle = c;
+    }))
+  });
   return config;
 });
 

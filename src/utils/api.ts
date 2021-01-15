@@ -1,12 +1,9 @@
 import network from './network';
 
-// console.log(network);
+export const getDirectory = (postObj?:Object,path='/p/cs/r3/list') => network.post(path,postObj);  //获取文档目录
 
-export const getTasks = (path:string,postObj?:Object) => network.post(path,postObj);  //获取待办，动态，知识库
+export const getDocumentation = (postObj?:Object,path='/p/cs/r3/documentation') => network.post(path,postObj);  //获取文档内容
 
-export const checkZenTao = (postObj?:Object,path='/p/cs/zenDaoCookie') => network.get(path,postObj);  //获取待办，动态，知识库
-// export const getORK = (postObj?:Object,path='/p/cs/ark_share/okr_query') => network.get(path,postObj);  //获取待办，动态，知识库
-// export const getcalendar = (postObj:Object,path='/p/cs/queryMySimpleSchedule') => network.get(path,postObj);  //获取待办，动态，知识库
-
+export const queryList = (postObj?:Object,path='/p/cs/queryList') => network.post(path,postObj);  //文档模糊搜索
 
 

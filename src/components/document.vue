@@ -15,7 +15,7 @@
       <mavon-editor
         ref="md"
         class="editor"
-        v-model="text"
+        v-model="detail.content"
         :toolbarsFlag="false"
         :editable="false"
         :subfield="false"
@@ -24,6 +24,19 @@
         showNavigationClose
         previewBackground="#fff"
       ></mavon-editor>
+
+      <!-- 文档页脚 -->
+      <p class="documentation">
+        <span class="updateTime">
+          <i class="iconfont iconios-time-outline"></i>
+          {{detail.updateTime}}更新
+        </span>
+        <span class="readNumber">
+          <i class="iconfont iconpublic"></i>
+          {{detail.readerNumber}}人阅读
+        </span>
+      </p>
+
       <!-- 评论按钮 -->
       <div class="fPaanK">
         <div :class="switcher?'brDhtl':'kHWccG'" @mouseover="switcher = true" @mouseout="switcher = false">
@@ -31,7 +44,7 @@
             <i class="iconfont iconios-arrow-back"></i>
           </div>
           <div class="hJVDku" v-show="switcher">
-            <Tooltip content="评论" placement="top">
+            <Tooltip :content="`评论(${detail.commentsNumber})`" placement="top">
               <span @click="Drawer = true">
                 <i class="iconfont iconmd-text"></i>
               </span>
@@ -93,11 +106,12 @@
           </div>
         </div>
       </Drawer>
+
     </div>
     <footer>
       <div>
         <div class="left">
-          52字
+          {{detail.wordCount}}个字
         </div>
         <div class="right" @click="navigationToggle">
           <i class="iconfont iconios-list"></i>
@@ -110,6 +124,12 @@
 </template>
 <script>
 export default {
+  props:{
+    detail:{
+      type: Object,
+      default:{}
+    }
+  },
   data() {
     return {
       switcher: false,  //控制评论图标展示
