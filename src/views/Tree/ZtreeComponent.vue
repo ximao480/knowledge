@@ -36,8 +36,8 @@
           },
           data: {
             key: {
-              children: 'CHILDREN',
-              name: 'NAME',
+              children: 'children',
+              name: 'title',
             },
             simpleData: {
               enable: true,
@@ -58,10 +58,6 @@
     },
 
     props: {
-      treeDatas: {
-        type: Object,
-        default: () => {}
-      },
       zNodes: {
         type: Array,
         default: () => []

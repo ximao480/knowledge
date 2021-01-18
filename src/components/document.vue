@@ -1,5 +1,5 @@
 <template>
-  <div class="document">
+  <div class="document" v-if="detail.documentationId">
     <header>
       <div>
         <div class="left">
@@ -45,7 +45,7 @@
           </div>
           <div class="hJVDku" v-show="switcher">
             <Tooltip :content="`评论(${detail.commentsNumber})`" placement="top">
-              <span @click="Drawer = true">
+              <span @click="Drawer = true;getComm()">
                 <i class="iconfont iconmd-text"></i>
               </span>
             </Tooltip>
@@ -71,23 +71,23 @@
             <i class="iconfont iconios-refresh"></i>
           </p>
           <div class="comment">
-            <div class="commentItem">
+            <div class="commentItem" v-for="(item,index) in commentLists" :key="index">
               <div>
                 <div class="title">
                   <div>
                     <span>
-                      <img src="https://static.dingtalk.com/media/lADPDgQ9qfyFXpLNAyrNAyk_809_810.jpg" alt="">
+                      <img :src="item.avatar" alt="">
                     </span>
                     <span class="fvlLNV">
-                      谢世华
+                      {{item.userName}}
                     </span>
                   </div>
                   <div class="time">
-                    33分钟前
+                    {{item.createTime}}
                   </div>
                 </div>
                 <div class="content">
-                  <article>1123123</article>
+                  <article>{{item.content}}</article>
                 </div>
               </div>
             </div>
@@ -95,12 +95,13 @@
           <div class="publishBox">
             <div class="input">
               <Input
+                v-model="content"
                 type="textarea"
                 :autosize="{ minRows: 2, maxRows: 4 }"
                 placeholder="输入评论"
               />
             </div>
-            <div class="publish">
+            <div class="publish" @click="commentPublish">
               <span>发送</span>
             </div>
           </div>
@@ -121,8 +122,16 @@
     </footer>
 
   </div>
+  <div v-else>
+    <header>
+      <div>
+        {{12323}}
+      </div>
+    </header>
+  </div>
 </template>
 <script>
+import { getComment, addComment } from '../utils/api';
 export default {
   props:{
     detail:{
@@ -134,7 +143,8 @@ export default {
     return {
       switcher: false,  //控制评论图标展示
       Drawer: false,  //控制评论详情区
-      text: '**镜像名**: registry-vpc.cn-hangzhou.aliyuncs.com/syman-nj/ark-web-security\n**镜像Tag**: 1.0.11 （暂时没有latest:heavy_exclamation_mark:）\n\n`使用加密镜像需要前端配合，前端需要引入文件encryptingParameter进行加密:bangbang:`\n\n\n\n# 环境变量\n|  环境变量 |  描述 |\n| ------------ | ------------ |\n| PROXY_CONFIG |  proxy.json 设置代理文件地址 |\n| DIST_PATH |  dist静态资源文件地址 |\n| OSS_REGION |  oss的region  |\n| OSS_ACCESSKEYID |  oss的accessKeyId   |\n| OSS_ACCESSKEYSECRET |  oss的accessKeySecret    |\n| OSS_BUCKET |  oss的bucket     |\n\n### proxy.json配置  [fastify路由配置规则(新开浏览器)](https://www.fastify.cn/docs/latest/Routes/)\n    {\n      \"proxy\": [\n        {\n          \"route\": \"/p/:uri(^c.*)/*\",\n          \"domain\": \"http://r3-ishop.dev.syman.cn\"(需要转发的地址,同一集群下需要使用集群ip)\n        },\n        {\n          \"route\": \"/:gateway/p/:uri(^c.*)/*\",\n          \"domain\": \"http://r3-ishop.dev.syman.cn\"\n        }\n      ]\n    }\n'
+      commentLists:[],  //评论数据
+      content: null // 新增评论内容
     }
   },
   methods:{
@@ -152,6 +162,19 @@ export default {
     },
     navigationToggle() { //切换大纲
       this.$refs.md.toolbar_right_click('navigation')
+    },
+    getComm() {  //获取评论
+      getComment(this.detail.ID).then(res => {
+        if(res.data.code === 0){
+          this.commentLists = res.data.data
+        }
+      })
+    },
+    commentPublish() {  //新增评论
+      addComment({
+        content: this.content,
+        id: this.detail.documentationId
+      })
     }
   }
 }

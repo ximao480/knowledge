@@ -24,7 +24,7 @@ Vue.config.productionTip = false;
 //   store,
 //   render: (h) => h(App),
 // }).$mount('#app');
-console.log(process.env)
+
 const appOptions = {
   el: '#microApp',
   router,

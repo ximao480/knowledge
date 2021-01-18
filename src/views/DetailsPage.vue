@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      treeDatas: {},  //文档目录数据
+      treeDatas: [],  //文档目录数据
       documentation:{},  //文档数据
     }
   },
@@ -36,7 +36,7 @@ export default {
         type: selected.type
       }).then(res => {
         if(res.data.code === 0){
-          thsi.documentation = res.data.data
+          this.documentation = res.data.data
         }
       })
     },

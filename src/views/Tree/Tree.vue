@@ -13,7 +13,7 @@
     <div class="TreeContent">
         <treeMD
             ref="zTree"
-      :z-nodes="treeDatas.data"
+      :z-nodes="treeDatas"
       @clickTreeNode="selectedTree"
         />
 
@@ -34,17 +34,17 @@
       };
     },
     props:{
-        treeDatas: {
-        type: Object,
-         default: () => ({
-             data: jsonData.data, // 树结构列表数据
-         })
+      treeDatas: {
+        type: Array,
+        // default: () => ({
+        //   data: jsonData.data, // 树结构列表数据
+        // })
       },
     },
     methods:{
       selectedTree(selected){//处理点击输查询接口逻辑
          // selected：当前点击节点数据
-         this.$emit('selectedTree',selected);
+        this.$emit('selectedTree',selected);
 
       }
     },

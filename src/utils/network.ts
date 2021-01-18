@@ -7,14 +7,14 @@ axios.interceptors.request.use((config) => {
     config.url = `/arkshare-app${config.url}`
   }
 
-  let data = config.data
-  data = Object.assign({},data,{
-    pageNum: 1,
-    pageSize: 20,
-    userId: (<any>window).localStorage.getItem('userInfoShare')?JSON.parse((<any>window).localStorage.getItem('userInfoShare')).id:null,
-  })
-  config.data = data
-  console.log(config)
+  // let data = config.data
+  // data = Object.assign({},data,{
+  //   pageNum: 1,
+  //   pageSize: 20,
+  //   userId: (<any>window).localStorage.getItem('userInfoShare')?JSON.parse((<any>window).localStorage.getItem('userInfoShare')).id:null,
+  // })
+  // config.data = data
+  // console.log(config)
   config.headers = Object.assign({}, config.headers, {
     cancelToken: new CancelToken(((c) => { // 在axios封装的函数中写上这句就可以了
       (<any>window).cancle = c;
