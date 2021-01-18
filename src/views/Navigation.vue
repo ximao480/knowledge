@@ -46,7 +46,6 @@ export default {
   },
   methods:{
     searchArticle(query) {
-      console.log(`查询条件:${query}`,window.cancle)
       window.cancle();
       queryList({
         name: query
@@ -56,7 +55,6 @@ export default {
       if (axios.isCancel(err)) {
         console.log('Rquest canceled'); // 请求如果被取消，这里是返回取消的message
       } else {
-      // handle error
         console.log(err);
       }
     });

@@ -63,6 +63,12 @@
         v-model="Drawer"
       >
         <div class="drawer">
+          <!-- loading -->
+          <Spin fix v-if="commentsLoading">
+            <Icon type="ios-loading" size=18 class="demo-spin-icon-load"></Icon>
+            <div>Loading</div>
+          </Spin>
+
           <p class="title">
             <span>评论</span>
             <i class="iconfont iconbj_delete2" @click="Drawer = false"></i>
@@ -122,16 +128,22 @@
     </footer>
 
   </div>
-  <div v-else>
+  <div class="document directory" v-else>
     <header>
       <div>
-        {{12323}}
+        {{detail.title}}
       </div>
     </header>
+    <div class="content">
+      <p v-for="(item,index) in detail.subdirectory" :key="index">
+        <a>{{item.title}}</a>
+      </p>
+    </div>
   </div>
 </template>
 <script>
 import { getComment, addComment } from '../utils/api';
+import DateUtil from '../utils/dateApi';
 export default {
   props:{
     detail:{
@@ -144,7 +156,9 @@ export default {
       switcher: false,  //控制评论图标展示
       Drawer: false,  //控制评论详情区
       commentLists:[],  //评论数据
-      content: null // 新增评论内容
+      content: null, // 新增评论内容
+
+      commentsLoading: false,  //评论区loading
     }
   },
   methods:{
@@ -164,9 +178,15 @@ export default {
       this.$refs.md.toolbar_right_click('navigation')
     },
     getComm() {  //获取评论
+      this.commentsLoading = true
+      this.content = null
       getComment(this.detail.ID).then(res => {
+        this.commentsLoading = false
         if(res.data.code === 0){
-          this.commentLists = res.data.data
+          this.commentLists = res.data.data.map(item => {
+            item.createTime = new DateUtil(new Date(item.createTime)).getDateDiff()
+            return item
+          })
         }
       })
     },
@@ -174,8 +194,17 @@ export default {
       addComment({
         content: this.content,
         id: this.detail.documentationId
+      }).then(res => {
+        if(res.data.code === 0){
+          this.getComm()
+        }
       })
+    },
+    clearStatus() {  //清空所有标记状态
+      this.switcher = false  //控制评论图标展示
+      this.Drawer = false  //控制评论详情区
+      this.commentsLoading = false  //评论区loading
     }
-  }
+  },
 }
 </script>
