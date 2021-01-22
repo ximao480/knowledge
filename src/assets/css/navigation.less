@@ -20,6 +20,42 @@
       
       .search{
         margin-right: 16px;
+
+        .searchItem{
+          height: 25px;
+          display: flex;
+          align-items: center;
+          padding: 0 10px;
+          cursor: pointer;
+
+          &:hover{
+            background: #eeecec;
+          }
+          >div{
+            display: flex;
+            align-items: center;
+          }
+          p{
+            line-height: 16px;
+            display: inline-block;
+            em{
+              color: rgb(57, 57, 224);
+            }
+          }
+          span{
+            width: 16px;
+            height: 16px;
+            background: url('../../assets/css/img/zTreeStandard.png');
+            display: inline-block;
+            margin-right: 8px;
+          }
+          .file{
+            background-position: -110px -32px;
+          }
+          .folder{
+            background-position: -110px 0;
+          }
+        }
       }
       
       .help{

@@ -7,7 +7,7 @@
       <p class="directory">目录</p>
     </div>
     <div class="TreeContent">
-      <treeMD ref="zTree" :z-nodes="treeDatas" @clickTreeNode="selectedTree" />
+      <treeMD ref="zTree" :z-nodes="treeDatas"  @clickTreeNode="selectedTree" />
     </div>
   </div>
 </template>
@@ -19,7 +19,8 @@ export default {
     treeMD,
   },
   data() {
-    return {};
+    return {
+    };
   },
   props: {
     treeDatas: {

@@ -19,6 +19,7 @@ Vue.prototype.$network = network;
 
 Vue.config.productionTip = false;
 
+
 // (window as any).vm = new Vue({
 //   router,
 //   store,
@@ -34,8 +35,8 @@ const appOptions = {
 
 // 支持应用独立运行、部署，不依赖于基座应用
 if (!(window as any).singleSpaNavigate) {
-  delete appOptions.el
-  new Vue(appOptions).$mount('#app')
+  delete appOptions.el;
+  (window as any).vm = new Vue(appOptions).$mount('#app')
 }
 
 // 基于基座应用，导出生命周期函数

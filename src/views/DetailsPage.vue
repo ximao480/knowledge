@@ -38,14 +38,14 @@ export default {
   methods: {
     expandNode(){//根据ID展开当前节点并聚焦
       const ID=290
-       window.zTree.expandNode(ID)
+      window.zTree.expandNode(ID)
     },
     selectedTree(selected) {
       //处理点击输查询接口逻辑
       // selected：当前点击节点数据
       window.cancle();
       getDocumentation({
-        id: selected.ID,
+        id: selected.id,
         type: selected.type,
       })
         .then((res) => {
@@ -80,5 +80,7 @@ export default {
   created() {
     this.getTrees();
   },
+  mounted() {
+  }
 };
 </script>

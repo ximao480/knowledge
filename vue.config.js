@@ -21,10 +21,17 @@ module.exports = {
   },
   devServer: {
     proxy: {
-      '/p/cs': {
-        target: 'http://yapi.dev.syman.cn/mock/268',
+      // '/p/cs': {
+      //   target: 'http://192.168.5.133:8081',
+      //   pathRewrite: {
+      //     '^/p/cs': '/p/cs',
+      //   },
+      //   changeOrigin: true,
+      // },
+      '/p/c': {
+        target: 'http://192.168.5.133:8081',
         pathRewrite: {
-          '^/p/cs': '/p/cs',
+          '^/p/c': '/p/c',
         },
         changeOrigin: true,
       },
