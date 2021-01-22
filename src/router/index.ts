@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
-    path: '/',
+    path: '/:id?',
     name: 'DetailsPage',
     component: DetailsPage,
   }
@@ -14,7 +14,7 @@ const routes: Array<RouteConfig> = [
 
 const router = new VueRouter({
   mode: 'history',
-  base: '/workbench',
+  base: '/knowledge',
   routes,
 });
 

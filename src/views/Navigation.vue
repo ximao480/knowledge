@@ -8,12 +8,11 @@
             <Icon type="ios-search" slot="prefix" />
           </Input> -->
           <AutoComplete
-            v-model="query"
             icon="ios-search"
             placeholder="搜索知识页、知识本、知识库"
             style="width:260px"
             clearable
-            @on-search="searchArticle"
+            @on-change="searchArticle"
           >
             <div class="searchItem" v-for="(item,index) in articleLists" :key="index" @click="articleJump(item)">
               <div>
@@ -48,14 +47,15 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      query: null, //模糊搜索字段
       articleLists:[],  //模糊列表
     }
   },
   methods:{
-    searchArticle() {  //文件模糊搜索
-      let query = this.query
+    searchArticle(query) {  //文件模糊搜索
+
       if(!query){
+        let AutoComplete = this.$_live_getChildComponent(window.vm,'AutoComplete')
+        AutoComplete.currentValue = ''
         this.articleLists = []
         return
       }
@@ -77,6 +77,11 @@ export default {
     articleJump(item) {  //文件跳转
       let tree = this.$_live_getChildComponent(window.vm,'treeMD')
       tree.expandNode(Number(item.type) === 1?Number(item.mind_id):Number(item.folder_id))
+      var e = document.createEvent("MouseEvents");
+      e.initEvent("click", true, true);
+      document.getElementsByTagName("body")[0].dispatchEvent(e);
+      let AutoComplete = this.$_live_getChildComponent(window.vm,'AutoComplete')
+      AutoComplete.currentValue = ''
     }
   }
 }

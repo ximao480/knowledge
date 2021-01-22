@@ -36,10 +36,6 @@ export default {
     };
   },
   methods: {
-    expandNode(){//根据ID展开当前节点并聚焦
-      const ID=290
-      window.zTree.expandNode(ID)
-    },
     selectedTree(selected) {
       //处理点击输查询接口逻辑
       // selected：当前点击节点数据
@@ -73,6 +69,16 @@ export default {
         this.detailsLoading = false;
         if (res.data.code === 0) {
           this.treeDatas = res.data.data
+
+
+          // 处理带默认文件时，默认打开携带的文件
+          if(this.$route.params.id){
+            this.$nextTick(() => {
+              let tree = this.$_live_getChildComponent(window.vm,'treeMD')
+              tree.expandNode(Number(this.$route.params.id))
+              window.history.pushState(null,null,'/')
+            })
+          }
         }
       });
     },

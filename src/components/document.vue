@@ -136,7 +136,7 @@
       </div>
     </header>
     <div class="content">
-      <p v-for="(item,index) in detail.subdirectory" :key="index">
+      <p v-for="(item,index) in detail.subdirectory" :key="index" @click="articleJump(item)">
         <a>{{item.title}}</a>
       </p>
     </div>
@@ -207,6 +207,10 @@ export default {
       this.switcher = false  //控制评论图标展示
       this.Drawer = false  //控制评论详情区
       this.commentsLoading = false  //评论区loading
+    },
+    articleJump(item) {  //文件跳转
+      let tree = this.$_live_getChildComponent(window.vm,'treeMD')
+      tree.expandNode(Number(item.id))
     }
   },
 }

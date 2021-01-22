@@ -72,17 +72,19 @@ export default {
       treeObj.expandNode(getParentNode, true, false, true); //需根据父节点ID进行展开
       node.highlight = true;//设置高亮属性
       treeObj.updateNode(node);//更新当前节点
+      this.$emit("clickTreeNode", node);
     },
-     getFontCss(treeId, treeNode) {
-       //当前节点增加highlight：true 则高亮显示
-			return (!!treeNode.highlight) ? {'font-weight': '500', background:'rgb(240 247 253)',width:'100%'} : {color:"red", "font-weight":"normal"};
-		 },
+    getFontCss(treeId, treeNode) {
+      //当前节点增加highlight：true 则高亮显示
+    return (!!treeNode.highlight) ? {'font-weight': '500', background:'rgb(240 247 253)',width:'100%'} : {color:"red", "font-weight":"normal"};
+    },
     beforeClick(treeId, treeNode) {
-      if (treeNode.isParent) {
-        return true;
-      } else {
-        this.$emit("clickTreeNode", treeNode);
-      }
+      // if (treeNode.isParent) {
+      //   return true;
+      // } else {
+      //   this.$emit("clickTreeNode", treeNode);
+      // }
+      this.$emit("clickTreeNode", treeNode);
     },
   },
   mounted() {
