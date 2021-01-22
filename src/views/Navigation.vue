@@ -8,6 +8,7 @@
             <Icon type="ios-search" slot="prefix" />
           </Input> -->
           <AutoComplete
+            v-model="query"
             icon="ios-search"
             placeholder="搜索知识页、知识本、知识库"
             style="width:260px"
@@ -47,11 +48,17 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      articleLists:[]
+      query: null, //模糊搜索字段
+      articleLists:[],  //模糊列表
     }
   },
   methods:{
-    searchArticle(query) {  //文件模糊搜索
+    searchArticle() {  //文件模糊搜索
+      let query = this.query
+      if(!query){
+        this.articleLists = []
+        return
+      }
       window.cancle();
       queryList({
           content: query
@@ -68,9 +75,7 @@ export default {
       });
     },
     articleJump(item) {  //文件跳转
-      console.log(item)
       let tree = this.$_live_getChildComponent(window.vm,'treeMD')
-      console.log(tree)
       tree.expandNode(Number(item.type) === 1?Number(item.mind_id):Number(item.folder_id))
     }
   }

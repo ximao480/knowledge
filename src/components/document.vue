@@ -81,8 +81,9 @@
               <div>
                 <div class="title">
                   <div>
-                    <span>
-                      <img :src="item.avatar" alt="">
+                    <span class="img">
+                      <img v-if="item.avatar" :src="item.avatar" alt="">
+                      <span v-else>{{item.userName.split('')[0]}}</span>
                     </span>
                     <span class="fvlLNV">
                       {{item.userName}}
@@ -180,7 +181,9 @@ export default {
     getComm() {  //获取评论
       this.commentsLoading = true
       this.content = null
-      getComment(this.detail.ID).then(res => {
+      getComment({
+        id: this.detail.documentationId
+      }).then(res => {
         this.commentsLoading = false
         if(res.data.code === 0){
           this.commentLists = res.data.data.map(item => {

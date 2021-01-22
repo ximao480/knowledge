@@ -36,14 +36,12 @@ export default {
           key: {
             children: "children",
             name: "title",
-            tId: "ID", // 树节点ID名称
           },
           simpleData: {
             enable: true,
-            idKey: "ID", // 树节点ID名称
+            idKey: "id", // 树节点ID名称
             pIdKey: "pId", // 父节点ID名称
 
-            tId: "ID", // 树节点ID名称
           },
         },
       },
@@ -69,7 +67,7 @@ export default {
       //当前节点ID
 
       var treeObj = $.fn.zTree.getZTreeObj("treeDemo");//获取zTree根节点
-      var node = treeObj.getNodeByParam("ID", ID);//根据ID获取子节点数据
+      var node = treeObj.getNodeByParam("id", ID);//根据ID获取子节点数据
       const getParentNode = node.getParentNode();//根据子节点获取父节点
       treeObj.expandNode(getParentNode, true, false, true); //需根据父节点ID进行展开
       node.highlight = true;//设置高亮属性
