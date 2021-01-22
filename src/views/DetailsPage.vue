@@ -41,7 +41,7 @@ export default {
       // selected：当前点击节点数据
       window.cancle();
       getDocumentation({
-        id: selected.id,
+        id: selected.businessId,
         type: selected.type,
       })
         .then((res) => {

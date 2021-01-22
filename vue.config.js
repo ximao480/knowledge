@@ -29,7 +29,7 @@ module.exports = {
       //   changeOrigin: true,
       // },
       '/p/c': {
-        target: 'http://192.168.5.133:8081',
+        target: 'http://192.168.4.92:8081',
         pathRewrite: {
           '^/p/c': '/p/c',
         },

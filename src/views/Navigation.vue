@@ -18,8 +18,9 @@
               <div>
                 <span class="file" v-if="Number(item.type) === 1 "></span>
                 <span v-else class="folder"></span>
-                <p v-html="item.content"></p>
+                <p v-html="item.title"></p>
               </div>
+              <p v-html="item.content"></p>
             </div>
           </AutoComplete>
         </div>

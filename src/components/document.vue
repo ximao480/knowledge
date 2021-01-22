@@ -209,8 +209,9 @@ export default {
       this.commentsLoading = false  //评论区loading
     },
     articleJump(item) {  //文件跳转
+      console.log(item)
       let tree = this.$_live_getChildComponent(window.vm,'treeMD')
-      tree.expandNode(Number(item.id))
+      tree.expandNode(item.id)
     }
   },
 }
