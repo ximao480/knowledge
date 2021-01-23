@@ -4,7 +4,7 @@ const CancelToken = axios.CancelToken;
 
 axios.interceptors.request.use((config) => {
   if(!process.env.VUE_APP_PERMISSION){
-    config.url = `/arkshare-app${config.url}`
+    config.url = `/community-app${config.url}`
   }
 
   config.cancelToken = new axios.CancelToken(cancel => {

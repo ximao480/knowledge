@@ -16,11 +16,14 @@
           >
             <div class="searchItem" v-for="(item,index) in articleLists" :key="index" @click="articleJump(item)">
               <div>
-                <span class="file" v-if="Number(item.type) === 1 "></span>
-                <span v-else class="folder"></span>
-                <p v-html="item.title"></p>
+                <div>
+                  <span class="file" v-if="Number(item.type) === 1 "></span>
+                  <span v-else class="folder"></span>
+                  <p v-html="item.title"></p>
+                </div>
+                <p class="file" v-html="item.content"></p>
               </div>
-              <p v-html="item.content"></p>
+
             </div>
           </AutoComplete>
         </div>
@@ -55,7 +58,7 @@ export default {
     searchArticle(query) {  //文件模糊搜索
 
       if(!query){
-        let AutoComplete = this.$_live_getChildComponent(window.vm,'AutoComplete')
+        let AutoComplete = this.$_live_getChildComponent(window.basevm,'AutoComplete')
         AutoComplete.currentValue = ''
         this.articleLists = []
         return
@@ -76,12 +79,12 @@ export default {
       });
     },
     articleJump(item) {  //文件跳转
-      let tree = this.$_live_getChildComponent(window.vm,'treeMD')
-      tree.expandNode(Number(item.type) === 1?Number(item.mind_id):Number(item.folder_id))
+      let tree = this.$_live_getChildComponent(window.basevm,'treeMD')
+      tree.expandNode(item.only_id)
       var e = document.createEvent("MouseEvents");
       e.initEvent("click", true, true);
       document.getElementsByTagName("body")[0].dispatchEvent(e);
-      let AutoComplete = this.$_live_getChildComponent(window.vm,'AutoComplete')
+      let AutoComplete = this.$_live_getChildComponent(window.basevm,'AutoComplete')
       AutoComplete.currentValue = ''
     }
   }

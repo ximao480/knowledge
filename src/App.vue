@@ -77,5 +77,6 @@ html,body{
   height: 100%;
   color: #2c3e50;
   overflow: hidden;
+  background: white;
 }
 </style>

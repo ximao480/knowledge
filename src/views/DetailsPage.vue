@@ -74,7 +74,7 @@ export default {
           // 处理带默认文件时，默认打开携带的文件
           if(this.$route.params.id){
             this.$nextTick(() => {
-              let tree = this.$_live_getChildComponent(window.vm,'treeMD')
+              let tree = this.$_live_getChildComponent(window.basevm,'treeMD')
               tree.expandNode(Number(this.$route.params.id))
               window.history.pushState(null,null,'/')
             })

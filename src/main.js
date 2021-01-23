@@ -2,8 +2,7 @@ import { navigateToUrl } from 'single-spa'
 import Vue from 'vue'
 import App from './App.vue'
 
-import bus from './utils/bus.js'
-Vue.prototype.$bus=bus
+
 
 Vue.config.productionTip = false
 // new Vue({
