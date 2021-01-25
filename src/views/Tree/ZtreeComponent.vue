@@ -68,7 +68,6 @@ export default {
 
       var treeObj = $.fn.zTree.getZTreeObj("treeDemo"); //获取zTree根节点
       if (this.activeID && this.activeID != ID) {
-        debugger;
         //清除上一次搜索选中的记录
         var lastNode = treeObj.getNodeByParam("id", this.activeID); //根据ID获取子节点数据
         this.updateNodes(lastNode, false, treeObj);
