@@ -19,7 +19,7 @@ export default {
         },
         view: {
           selectedMulti: false,
-          showIcon: true,
+          showIcon: false,
           nameIsHTML: true,
           dblClickExpand: false,
           showLine: false,
