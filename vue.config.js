@@ -35,10 +35,10 @@ module.exports = {
       //   },
       //   changeOrigin: true,
       // },
-      '/p/c': {
+      '/p/cs': {
         target: 'http://192.168.43.199:8081',
         pathRewrite: {
-          '^/p/c': '/p/c',
+          '^/p/cs': '/p/cs',
         },
         changeOrigin: true,
       },
