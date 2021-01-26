@@ -79,7 +79,15 @@
       display: flex;
       align-items: center;
 
-      >span{
+      .ark-poptip-body {
+        padding: 0;
+      }
+      .ark-poptip-popper {
+        min-width: auto;
+      }
+
+      .updateTime,
+      .readNumber{
         display: flex;
         align-items: center;
         margin-right: 20px;
@@ -87,6 +95,49 @@
         >i{
           margin-right: 5px;
         }
+      }
+      .readNumber:hover {
+        cursor: pointer;
+      }
+
+      .reader-list {
+        margin: 10px;
+        max-width: 200px;
+        overflow-x: auto;
+      }
+      .reader-info {
+        display: inline-block;
+        margin-right: 14px;
+        width: 40px;
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+      .reader-avatar {
+        border-radius: 50%;
+        height: 40px;
+        text-align: center;
+        border-radius: 50%;
+        line-height: 40px;
+        font-size: 24px;
+        font-weight: bold;
+        color: #fff;
+        background: rgb(11,132,251);
+        > img {
+          vertical-align: top;
+          border-radius: 50%;
+          width: 100%;
+          height: 40px;
+        }
+      }
+      .reader-name {
+        width: 40px;
+        text-align: center;
+        margin-top: 8px;
+        font-size: 12px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
       }
     }
 
@@ -308,6 +359,14 @@
         justify-content: center;
         font-size: 18px;
         font-weight: 500;
+
+        >span{
+          display: inline-block;
+          width: 5px;
+          background: #4093F7;
+          height: 18px;
+          margin-right: 10px;
+        }
       }
     }
 

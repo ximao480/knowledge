@@ -14,6 +14,49 @@
     width: 100%;
     box-shadow: rgba(25, 31, 37, 0.1) 0px 2px 4px 0px;
 
+    .ark-select-dropdown{
+      max-width: 260px;
+    }
+
+    .left{
+      .header {
+        line-height: 52px;
+        // height: 86px;
+        font-size: 18px;
+        font-weight: bold;
+        padding-left: 3px;
+        display: flex;
+        flex-direction: column;
+        // padding: 24px 0 0 25px;
+        .listicon {
+          width: 12px;
+          height: 12px;
+        }
+        span {
+          margin-left: 10px;
+          width: 46px;
+          height: 14px;
+          font-size: 14px;
+          font-family: SourceHanSansCN-Bold, SourceHanSansCN;
+          font-weight: bold;
+          color: #3e3e3e;
+          line-height: 21px;
+        }
+        .iconios-list {
+          background: rgb(55, 141, 247);
+        }
+        // .iconmd-person {
+        //   color: rgb(55, 138, 247);
+        // }
+        .directory {
+          background: rgb(172, 176, 180);
+          width: 21px;
+          height: 1px;
+          margin-top: 22px;
+        }
+      }
+    }
+
     .right{
       display: flex;
       align-items: center;
@@ -21,46 +64,84 @@
       .search{
         margin-right: 16px;
 
+        .ark-select-dropdown{
+          padding: 0;
+          margin: 0;
+        }
+
         .searchItem{
           display: flex;
           align-items: center;
-          padding: 0 10px;
+          // padding: 5px 10px;
           cursor: pointer;
           margin-bottom: 4px;
+          border-bottom: 1px solid #dedede;
 
-          &:hover{
-            background: #eeecec;
-          }
-          >div{
-            display: flex;
-            flex-direction: column;
-          }
-
-          
-          p{
-            line-height: 20px;
-            display: inline-block;
-            em{
-              color: #c51028;
+          .ark-select-item{
+            padding: 5px 10px;
+            &:hover,&:active{
+              background: #eeecec;
             }
           }
 
-          p.file{
-            padding-left: 22px;
+
+          &:last-child{
+            border: none;
+            margin-bottom: 0;
           }
-          span{
-            width: 16px;
-            height: 16px;
-            background: url('../../assets/css/img/zTreeStandard.png');
-            display: inline-block;
-            margin-right: 8px;
+          
+          &:hover{
+            background: #eeecec;
           }
-          .file{
-            background-position: -110px -32px;
+          >.ark-select-item{
+            width: 100%;
+
+            >div{
+              display: flex;
+              flex-direction: column;
+              width: 100%;
+            }
+  
+            
+            p{
+              line-height: 20px;
+              display: inline-block;
+              overflow: hidden;
+              width: 100%;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              em{
+                color: #c51028;
+              }
+            }
+
+            p.fold{
+              font-size: 14px;
+              font-weight: bold;
+              color: #3e3b3b;
+            }
+  
+            p.file{
+              padding-left: 22px;
+              // height: 20px;
+            }
+            span{
+              width: 16px;
+              height: 16px;
+              background: url('../../assets/css/img/zTreeStandard.png');
+              display: inline-block;
+              margin-right: 8px;
+              margin-top: 2px;
+            }
+            .file{
+              background-position: -110px -32px;
+            }
+            .folder{
+              background-position: -110px 0;
+            }
           }
-          .folder{
-            background-position: -110px 0;
-          }
+          
+          
         }
       }
       
@@ -69,7 +150,9 @@
         li{
           display: flex;
           align-items: center;
+          margin-bottom: 4px;
           cursor: pointer;
+
           span{
             margin-left: 16px;
           }

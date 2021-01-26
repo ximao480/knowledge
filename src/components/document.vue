@@ -31,10 +31,23 @@
           <i class="iconfont iconios-time-outline"></i>
           {{detail.updateTime}}更新
         </span>
-        <span class="readNumber">
-          <i class="iconfont iconpublic"></i>
-          {{detail.readerNumber}}人阅读
-        </span>
+        <Poptip trigger="hover">
+          <!-- <Button>Click</Button> -->
+          <span class="readNumber">
+            <i class="iconfont iconpublic"></i>
+            {{detail.readerNumber}}人阅读
+          </span>
+          <div slot="content" class="reader-list">
+            <div v-for="(user, index) in detail.readerDTOList" :key="index" class="reader-info">
+              <div class="reader-avatar">
+                <img :src="user.readTheDingAvatar" alt="" v-if="user.readTheDingAvatar">
+                <span v-else>{{user.readTheName.substring(0,1)}}</span>
+              </div>
+              <div class="reader-name" :title="user.readTheName">{{user.readTheName}}</div>
+            </div>
+          </div>
+        </Poptip>
+
       </p>
 
       <!-- 评论按钮 -->
@@ -44,7 +57,7 @@
             <i class="iconfont iconios-arrow-back"></i>
           </div>
           <div class="hJVDku" v-show="switcher">
-            <Tooltip :content="`评论(${detail.commentsNumber})`" placement="top">
+            <Tooltip :content="`评论(${detail.commentsNumber})`" placement="left">
               <span @click="Drawer = true;getComm()">
                 <i class="iconfont iconmd-text"></i>
               </span>
@@ -74,7 +87,7 @@
             <i class="iconfont iconbj_delete2" @click="Drawer = false"></i>
           </p>
           <p class="fresh">
-            <i class="iconfont iconios-refresh"></i>
+            <i class="iconfont iconios-refresh" @click="getComm"></i>
           </p>
           <div class="comment">
             <div class="commentItem" v-for="(item,index) in commentLists" :key="index">
@@ -130,8 +143,9 @@
 
   </div>
   <div class="document directory" v-else>
-    <header>
+    <header v-if="detail.title">
       <div>
+        <span></span>
         {{detail.title}}
       </div>
     </header>
@@ -145,73 +159,88 @@
 <script>
 import { getComment, addComment } from '../utils/api';
 import DateUtil from '../utils/dateApi';
+import { DispatchEvent } from '../utils/dispatchEvent';
+
 export default {
-  props:{
-    detail:{
+  props: {
+    detail: {
       type: Object,
-      default:{}
-    }
+      default: {},
+    },
   },
   data() {
     return {
-      switcher: false,  //控制评论图标展示
-      Drawer: false,  //控制评论详情区
-      commentLists:[],  //评论数据
+      switcher: false, // 控制评论图标展示
+      Drawer: false, // 控制评论详情区
+      commentLists: [], // 评论数据
       content: null, // 新增评论内容
 
-      commentsLoading: false,  //评论区loading
-    }
+      commentsLoading: false, // 评论区loading
+    };
   },
-  methods:{
-    copyUrl() {  //复制链接
-      var input = document.createElement('input');
+  methods: {
+    copyUrl() { // 复制链接
+      let url = window.location.href
+      if(!this.$route.params.id){
+        url = window.location.href.endsWith('/')?`${url}${this.detail.onlyId}`:`${url}/${this.detail.onlyId}`
+      }
+      const input = document.createElement('input');
       input.setAttribute('readonly', 'readonly'); // 防止手机上弹出软键盘
-      input.setAttribute('value', window.location.href);
+      input.setAttribute('value', url);
       document.body.appendChild(input);
       input.select();
-      var res = document.execCommand('copy');
+      const res = document.execCommand('copy');
       document.body.removeChild(input);
+      this.$Message.success({
+                    content: '复制成功'
+                });
     },
-    fullScreen() {  //全屏展示
-      this.$refs.md.toolbar_right_click('read')
+    fullScreen() { // 全屏展示
+      this.$refs.md.toolbar_right_click('read');
     },
-    navigationToggle() { //切换大纲
-      this.$refs.md.toolbar_right_click('navigation')
+    navigationToggle() { // 切换大纲
+      this.$refs.md.toolbar_right_click('navigation');
     },
-    getComm() {  //获取评论
-      this.commentsLoading = true
-      this.content = null
+    getComm() { // 获取评论
+      this.commentsLoading = true;
+      this.content = null;
       getComment({
-        id: this.detail.documentationId
-      }).then(res => {
-        this.commentsLoading = false
-        if(res.data.code === 0){
-          this.commentLists = res.data.data.map(item => {
-            item.createTime = new DateUtil(new Date(item.createTime)).getDateDiff()
-            return item
-          })
+        id: this.detail.documentationId,
+      }).then((res) => {
+        this.commentsLoading = false;
+        if (res.data.code === 0) {
+          this.commentLists = res.data.data.map((item) => {
+            item.createTime = new DateUtil(new Date(item.createTime)).getDateDiff();
+            return item;
+          });
         }
-      })
+      });
     },
-    commentPublish() {  //新增评论
+    commentPublish() { // 新增评论
       addComment({
         content: this.content,
-        id: this.detail.documentationId
-      }).then(res => {
-        if(res.data.code === 0){
-          this.getComm()
+        id: this.detail.documentationId,
+      }).then((res) => {
+        if (res.data.code === 0) {
+          this.getComm();
         }
-      })
+      });
     },
-    clearStatus() {  //清空所有标记状态
-      this.switcher = false  //控制评论图标展示
-      this.Drawer = false  //控制评论详情区
-      this.commentsLoading = false  //评论区loading
+    clearStatus() { // 清空所有标记状态
+      this.switcher = false; // 控制评论图标展示
+      this.Drawer = false; // 控制评论详情区
+      this.commentsLoading = false; // 评论区loading
     },
-    articleJump(item) {  //文件跳转
-      let tree = this.$_live_getChildComponent(window.basevm,'treeMD')
-      tree.expandNode(item.id)
-    }
+    articleJump(item) { // 文件跳转
+      const tree = this.$_live_getChildComponent(window.basevm, 'treeMD');
+      tree.expandNode(item.id);
+    },
+    articleJump(item) { // 文件跳转
+      // let tree = this.$_live_getChildComponent(window.knowledgevm,'treeMD')
+      DispatchEvent('treeTriger', {
+        detail: item.id,
+      });
+    },
   },
-}
+};
 </script>

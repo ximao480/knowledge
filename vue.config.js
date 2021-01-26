@@ -28,22 +28,22 @@ module.exports = {
   },
   devServer: {
     proxy: {
-      // '/p/cs': {
-      //   target: 'http://192.168.5.133:8081',
+      // '/p/c': {
+      //   target: 'http://192.168.4.92:8081',
       //   pathRewrite: {
-      //     '^/p/cs': '/p/cs',
+      //     '^/p/c': '/p/c',
       //   },
       //   changeOrigin: true,
       // },
       '/p/cs': {
-        target: 'http://syamn-r3-knowledge.dev.burgeononline.com/',
+        target: 'http://ark-share-base.dev.burgeononline.com/',
         pathRewrite: {
           '^/p/cs': '/p/cs',
         },
         changeOrigin: true,
       },
       '/ad-app': {
-        target: 'http://syamn-r3-knowledge.dev.burgeononline.com/',
+        target: 'http://ark-share-base.dev.burgeononline.com/',
         pathRewrite: {
           '^/ad-app': '/ad-app',
         },

@@ -1,14 +1,13 @@
 <template>
   <div class="mdTree">
-    <div class="header">
+    <!-- <div class="header">
       <div>
-        <!-- <i class="iconfont iconbianzu" title="设置" /> -->
         <img class="listicon" :src="img" />
         <span>R3框架</span>
       </div>
 
       <div class="directory"></div>
-    </div>
+    </div> -->
     <div class="TreeContent">
       <treeMD ref="zTree" :z-nodes="treeDatas" @clickTreeNode="selectedTree" />
     </div>
@@ -42,7 +41,7 @@ export default {
 <style lang="less" scoped>
 .mdTree {
   color: rgba(0, 0, 0, 0.8);
-  width: 240px;
+  width: 100%;
   border-right: 1px solid rgb(237, 237, 238);
   height: 100%;
   overflow: auto;
@@ -85,6 +84,10 @@ export default {
 
   .TreeContent {
     // padding: 0 10px 0 10px;
+
+    >div{
+      margin-top: 10px;
+    }
   }
 }
 </style>
