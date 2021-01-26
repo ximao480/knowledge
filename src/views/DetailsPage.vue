@@ -17,11 +17,12 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
-import tree from './Tree/Tree';
-import document from '../components/document';
-import { getDirectory, getDocumentation } from '../utils/api';
-import DateUtil from '../utils/dateApi';
+import tree from "./Tree/Tree";
+import document from "../components/document";
+import { getDirectory, getDocumentation } from "../utils/api";
+import DateUtil from "../utils/dateApi";
+import axios from "axios";
+import { DispatchEvent } from '../utils/dispatchEvent'
 // import jsonData from "../../static/js/ztree/treeData.json";
 export default {
   components: {
@@ -73,10 +74,14 @@ export default {
           // 处理带默认文件时，默认打开携带的文件
           if (this.$route.params.id) {
             this.$nextTick(() => {
-              const tree = this.$_live_getChildComponent(window.basevm, 'treeMD');
-              tree.expandNode(Number(this.$route.params.id));
-              window.history.pushState(null, null, '/');
-            });
+              // let tree = this.$_live_getChildComponent(window.knowledgevm,'treeMD')
+              // tree.expandNode(Number(this.$route.params.id))
+              DispatchEvent('treeTriger',{
+                detail: this.$route.params.id
+              })
+              window.history.pushState(null,null,'/')
+
+            })
           }
         }
       });

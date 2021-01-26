@@ -56,7 +56,7 @@
             <i class="iconfont iconios-arrow-back"></i>
           </div>
           <div class="hJVDku" v-show="switcher">
-            <Tooltip :content="`评论(${detail.commentsNumber})`" placement="top">
+            <Tooltip :content="`评论(${detail.commentsNumber})`" placement="left">
               <span @click="Drawer = true;getComm()">
                 <i class="iconfont iconmd-text"></i>
               </span>
@@ -86,7 +86,7 @@
             <i class="iconfont iconbj_delete2" @click="Drawer = false"></i>
           </p>
           <p class="fresh">
-            <i class="iconfont iconios-refresh"></i>
+            <i class="iconfont iconios-refresh" @click="getComm"></i>
           </p>
           <div class="comment">
             <div class="commentItem" v-for="(item,index) in commentLists" :key="index">
@@ -157,7 +157,7 @@
 <script>
 import { getComment, addComment } from '../utils/api';
 import DateUtil from '../utils/dateApi';
-
+import { DispatchEvent } from '../utils//dispatchEvent';
 export default {
   props: {
     detail: {
@@ -184,6 +184,8 @@ export default {
       input.select();
       const res = document.execCommand('copy');
       document.body.removeChild(input);
+
+
     },
     fullScreen() { // 全屏展示
       this.$refs.md.toolbar_right_click('read');
@@ -225,6 +227,13 @@ export default {
       const tree = this.$_live_getChildComponent(window.basevm, 'treeMD');
       tree.expandNode(item.id);
     },
+    articleJump(item) {  //文件跳转
+      // let tree = this.$_live_getChildComponent(window.knowledgevm,'treeMD')
+      DispatchEvent('treeTriger',{
+        detail:item.id
+      })
+
+    }
   },
 };
 </script>

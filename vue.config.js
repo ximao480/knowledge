@@ -36,16 +36,16 @@ module.exports = {
       //   changeOrigin: true,
       // },
       '/p/cs': {
-        target: 'http://syamn-r3-knowledge.dev.burgeononline.com/',
+        target: 'http://ark-share-base.dev.burgeononline.com/',
         pathRewrite: {
           '^/p/cs': '/p/cs',
         },
         changeOrigin: true,
       },
       '/ad-app': {
-        target: 'http://syamn-r3-knowledge.dev.burgeononline.com/',
+        target: 'http://ark-share-base.dev.burgeononline.com/',
         pathRewrite: {
-          '/ad-app': '/ad-app',
+          '^/ad-app': '/ad-app',
         },
         changeOrigin: true,
       },

@@ -11,18 +11,23 @@
             icon="ios-search"
             placeholder="搜索知识页、知识本、知识库"
             style="width:260px"
+            ref="AutoComplete"
             clearable
             @on-change="searchArticle"
+            @on-select="selectJump"
           >
             <div class="searchItem" v-for="(item,index) in articleLists" :key="index" @click="articleJump(item)">
-              <div>
+
+              <Option :value="item.only_id" :key="item.only_id">
                 <div>
-                  <span class="file" v-if="Number(item.type) === 1 "></span>
-                  <span v-else class="folder"></span>
-                  <p v-html="item.title"></p>
+                  <div style="display:flex">
+                    <span class="file" v-if="Number(item.type) === 1 "></span>
+                    <span v-else class="folder"></span>
+                    <p v-html="item.title"></p>
+                  </div>
+                  <p class="file" v-html="item.content"></p>
                 </div>
-                <p class="file" v-html="item.content"></p>
-              </div>
+              </Option>
 
             </div>
           </AutoComplete>
@@ -33,13 +38,34 @@
 
             <div slot="content">
               <ul>
-                <li>
-                  <i class="iconfont iconbj_calendar"></i>
+                <li @click="update">
+                  <svg
+                    class="icon"
+                    aria-hidden="true"
+                    fill="white"
+                    style="width: 14px; height: 14px"
+                  >
+                    <use xlink:href="#iconbj_calendar"></use></svg
+                  >
                   <span>更新日志</span>
+                </li>
+                <li
+                  @click="jumpCommunity"
+                >
+                  <svg
+                    class="icon"
+                    aria-hidden="true"
+                    fill="white"
+                    style="width: 14px; height: 14px"
+                  >
+                    <use xlink:href="#iconcommunity"></use></svg
+                  >
+                  <span>社区论坛</span>
                 </li>
               </ul>
             </div>
           </Poptip>
+
         </div>
       </div>
     </div>
@@ -48,6 +74,7 @@
 <script>
 import { queryList } from '../utils/api';
 import axios from 'axios';
+import { DispatchEvent } from '../utils/dispatchEvent'
 export default {
   data() {
     return {
@@ -58,8 +85,9 @@ export default {
     searchArticle(query) {  //文件模糊搜索
 
       if(!query){
-        let AutoComplete = this.$_live_getChildComponent(window.basevm,'AutoComplete')
-        AutoComplete.currentValue = ''
+        this.$refs.AutoComplete.currentValue = ''
+        // let AutoComplete = this.$_live_getChildComponent(window.knowledgevm,'AutoComplete')
+        // AutoComplete.currentValue = ''
         this.articleLists = []
         return
       }
@@ -78,14 +106,34 @@ export default {
         }
       });
     },
+    selectJump(value) {
+      if(value){
+        this.articleJump({
+          only_id: value
+        })
+      }
+
+    },
     articleJump(item) {  //文件跳转
-      let tree = this.$_live_getChildComponent(window.basevm,'treeMD')
-      tree.expandNode(item.only_id)
+    // console.log(window.knowledgevm)
+      // let tree = this.$_live_getChildComponent(window.knowledgevm,'treeMD')
+      // tree.expandNode(item.only_id)
+      DispatchEvent('treeTriger',{
+        detail:item.only_id
+      })
+
       var e = document.createEvent("MouseEvents");
       e.initEvent("click", true, true);
       document.getElementsByTagName("body")[0].dispatchEvent(e);
-      let AutoComplete = this.$_live_getChildComponent(window.basevm,'AutoComplete')
-      AutoComplete.currentValue = ''
+      this.$refs.AutoComplete.currentValue = ''
+    },
+    update() {  //更新日志
+      this.$Message.loading({
+                    content: '尽情期待'
+                });
+    },
+    jumpCommunity() {  //跳转到论坛
+      window.basevm.$router.push('/community/forumContent/Consulting/2')
     }
   }
 }

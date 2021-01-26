@@ -115,6 +115,11 @@ export default {
   mounted() {
     window.zTree = this;
     $.fn.zTree.init($("#treeDemo"), this.setting, this.zNodes);
+
+
+    window.addEventListener('treeTriger', (event) => {
+      this.expandNode(event.detail)
+    })
   },
 };
 </script>
