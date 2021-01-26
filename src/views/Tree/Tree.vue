@@ -1,14 +1,13 @@
 <template>
   <div class="mdTree">
-    <div class="header">
+    <!-- <div class="header">
       <div>
-        <!-- <i class="iconfont iconbianzu" title="设置" /> -->
         <img class="listicon" :src="img" />
         <span>R3框架</span>
       </div>
 
       <div class="directory"></div>
-    </div>
+    </div> -->
     <div class="TreeContent">
       <treeMD ref="zTree" :z-nodes="treeDatas" @clickTreeNode="selectedTree" />
     </div>

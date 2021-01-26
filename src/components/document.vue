@@ -143,8 +143,9 @@
 
   </div>
   <div class="document directory" v-else>
-    <header>
+    <header v-if="detail.title">
       <div>
+        <span></span>
         {{detail.title}}
       </div>
     </header>

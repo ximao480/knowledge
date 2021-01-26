@@ -81,7 +81,18 @@ export default {
                   detail: this.$route.params.id
                 })
                 window.history.pushState(null,null,'/')
-              },1000)
+              },200)
+
+            })
+          }else{
+            this.$nextTick(() => {
+              setTimeout(() => {
+                // let tree = this.$_live_getChildComponent(window.knowledgevm,'treeMD')
+                // tree.expandNode(Number(this.$route.params.id))
+                DispatchEvent('treeTriger',{
+                  detail: this.treeDatas[0].id
+                })
+              },200)
 
             })
           }

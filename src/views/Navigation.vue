@@ -1,7 +1,16 @@
 <template>
   <div class="navigation">
     <div class="content">
-      <div></div>
+      <div class="left">
+        <div class="header">
+          <div>
+            <img class="listicon" :src="img" />
+            <span>R3框架</span>
+          </div>
+
+          <!-- <div class="directory"></div> -->
+        </div>
+      </div>
       <div class="right">
         <div class="search">
           <!-- <Input placeholder="搜索知识页、知识本、知识库" style="width: 260px">
@@ -78,6 +87,7 @@ import { DispatchEvent } from '../utils/dispatchEvent'
 export default {
   data() {
     return {
+      img: require("../assets/img/list.png").default,
       articleLists:[],  //模糊列表
     }
   },
