@@ -88,10 +88,10 @@ export default {
       return treeNode.highlight
         ? {
             "font-weight": "500",
-            background: "rgb(240 247 253)",
+            background: "#E2EAF5",
             width: "100%",
           }
-        : { background: "#fff", color: "red", "font-weight": "normal" };
+        : { background: "#FAFAFA", color: "red", "font-weight": "normal" };
     },
     beforeClick(treeId, treeNode) {
       var treeObj = $.fn.zTree.getZTreeObj("treeDemo"); //获取zTree根节点

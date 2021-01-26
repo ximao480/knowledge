@@ -1,13 +1,15 @@
 <template>
   <div class="mdTree">
-
     <div class="header">
-      <i class="iconfont iconios-list" title="设置" />
-      <span>R3框架</span>
-      <p class="directory">目录</p>
+      <div>
+        <i class="iconfont iconbianzu" title="设置" />
+        <span>R3框架</span>
+      </div>
+
+      <div class="directory"></div>
     </div>
     <div class="TreeContent">
-      <treeMD ref="zTree" :z-nodes="treeDatas"  @clickTreeNode="selectedTree" />
+      <treeMD ref="zTree" :z-nodes="treeDatas" @clickTreeNode="selectedTree" />
     </div>
   </div>
 </template>
@@ -19,8 +21,7 @@ export default {
     treeMD,
   },
   data() {
-    return {
-    };
+    return {};
   },
   props: {
     treeDatas: {
@@ -38,34 +39,40 @@ export default {
 </script>
 <style lang="less" scoped>
 .mdTree {
+
   color: rgba(0, 0, 0, 0.8);
   width: 240px;
   border-right: 1px solid rgb(237, 237, 238);
   height: 100%;
-  overflow: scroll;
+  overflow: auto;
+  background: #fafafa;
   .header {
-    height: 88px;
-    line-height: 60px;
-    font-size: 16px;
+    height: 86px;
+    font-size: 18px;
     font-weight: bold;
-    padding-left: 18px;
-    overflow: hidden;
+    padding-left: 25px;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 0 0 25px;
+    span {
+      margin-left: 10px;
+    }
     .iconios-list {
-      color: rgb(55, 141, 247);
+      background: rgb(55, 141, 247);
     }
-    .iconmd-person {
-      color: rgb(55, 138, 247);
-    }
+    // .iconmd-person {
+    //   color: rgb(55, 138, 247);
+    // }
     .directory {
-      font-size: 14px;
-      color: rgb(172, 176, 180);
-      height: 24px;
-      line-height: 14px;
+      background: rgb(172, 176, 180);
+      width: 21px;
+      height: 1px;
+      margin-top: 22px;
     }
   }
 
   .TreeContent {
-    padding: 0 10px 0 10px;
+    // padding: 0 10px 0 10px;
   }
 }
 </style>
