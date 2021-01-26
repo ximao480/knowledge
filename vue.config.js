@@ -28,24 +28,17 @@ module.exports = {
   },
   devServer: {
     proxy: {
-      '/ad-app': {
-        target: 'http://syamn-r3-knowledge.dev.burgeononline.com/',
-        pathRewrite: {
-          '^/ad-app': '/ad-app',
-        },
-        changeOrigin: true,
-      },
+      // '/p/cs': {
+      //   target: 'http://192.168.5.133:8081',
+      //   pathRewrite: {
+      //     '^/p/cs': '/p/cs',
+      //   },
+      //   changeOrigin: true,
+      // },
       '/p/cs': {
-        target: 'http://syamn-r3-knowledge.dev.burgeononline.com/',
+        target: 'http://192.168.43.199:8081',
         pathRewrite: {
           '^/p/cs': '/p/cs',
-        },
-        changeOrigin: true,
-      },
-      '/p/c': {
-        target: 'http://syamn-r3-knowledge.dev.burgeononline.com/',
-        pathRewrite: {
-          '^/p/c': '/p/c',
         },
         changeOrigin: true,
       },
