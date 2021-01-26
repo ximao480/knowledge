@@ -13,18 +13,18 @@ module.exports = {
   parallel: require('os').cpus().length > 1,
   configureWebpack: {
     // 导出umd格式的包，在全局对象上挂载属性package.name，基座应用需要通过这个全局对象获取一些信息，比如子应用导出的生命周期函数
-    output :{
+    output: {
       // library的值在所有子应用中需要唯一
       library: 'knowledge',
       libraryTarget: 'umd',
-    }
+    },
   },
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     config.module
       .rule('images')
       .use('url-loader')
       .loader('url-loader')
-      .tap(options => Object.assign(options, { limit: 200000 }))
+      .tap((options) => Object.assign(options, { limit: 200000 }));
   },
   devServer: {
     proxy: {
@@ -36,9 +36,16 @@ module.exports = {
       //   changeOrigin: true,
       // },
       '/p/cs': {
-        target: 'http://192.168.43.199:8081',
+        target: 'http://syamn-r3-knowledge.dev.burgeononline.com/',
         pathRewrite: {
           '^/p/cs': '/p/cs',
+        },
+        changeOrigin: true,
+      },
+      '/ad-app': {
+        target: 'http://syamn-r3-knowledge.dev.burgeononline.com/',
+        pathRewrite: {
+          '/ad-app': '/ad-app',
         },
         changeOrigin: true,
       },
@@ -47,11 +54,11 @@ module.exports = {
   css: {
     loaderOptions: {
       less: {
-        javascriptEnabled: true
-      }
-    }
+        javascriptEnabled: true,
+      },
+    },
   },
   publicPath: process.env.NODE_ENV === 'production'
     ? '/production-sub-path/'
-    : '/'
+    : '/',
 };

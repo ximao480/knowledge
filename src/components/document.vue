@@ -31,10 +31,22 @@
           <i class="iconfont iconios-time-outline"></i>
           {{detail.updateTime}}更新
         </span>
-        <span class="readNumber">
-          <i class="iconfont iconpublic"></i>
-          {{detail.readerNumber}}人阅读
-        </span>
+        <Poptip trigger="hover">
+          <!-- <Button>Click</Button> -->
+          <span class="readNumber">
+            <i class="iconfont iconpublic"></i>
+            {{detail.readerNumber}}人阅读
+          </span>
+          <div slot="content" class="reader-list">
+            <div v-for="(user, index) in detail.readerDTOList" :key="index" class="reader-info">
+              <div class="reader-avatar">
+                <img :src="user.readTheDingAvatar" alt="" v-if="user.readTheDingAvatar">
+              </div>
+              <div class="reader-name" :title="user.readTheName">{{user.readTheName}}</div>
+            </div>
+          </div>
+        </Poptip>
+
       </p>
 
       <!-- 评论按钮 -->
@@ -145,73 +157,74 @@
 <script>
 import { getComment, addComment } from '../utils/api';
 import DateUtil from '../utils/dateApi';
+
 export default {
-  props:{
-    detail:{
+  props: {
+    detail: {
       type: Object,
-      default:{}
-    }
+      default: {},
+    },
   },
   data() {
     return {
-      switcher: false,  //控制评论图标展示
-      Drawer: false,  //控制评论详情区
-      commentLists:[],  //评论数据
+      switcher: false, // 控制评论图标展示
+      Drawer: false, // 控制评论详情区
+      commentLists: [], // 评论数据
       content: null, // 新增评论内容
 
-      commentsLoading: false,  //评论区loading
-    }
+      commentsLoading: false, // 评论区loading
+    };
   },
-  methods:{
-    copyUrl() {  //复制链接
-      var input = document.createElement('input');
+  methods: {
+    copyUrl() { // 复制链接
+      const input = document.createElement('input');
       input.setAttribute('readonly', 'readonly'); // 防止手机上弹出软键盘
       input.setAttribute('value', window.location.href);
       document.body.appendChild(input);
       input.select();
-      var res = document.execCommand('copy');
+      const res = document.execCommand('copy');
       document.body.removeChild(input);
     },
-    fullScreen() {  //全屏展示
-      this.$refs.md.toolbar_right_click('read')
+    fullScreen() { // 全屏展示
+      this.$refs.md.toolbar_right_click('read');
     },
-    navigationToggle() { //切换大纲
-      this.$refs.md.toolbar_right_click('navigation')
+    navigationToggle() { // 切换大纲
+      this.$refs.md.toolbar_right_click('navigation');
     },
-    getComm() {  //获取评论
-      this.commentsLoading = true
-      this.content = null
+    getComm() { // 获取评论
+      this.commentsLoading = true;
+      this.content = null;
       getComment({
-        id: this.detail.documentationId
-      }).then(res => {
-        this.commentsLoading = false
-        if(res.data.code === 0){
-          this.commentLists = res.data.data.map(item => {
-            item.createTime = new DateUtil(new Date(item.createTime)).getDateDiff()
-            return item
-          })
+        id: this.detail.documentationId,
+      }).then((res) => {
+        this.commentsLoading = false;
+        if (res.data.code === 0) {
+          this.commentLists = res.data.data.map((item) => {
+            item.createTime = new DateUtil(new Date(item.createTime)).getDateDiff();
+            return item;
+          });
         }
-      })
+      });
     },
-    commentPublish() {  //新增评论
+    commentPublish() { // 新增评论
       addComment({
         content: this.content,
-        id: this.detail.documentationId
-      }).then(res => {
-        if(res.data.code === 0){
-          this.getComm()
+        id: this.detail.documentationId,
+      }).then((res) => {
+        if (res.data.code === 0) {
+          this.getComm();
         }
-      })
+      });
     },
-    clearStatus() {  //清空所有标记状态
-      this.switcher = false  //控制评论图标展示
-      this.Drawer = false  //控制评论详情区
-      this.commentsLoading = false  //评论区loading
+    clearStatus() { // 清空所有标记状态
+      this.switcher = false; // 控制评论图标展示
+      this.Drawer = false; // 控制评论详情区
+      this.commentsLoading = false; // 评论区loading
     },
-    articleJump(item) {  //文件跳转
-      let tree = this.$_live_getChildComponent(window.basevm,'treeMD')
-      tree.expandNode(item.id)
-    }
+    articleJump(item) { // 文件跳转
+      const tree = this.$_live_getChildComponent(window.basevm, 'treeMD');
+      tree.expandNode(item.id);
+    },
   },
-}
+};
 </script>
