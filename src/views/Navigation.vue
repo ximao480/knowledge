@@ -14,16 +14,20 @@
             ref="AutoComplete"
             clearable
             @on-change="searchArticle"
+            @on-select="selectJump"
           >
             <div class="searchItem" v-for="(item,index) in articleLists" :key="index" @click="articleJump(item)">
-              <div>
+
+              <Option :value="item.only_id" :key="item.only_id">
                 <div>
-                  <span class="file" v-if="Number(item.type) === 1 "></span>
-                  <span v-else class="folder"></span>
-                  <p v-html="item.title"></p>
+                  <div style="display:flex">
+                    <span class="file" v-if="Number(item.type) === 1 "></span>
+                    <span v-else class="folder"></span>
+                    <p v-html="item.title"></p>
+                  </div>
+                  <p class="file" v-html="item.content"></p>
                 </div>
-                <p class="file" v-html="item.content"></p>
-              </div>
+              </Option>
 
             </div>
           </AutoComplete>
@@ -34,13 +38,34 @@
 
             <div slot="content">
               <ul>
-                <li>
-                  <i class="iconfont iconbj_calendar"></i>
+                <li @click="update">
+                  <svg
+                    class="icon"
+                    aria-hidden="true"
+                    fill="white"
+                    style="width: 14px; height: 14px"
+                  >
+                    <use xlink:href="#iconbj_calendar"></use></svg
+                  >
                   <span>更新日志</span>
+                </li>
+                <li
+                  @click="jumpCommunity"
+                >
+                  <svg
+                    class="icon"
+                    aria-hidden="true"
+                    fill="white"
+                    style="width: 14px; height: 14px"
+                  >
+                    <use xlink:href="#iconcommunity"></use></svg
+                  >
+                  <span>社区论坛</span>
                 </li>
               </ul>
             </div>
           </Poptip>
+
         </div>
       </div>
     </div>
@@ -81,6 +106,14 @@ export default {
         }
       });
     },
+    selectJump(value) {
+      if(value){
+        this.articleJump({
+          only_id: value
+        })
+      }
+
+    },
     articleJump(item) {  //文件跳转
     // console.log(window.knowledgevm)
       // let tree = this.$_live_getChildComponent(window.knowledgevm,'treeMD')
@@ -93,6 +126,14 @@ export default {
       e.initEvent("click", true, true);
       document.getElementsByTagName("body")[0].dispatchEvent(e);
       this.$refs.AutoComplete.currentValue = ''
+    },
+    update() {  //更新日志
+      this.$Message.loading({
+                    content: '尽情期待'
+                });
+    },
+    jumpCommunity() {  //跳转到论坛
+      window.basevm.$router.push('/community/forumContent/Consulting/2')
     }
   }
 }

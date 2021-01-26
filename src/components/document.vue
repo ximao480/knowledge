@@ -172,6 +172,8 @@ export default {
       input.select();
       var res = document.execCommand('copy');
       document.body.removeChild(input);
+
+
     },
     fullScreen() {  //全屏展示
       this.$refs.md.toolbar_right_click('read')
