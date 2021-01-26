@@ -177,15 +177,17 @@ export default {
   },
   methods: {
     copyUrl() { // 复制链接
+      let url = window.location.href
+      if(!this.$route.params.id){
+        url = `${url}/${this.detail.documentationId}`
+      }
       const input = document.createElement('input');
       input.setAttribute('readonly', 'readonly'); // 防止手机上弹出软键盘
-      input.setAttribute('value', window.location.href);
+      input.setAttribute('value', url);
       document.body.appendChild(input);
       input.select();
       const res = document.execCommand('copy');
       document.body.removeChild(input);
-
-
     },
     fullScreen() { // 全屏展示
       this.$refs.md.toolbar_right_click('read');
