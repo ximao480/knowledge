@@ -181,7 +181,7 @@ export default {
     copyUrl() { // 复制链接
       let url = window.location.href
       if(!this.$route.params.id){
-        url = `${url}/${this.detail.documentationId}`
+        url = `${url}${this.detail.onlyId}`
       }
       const input = document.createElement('input');
       input.setAttribute('readonly', 'readonly'); // 防止手机上弹出软键盘
