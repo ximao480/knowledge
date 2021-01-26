@@ -2,7 +2,8 @@
   <div class="mdTree">
     <div class="header">
       <div>
-        <i class="iconfont iconbianzu" title="设置" />
+        <!-- <i class="iconfont iconbianzu" title="设置" /> -->
+        <img class="listicon" :src="img">
         <span>R3框架</span>
       </div>
 
@@ -15,13 +16,14 @@
 </template>
 <script>
 import treeMD from "./ZtreeComponent.vue";
-
 export default {
   components: {
     treeMD,
   },
   data() {
-    return {};
+    return {
+      img:require('../../assets/img/list.png').default
+    };
   },
   props: {
     treeDatas: {
@@ -54,8 +56,19 @@ export default {
     display: flex;
     flex-direction: column;
     padding: 24px 0 0 25px;
+    .listicon{
+      width:12px;
+      height: 12px;
+    }
     span {
       margin-left: 10px;
+      width: 46px;
+height: 14px;
+font-size: 14px;
+font-family: SourceHanSansCN-Bold, SourceHanSansCN;
+font-weight: bold;
+color: #3E3E3E;
+line-height: 21px;
     }
     .iconios-list {
       background: rgb(55, 141, 247);
