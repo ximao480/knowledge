@@ -41,6 +41,7 @@
             <div v-for="(user, index) in detail.readerDTOList" :key="index" class="reader-info">
               <div class="reader-avatar">
                 <img :src="user.readTheDingAvatar" alt="" v-if="user.readTheDingAvatar">
+                <span v-else>{{user.readTheName.substring(0,1)}}</span>
               </div>
               <div class="reader-name" :title="user.readTheName">{{user.readTheName}}</div>
             </div>
@@ -157,7 +158,8 @@
 <script>
 import { getComment, addComment } from '../utils/api';
 import DateUtil from '../utils/dateApi';
-import { DispatchEvent } from '../utils//dispatchEvent';
+import { DispatchEvent } from '../utils/dispatchEvent';
+
 export default {
   props: {
     detail: {
@@ -229,13 +231,12 @@ export default {
       const tree = this.$_live_getChildComponent(window.basevm, 'treeMD');
       tree.expandNode(item.id);
     },
-    articleJump(item) {  //文件跳转
+    articleJump(item) { // 文件跳转
       // let tree = this.$_live_getChildComponent(window.knowledgevm,'treeMD')
-      DispatchEvent('treeTriger',{
-        detail:item.id
-      })
-
-    }
+      DispatchEvent('treeTriger', {
+        detail: item.id,
+      });
+    },
   },
 };
 </script>
