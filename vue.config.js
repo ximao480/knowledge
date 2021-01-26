@@ -36,9 +36,16 @@ module.exports = {
       //   changeOrigin: true,
       // },
       '/p/cs': {
-        target: 'http://192.168.43.199:8081',
+        target: 'http://ark-share-base.dev.burgeononline.com/',
         pathRewrite: {
           '^/p/cs': '/p/cs',
+        },
+        changeOrigin: true,
+      },
+      '/ad-app': {
+        target: 'http://ark-share-base.dev.burgeononline.com/',
+        pathRewrite: {
+          '^/ad-app': '/ad-app',
         },
         changeOrigin: true,
       },

@@ -11,6 +11,7 @@
             icon="ios-search"
             placeholder="搜索知识页、知识本、知识库"
             style="width:260px"
+            ref="AutoComplete"
             clearable
             @on-change="searchArticle"
           >
@@ -48,6 +49,7 @@
 <script>
 import { queryList } from '../utils/api';
 import axios from 'axios';
+import { DispatchEvent } from '../utils/dispatchEvent'
 export default {
   data() {
     return {
@@ -58,8 +60,9 @@ export default {
     searchArticle(query) {  //文件模糊搜索
 
       if(!query){
-        let AutoComplete = this.$_live_getChildComponent(window.basevm,'AutoComplete')
-        AutoComplete.currentValue = ''
+        this.$refs.AutoComplete.currentValue = ''
+        // let AutoComplete = this.$_live_getChildComponent(window.knowledgevm,'AutoComplete')
+        // AutoComplete.currentValue = ''
         this.articleLists = []
         return
       }
@@ -79,13 +82,17 @@ export default {
       });
     },
     articleJump(item) {  //文件跳转
-      let tree = this.$_live_getChildComponent(window.basevm,'treeMD')
-      tree.expandNode(item.only_id)
+    // console.log(window.knowledgevm)
+      // let tree = this.$_live_getChildComponent(window.knowledgevm,'treeMD')
+      // tree.expandNode(item.only_id)
+      DispatchEvent('treeTriger',{
+        detail:item.only_id
+      })
+
       var e = document.createEvent("MouseEvents");
       e.initEvent("click", true, true);
       document.getElementsByTagName("body")[0].dispatchEvent(e);
-      let AutoComplete = this.$_live_getChildComponent(window.basevm,'AutoComplete')
-      AutoComplete.currentValue = ''
+      this.$refs.AutoComplete.currentValue = ''
     }
   }
 }
