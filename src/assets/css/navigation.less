@@ -64,20 +64,37 @@
       .search{
         margin-right: 16px;
 
+        .ark-select-dropdown{
+          padding: 0;
+          margin: 0;
+        }
+
         .searchItem{
           display: flex;
           align-items: center;
-          padding: 5px 10px;
+          // padding: 5px 10px;
           cursor: pointer;
           margin-bottom: 4px;
           border-bottom: 1px solid #dedede;
+
+          .ark-select-item{
+            padding: 5px 10px;
+            &:hover,&:active{
+              background: #eeecec;
+            }
+          }
+
+
+          &:last-child{
+            border: none;
+            margin-bottom: 0;
+          }
           
           &:hover{
             background: #eeecec;
           }
           >.ark-select-item{
             width: 100%;
-            padding: 0;
 
             >div{
               display: flex;
@@ -92,14 +109,21 @@
               overflow: hidden;
               width: 100%;
               white-space: nowrap;
+              text-overflow: ellipsis;
               em{
                 color: #c51028;
               }
             }
+
+            p.fold{
+              font-size: 14px;
+              font-weight: bold;
+              color: #3e3b3b;
+            }
   
             p.file{
               padding-left: 22px;
-              height: 20px;
+              // height: 20px;
             }
             span{
               width: 16px;

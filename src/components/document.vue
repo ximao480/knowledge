@@ -182,7 +182,7 @@ export default {
     copyUrl() { // 复制链接
       let url = window.location.href
       if(!this.$route.params.id){
-        url = `${url}${this.detail.onlyId}`
+        url = window.location.href.endsWith('/')?`${url}${this.detail.onlyId}`:`${url}/${this.detail.onlyId}`
       }
       const input = document.createElement('input');
       input.setAttribute('readonly', 'readonly'); // 防止手机上弹出软键盘
@@ -191,6 +191,9 @@ export default {
       input.select();
       const res = document.execCommand('copy');
       document.body.removeChild(input);
+      this.$Message.success({
+                    content: '复制成功'
+                });
     },
     fullScreen() { // 全屏展示
       this.$refs.md.toolbar_right_click('read');

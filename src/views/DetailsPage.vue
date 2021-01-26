@@ -47,11 +47,13 @@ export default {
       })
         .then((res) => {
           if (res && res.data.code === 0) {
-            this.$refs.document.clearStatus();
-            res.data.data.updateTime = new DateUtil(
-              new Date(res.data.data.updateTime),
-            ).getDateDiff();
-            this.documentation = res.data.data;
+            this.$nextTick(() => {
+              this.$refs.document && this.$refs.document.clearStatus();
+              res.data.data.updateTime = new DateUtil(
+                new Date(res.data.data.updateTime),
+              ).getDateDiff();
+              this.documentation = res.data.data;
+            })
           }
         })
         .catch((err) => {

@@ -18,7 +18,7 @@
           </Input> -->
           <AutoComplete
             icon="ios-search"
-            placeholder="搜索知识页、知识本、知识库"
+            placeholder="搜索知识库"
             style="width:260px"
             ref="AutoComplete"
             clearable
@@ -32,9 +32,10 @@
                   <div style="display:flex">
                     <span class="file" v-if="Number(item.type) === 1 "></span>
                     <span v-else class="folder"></span>
-                    <p v-html="item.title"></p>
+                    <p class="fold" v-html="item.title"></p>
                   </div>
                   <p class="file" v-html="item.content"></p>
+                  <p class="file">{{`R3框架 / ${item.title}`}}</p>
                 </div>
               </Option>
 
@@ -138,7 +139,7 @@ export default {
       this.$refs.AutoComplete.currentValue = ''
     },
     update() {  //更新日志
-      this.$Message.loading({
+      this.$Message.info({
                     content: '尽情期待'
                 });
     },

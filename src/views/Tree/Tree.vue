@@ -41,7 +41,7 @@ export default {
 <style lang="less" scoped>
 .mdTree {
   color: rgba(0, 0, 0, 0.8);
-  width: 240px;
+  width: 100%;
   border-right: 1px solid rgb(237, 237, 238);
   height: 100%;
   overflow: auto;
@@ -84,6 +84,10 @@ export default {
 
   .TreeContent {
     // padding: 0 10px 0 10px;
+
+    >div{
+      margin-top: 10px;
+    }
   }
 }
 </style>
