@@ -122,7 +122,7 @@ export default {
           visibility: '',
           position: 'absolute',
           overflow: 'hidden',
-          zIndex: '9999',
+          zIndex: '899',
           pointerEvents: 'none', // pointer-events:none  让水印不阻止交互事件
           opacity: 0.2,
           fontSize: '14px',
