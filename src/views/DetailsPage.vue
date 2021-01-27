@@ -12,13 +12,13 @@
         <Icon type="ios-loading" size="18" class="demo-spin-icon-load"></Icon>
         <div>Loading</div>
       </Spin>
-      <document ref="document" :detail="documentation"></document>
+      <doc ref="document" :detail="documentation"></doc>
     </div>
   </div>
 </template>
 <script>
 import tree from "./Tree/Tree";
-import document from "../components/document";
+import doc from "../components/document";
 import { getDirectory, getDocumentation } from "../utils/api";
 import DateUtil from "../utils/dateApi";
 import axios from "axios";
@@ -28,7 +28,7 @@ import createWatermark from '../utils/waterMark';
 export default {
   components: {
     tree,
-    document,
+    doc,
   },
   data() {
     return {
@@ -142,6 +142,12 @@ export default {
     })
   },
   mounted() {
+    document.body.style.overflow = 'hidden'
+    document.getElementsByClassName('App')[0].style.minWidth = 'auto'
   },
+  beforeDestroy() {
+    document.body.style.overflow = 'initial'
+    document.getElementsByClassName('App')[0].style.minWidth = '1180px'
+  }
 };
 </script>

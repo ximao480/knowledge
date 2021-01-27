@@ -35,7 +35,7 @@
                     <p class="fold" v-html="item.title"></p>
                   </div>
                   <p class="file" v-html="item.content"></p>
-                  <p class="file">{{`R3框架 / ${item.title}`}}</p>
+                  <p class="file title" v-html="`R3框架 / ${item.title}`"></p>
                 </div>
               </Option>
 

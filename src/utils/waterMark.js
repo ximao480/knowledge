@@ -5,11 +5,11 @@ export const createWatermark = (object) => {
     watermark_intervalWidth: 100, //  间隔宽度
     watermark_intervalheight: 100, // 间隔高度
     style: {
-      webkitTransform: 'rotate(-15deg)',
-      MozTransform: 'rotate(-15deg)',
-      msTransform: 'rotate(-15deg)',
-      OTransform: 'rotate(-15deg)',
-      transform: 'rotate(-15deg)',
+      webkitTransform: 'rotate(-30deg)',
+      MozTransform: 'rotate(-30deg)',
+      msTransform: 'rotate(-30deg)',
+      OTransform: 'rotate(-30deg)',
+      transform: 'rotate(-30deg)',
       visibility: '',
       position: 'absolute',
       overflow: 'hidden',
@@ -18,12 +18,11 @@ export const createWatermark = (object) => {
       opacity: 0.2,
       fontSize: '14px',
       fontFamily: '微软雅黑',
-      color: 'red',
-      textAlign: 'left',
-      width: '200px',
-      height: '80px',
+      color: '#3b7af5',
+      width: '150px',
+      height: '60px',
       display: 'block',
-      lineHeight: '80px',
+      lineHeight: '60px',
       textAlign: 'center'
       // left: '10px',//不支持设置定位，
       // top: '10px',
@@ -37,18 +36,18 @@ export const createWatermark = (object) => {
   //     document.getElementById('DetailsPage').removeChild(mark_divs[i]);
   //   }
   // }
-  const setting = Object.assign({}, defaultSettings, object);
+  const setting = Object.assign({}, object,defaultSettings);
 
-  const maxWidth = document.documentElement.offsetWidth - 30;
-  const maxHeight = document.documentElement.offsetHeight - 30;
+  const maxWidth = document.documentElement.offsetWidth;
+  const maxHeight = document.documentElement.offsetHeight;
   const rowNumber = (maxWidth - 40 - 80) / setting.watermark_intervalWidth; // 横向个数
   const coumnNumber = (maxHeight - 40 - 80) / setting.watermark_intervalheight; // 纵向个数
 
   const _temp = document.createDocumentFragment();
   for (let i = 0; i < rowNumber; i++) {
-    for (let j = 0; j < coumnNumber; j++) {
-      const x = setting.watermark_intervalWidth * i + 50;
-      const y = setting.watermark_intervalheight * j + 50;
+    for (let j = 0; j < coumnNumber ; j++) {
+      const x = setting.watermark_intervalWidth * i + 80;
+      const y = setting.watermark_intervalheight * j + 80;
       const mark_div = document.createElement('div');
       mark_div.id = `mark_div${i}${j}`;
       mark_div.className = 'mark_div';
