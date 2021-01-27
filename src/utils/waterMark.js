@@ -40,7 +40,7 @@ export const createWatermark = (object) => {
   const setting = Object.assign({}, defaultSettings, object);
 
   const maxWidth = document.documentElement.offsetWidth;
-  const maxHeight = document.documentElement.offsetHeight;
+  const maxHeight = document.documentElement.offsetHeight - 30;
   const rowNumber = (maxWidth - 40 - 80) / setting.watermark_intervalWidth; // 横向个数
   const coumnNumber = (maxHeight - 40 - 80) / setting.watermark_intervalheight; // 纵向个数
 
