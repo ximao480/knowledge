@@ -47,8 +47,8 @@ export const createWatermark = (object) => {
   const _temp = document.createDocumentFragment();
   for (let i = 0; i < rowNumber; i++) {
     for (let j = 0; j < coumnNumber; j++) {
-      const x = setting.watermark_intervalWidth * i + 80;
-      const y = setting.watermark_intervalheight * j + 80;
+      const x = setting.watermark_intervalWidth * i + 50;
+      const y = setting.watermark_intervalheight * j + 50;
       const mark_div = document.createElement('div');
       mark_div.id = `mark_div${i}${j}`;
       mark_div.className = 'mark_div';

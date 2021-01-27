@@ -111,8 +111,8 @@ export default {
       createWatermark( {
         id: 'DetailsPage',
         textContent: ['R3快速开发平台'], // 每行显示的文本内容
-        watermark_intervalWidth: 150, //  间隔宽度
-        watermark_intervalheight: 150, // 间隔高度
+        watermark_intervalWidth: 100, //  间隔宽度
+        watermark_intervalheight: 100, // 间隔高度
         style: {
           webkitTransform: 'rotate(-30deg)',
           MozTransform: 'rotate(-30deg)',
