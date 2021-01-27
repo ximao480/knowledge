@@ -76,7 +76,10 @@ export default {
       getDirectory().then((res) => {
         this.detailsLoading = false;
         if (res.data.code === 0) {
-          this.treeDatas = res.data.data;
+          this.treeDatas = res.data.data.map(item => {
+            item.open = true
+            return item
+          });
 
           // 处理带默认文件时，默认打开携带的文件
           if (this.$route.params.id) {
