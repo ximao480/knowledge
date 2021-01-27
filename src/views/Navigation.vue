@@ -151,7 +151,7 @@ export default {
                 });
     },
     jumpCommunity() {  //跳转到论坛
-      window.basevm.$router.push('/community/forumContent/Consulting/2')
+      window.basevm.$router.push('/community/forumContent/Consulting/12')
     }
   }
 }
