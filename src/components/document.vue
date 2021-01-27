@@ -58,7 +58,7 @@
           </div>
           <div class="hJVDku" v-show="switcher">
             <Tooltip :content="`评论(${detail.commentsNumber})`" placement="left">
-              <span @click="Drawer = true;getComm()">
+              <span @click="getComm()">
                 <i class="iconfont iconmd-text"></i>
               </span>
             </Tooltip>
@@ -202,6 +202,10 @@ export default {
       this.$refs.md.toolbar_right_click('navigation');
     },
     getComm() { // 获取评论
+      if(this.Drawer){
+        return
+      }
+      this.Drawer = true
       this.commentsLoading = true;
       this.content = null;
       getComment({

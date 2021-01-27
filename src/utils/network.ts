@@ -16,7 +16,7 @@ axios.interceptors.request.use((config) => {
 axios.interceptors.response.use((response) => {
   if (response.data.code === -1) {
     // alert(response.data.message);
-    (<any>window).vm.$Modal.fcError({
+    (<any>window).basevm.$Modal.fcError({
       title: '错误',
       content: response.data.message,
       mask:true
