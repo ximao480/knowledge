@@ -1,5 +1,5 @@
 <template>
-  <div class="DetailsPage">
+  <div class="DetailsPage" id="DetailsPage">
     <!-- 目录 -->
     <div class="directory">
       <tree @selectedTree="selectedTree" :treeDatas="treeDatas"></tree>
@@ -22,7 +22,8 @@ import document from "../components/document";
 import { getDirectory, getDocumentation } from "../utils/api";
 import DateUtil from "../utils/dateApi";
 import axios from "axios";
-import { DispatchEvent } from '../utils/dispatchEvent'
+import { DispatchEvent } from '../utils/dispatchEvent';
+import createWatermark from '../utils/waterMark';
 // import jsonData from "../../static/js/ztree/treeData.json";
 export default {
   components: {
@@ -104,6 +105,36 @@ export default {
   },
   created() {
     this.getTrees();
+    this.$nextTick(() => {
+      createWatermark( {
+        id: 'DetailsPage',
+        textContent: ['R3快速开发平台'], // 每行显示的文本内容
+        watermark_intervalWidth: 150, //  间隔宽度
+        watermark_intervalheight: 150, // 间隔高度
+        style: {
+          webkitTransform: 'rotate(-30deg)',
+          MozTransform: 'rotate(-30deg)',
+          msTransform: 'rotate(-30deg)',
+          OTransform: 'rotate(-30deg)',
+          transform: 'rotate(-30deg)',
+          visibility: '',
+          position: 'absolute',
+          overflow: 'hidden',
+          zIndex: '9999',
+          pointerEvents: 'none', // pointer-events:none  让水印不阻止交互事件
+          opacity: 0.2,
+          fontSize: '14px',
+          fontFamily: '微软雅黑',
+          color: '#3b7af5',
+          textAlign: 'left',
+          width: '200px',
+          height: '80px',
+          display: 'block',
+          left: 0,//不支持设置定位，
+          top: 0,
+        }
+      })
+    })
   },
   mounted() {
   },

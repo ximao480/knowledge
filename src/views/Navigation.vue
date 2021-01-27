@@ -40,6 +40,10 @@
               </Option>
 
             </div>
+
+            <div class="emptyTips" v-if="query && articleLists.length === 0">
+              找不到包含以下关键词的结果<br>"{{query}}"
+            </div>
           </AutoComplete>
         </div>
         <div class="help">
@@ -89,6 +93,7 @@ export default {
   data() {
     return {
       img: require("../assets/img/list.png").default,
+      query: null, // 模糊搜索数据
       articleLists:[],  //模糊列表
     }
   },
@@ -100,6 +105,7 @@ export default {
         // let AutoComplete = this.$_live_getChildComponent(window.knowledgevm,'AutoComplete')
         // AutoComplete.currentValue = ''
         this.articleLists = []
+        this.query = ''
         return
       }
       window.cancle();
@@ -108,6 +114,7 @@ export default {
         }).then(res => {
           if(res.data.code === 0){
             this.articleLists = res.data.data
+            this.query = query
           }
         }).catch((err) => {
         if (axios.isCancel(err)) {
