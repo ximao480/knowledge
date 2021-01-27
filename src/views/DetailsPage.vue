@@ -3,7 +3,7 @@
     <!-- 目录 -->
     <div class="directory">
       <tree @selectedTree="selectedTree" :treeDatas="treeDatas"></tree>
-      <div class="flex-box-resizer"></div>
+      <!-- <div class="flex-box-resizer"></div> -->
     </div>
     <!-- 详情 -->
     <div class="details">
@@ -17,12 +17,12 @@
   </div>
 </template>
 <script>
-import tree from "./Tree/Tree";
-import document from "../components/document";
-import { getDirectory, getDocumentation } from "../utils/api";
-import DateUtil from "../utils/dateApi";
-import axios from "axios";
-import { DispatchEvent } from '../utils/dispatchEvent'
+import axios from 'axios';
+import tree from './Tree/Tree';
+import document from '../components/document';
+import { getDirectory, getDocumentation } from '../utils/api';
+import DateUtil from '../utils/dateApi';
+import { DispatchEvent } from '../utils/dispatchEvent';
 // import jsonData from "../../static/js/ztree/treeData.json";
 export default {
   components: {
@@ -53,7 +53,7 @@ export default {
                 new Date(res.data.data.updateTime),
               ).getDateDiff();
               this.documentation = res.data.data;
-            })
+            });
           }
         })
         .catch((err) => {
@@ -79,24 +79,22 @@ export default {
               setTimeout(() => {
                 // let tree = this.$_live_getChildComponent(window.knowledgevm,'treeMD')
                 // tree.expandNode(Number(this.$route.params.id))
-                DispatchEvent('treeTriger',{
-                  detail: this.$route.params.id
-                })
-                window.history.pushState(null,null,'/')
-              },200)
-
-            })
-          }else{
+                DispatchEvent('treeTriger', {
+                  detail: this.$route.params.id,
+                });
+                window.history.pushState(null, null, '/');
+              }, 200);
+            });
+          } else {
             this.$nextTick(() => {
               setTimeout(() => {
                 // let tree = this.$_live_getChildComponent(window.knowledgevm,'treeMD')
                 // tree.expandNode(Number(this.$route.params.id))
-                DispatchEvent('treeTriger',{
-                  detail: this.treeDatas[0].id
-                })
-              },200)
-
-            })
+                DispatchEvent('treeTriger', {
+                  detail: this.treeDatas[0].id,
+                });
+              }, 200);
+            });
           }
         }
       });
