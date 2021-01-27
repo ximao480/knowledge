@@ -1,24 +1,22 @@
 import Vue from 'vue';
 import ArkUi from '@syman/ark-ui';
+import mavonEditor from '@syman/ark-share-md';
+import singleSpaVue from 'single-spa-vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
 import network from './utils/network';
-import mavonEditor from '@syman/ark-share-md'
-import '@syman/ark-share-md/dist/css/index.css'
+import '@syman/ark-share-md/dist/css/index.css';
 
 import '@syman/ark-ui/dist/styles/ark-ui.css';
 import '@syman/ark-ui/dist/styles/bjIconfonts/iconfont.css';
 import './assets/css/index.less';
-import singleSpaVue from 'single-spa-vue';
-import './assets/css/zTreeStyle.css';
 
-Vue.use(mavonEditor)
+Vue.use(mavonEditor);
 Vue.use(ArkUi);
 Vue.prototype.$network = network;
 
 Vue.config.productionTip = false;
-
 
 // (window as any).vm = new Vue({
 //   router,
@@ -30,8 +28,8 @@ const appOptions = {
   el: '#microApp',
   router,
   store,
-  render: (h:any) => h(App)
-}
+  render: (h: any) => h(App),
+};
 
 // 支持应用独立运行、部署，不依赖于基座应用
 if (!(window as any).singleSpaNavigate) {
@@ -39,31 +37,23 @@ if (!(window as any).singleSpaNavigate) {
   (window as any).basevm = new Vue(appOptions).$mount('#app');
 }
 
-
-
-
-
 // 基于基座应用，导出生命周期函数
 const vueLifecycle = singleSpaVue({
   Vue,
-  appOptions
+  appOptions,
 });
 
-
-export function bootstrap (props: any) {
+export function bootstrap(props: any) {
   // console.log('app1 bootstrap')
-  return vueLifecycle.bootstrap(() => {})
+  return vueLifecycle.bootstrap(() => {});
 }
 
-export function mount (props: any) {
+export function mount(props: any) {
   // console.log('app1 mount')
-  return vueLifecycle.mount(() => {})
+  return vueLifecycle.mount(() => {});
 }
 
-export function unmount (props: any) {
+export function unmount(props: any) {
   // console.log('app1 unmount')
-  return vueLifecycle.unmount(() => {})
+  return vueLifecycle.unmount(() => {});
 }
-
-
-

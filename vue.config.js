@@ -50,6 +50,8 @@ module.exports = {
         changeOrigin: true,
       },
     },
+    port: 8201,
+    host: '0.0.0.0',
   },
   css: {
     loaderOptions: {

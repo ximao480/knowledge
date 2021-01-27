@@ -39,55 +39,5 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.mdTree {
-  color: rgba(0, 0, 0, 0.8);
-  width: 100%;
-  border-right: 1px solid rgb(237, 237, 238);
-  height: 100%;
-  overflow: auto;
-  background: #fafafa;
-  .header {
-    height: 86px;
-    font-size: 18px;
-    font-weight: bold;
-    padding-left: 25px;
-    display: flex;
-    flex-direction: column;
-    padding: 24px 0 0 25px;
-    .listicon {
-      width: 12px;
-      height: 12px;
-    }
-    span {
-      margin-left: 10px;
-      width: 46px;
-      height: 14px;
-      font-size: 14px;
-      font-family: SourceHanSansCN-Bold, SourceHanSansCN;
-      font-weight: bold;
-      color: #3e3e3e;
-      line-height: 21px;
-    }
-    .iconios-list {
-      background: rgb(55, 141, 247);
-    }
-    // .iconmd-person {
-    //   color: rgb(55, 138, 247);
-    // }
-    .directory {
-      background: rgb(172, 176, 180);
-      width: 21px;
-      height: 1px;
-      margin-top: 22px;
-    }
-  }
 
-  .TreeContent {
-    // padding: 0 10px 0 10px;
-
-    >div{
-      margin-top: 10px;
-    }
-  }
-}
 </style>

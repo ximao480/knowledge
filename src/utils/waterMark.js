@@ -31,12 +31,12 @@ export const createWatermark = (object) => {
   };
 
 
-  const mark_divs = document.getElementsByClassName('mark_div');
-  if (mark_divs.length > 0) {
-    for (let i = mark_divs.length - 1; i >= 0; i--) {
-      document.body.removeChild(mark_divs[i]);
-    }
-  }
+  // const mark_divs = document.getElementsByClassName('mark_div');
+  // if (mark_divs.length > 0) {
+  //   for (let i = mark_divs.length - 1; i >= 0; i--) {
+  //     document.getElementById('DetailsPage').removeChild(mark_divs[i]);
+  //   }
+  // }
   const setting = Object.assign({}, defaultSettings, object);
 
   const maxWidth = document.documentElement.offsetWidth;
@@ -64,7 +64,7 @@ export const createWatermark = (object) => {
       _temp.appendChild(mark_div);
     }
   }
-  const tpl = setting.id ? document.querySelector(`#${setting.id}`) : document.body.appendChild(_temp);
+  const tpl = setting.id ? document.querySelector(`.${setting.id}`) : document.body.appendChild(_temp);
   tpl.appendChild(_temp);
 };
 

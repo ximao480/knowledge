@@ -3,7 +3,7 @@
     <!-- 目录 -->
     <div class="directory">
       <tree @selectedTree="selectedTree" :treeDatas="treeDatas"></tree>
-      <div class="flex-box-resizer"></div>
+      <!-- <div class="flex-box-resizer"></div> -->
     </div>
     <!-- 详情 -->
     <div class="details">
@@ -42,6 +42,7 @@ export default {
       // 处理点击输查询接口逻辑
       // selected：当前点击节点数据
       window.cancle();
+      this.$Loading.start();
       getDocumentation({
         id: selected.businessId,
         type: selected.type,
@@ -54,7 +55,10 @@ export default {
                 new Date(res.data.data.updateTime),
               ).getDateDiff();
               this.documentation = res.data.data;
-            })
+            });
+            this.$Loading.finish();
+          }else{
+            this.$Loading.error();
           }
         })
         .catch((err) => {
@@ -80,24 +84,22 @@ export default {
               setTimeout(() => {
                 // let tree = this.$_live_getChildComponent(window.knowledgevm,'treeMD')
                 // tree.expandNode(Number(this.$route.params.id))
-                DispatchEvent('treeTriger',{
-                  detail: this.$route.params.id
-                })
-                window.history.pushState(null,null,'/')
-              },200)
-
-            })
-          }else{
+                DispatchEvent('treeTriger', {
+                  detail: this.$route.params.id,
+                });
+                window.history.pushState(null, null, '/');
+              }, 200);
+            });
+          } else {
             this.$nextTick(() => {
               setTimeout(() => {
                 // let tree = this.$_live_getChildComponent(window.knowledgevm,'treeMD')
                 // tree.expandNode(Number(this.$route.params.id))
-                DispatchEvent('treeTriger',{
-                  detail: this.treeDatas[0].id
-                })
-              },200)
-
-            })
+                DispatchEvent('treeTriger', {
+                  detail: this.treeDatas[0].id,
+                });
+              }, 200);
+            });
           }
         }
       });

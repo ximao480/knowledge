@@ -26,6 +26,7 @@ export default {
           fontCss: this.getFontCss,
           expandSpeed: 'fast',
           txtSelectedEnable: true,
+          showTitle: true,
         },
         callback: {
           beforeClick: this.beforeClick,
@@ -69,7 +70,7 @@ export default {
       // 当前节点ID
 
       const treeObj = $.fn.zTree.getZTreeObj('treeDemo'); // 获取zTree根节点
-      if (this.activeID && this.activeID != ID) {
+      if (this.activeID && this.activeID !== ID) {
         // 清除上一次搜索选中的记录
         const lastNode = treeObj.getNodeByParam('id', this.activeID); // 根据ID获取子节点数据
         this.updateNodes(lastNode, false, treeObj);
@@ -91,13 +92,12 @@ export default {
         ? {
           'font-weight': '500',
           background: '#E2EAF5',
-          width: '100%',
         }
-        : { background: '#FAFAFA', color: 'red', 'font-weight': 'normal' };
+        : { background: '#FAFAFA', 'font-weight': 'normal' };
     },
     beforeClick(treeId, treeNode) {
       const treeObj = $.fn.zTree.getZTreeObj('treeDemo'); // 获取zTree根节点
-      if (this.activeID && this.activeID != treeNode.id) {
+      if (this.activeID && this.activeID !== treeNode.id) {
         // 清除上一次搜索选中的记录
         const lastNode = treeObj.getNodeByParam('id', this.activeID); // 根据ID获取子节点数据
         this.updateNodes(lastNode, false, treeObj);
@@ -116,37 +116,11 @@ export default {
   },
   mounted() {
     window.zTree = this;
-    $.fn.zTree.init($("#treeDemo"), this.setting, this.zNodes);
-
+    $.fn.zTree.init($('#treeDemo'), this.setting, this.zNodes);
 
     window.addEventListener('treeTriger', (event) => {
-      this.expandNode(event.detail)
-    })
+      this.expandNode(event.detail);
+    });
   },
 };
 </script>
-
-<style lang="less" >
-.content_wrap {
-}
-.highlight {
-  font-size: 14px;
-}
-.cancelNode {
-  background: transparent !important;
-}
-/* #areaTree{
-        border:1px solid #e5e5e5;    margin-bottom: 2px;border-radius: 4px;overflow: scroll;width: 300px;
-    }
-    .box-title{
-        border-radius: 3px 3px 0 0;background-color: #f5f5f5;
-    }
-    .box-title a{
-        color: #2fa4e7;
-        text-decoration: none;font-size:14px;    display: block;
-        padding: 8px 15px;cursor: pointer;
-    }
-    .box-title .fa{
-        float:right;line-height: 20px;
-    } */
-</style>

@@ -160,6 +160,7 @@
 import { getComment, addComment } from '../utils/api';
 import DateUtil from '../utils/dateApi';
 import { DispatchEvent } from '../utils/dispatchEvent';
+import createWatermark from '../utils/waterMark';
 
 export default {
   props: {
@@ -197,6 +198,39 @@ export default {
     },
     fullScreen() { // 全屏展示
       this.$refs.md.toolbar_right_click('read');
+
+        this.$nextTick(() => {
+          setTimeout(() => {
+            createWatermark( {
+            id: 'v-note-read-view',
+            textContent: ['R3快速开发平台'], // 每行显示的文本内容
+            watermark_intervalWidth: 150, //  间隔宽度
+            watermark_intervalheight: 150, // 间隔高度
+            style: {
+              webkitTransform: 'rotate(-30deg)',
+              MozTransform: 'rotate(-30deg)',
+              msTransform: 'rotate(-30deg)',
+              OTransform: 'rotate(-30deg)',
+              transform: 'rotate(-30deg)',
+              visibility: '',
+              position: 'absolute',
+              overflow: 'hidden',
+              zIndex: '9999',
+              pointerEvents: 'none', // pointer-events:none  让水印不阻止交互事件
+              opacity: 0.2,
+              fontSize: '14px',
+              fontFamily: '微软雅黑',
+              color: '#3b7af5',
+              textAlign: 'left',
+              width: '200px',
+              height: '80px',
+              display: 'block',
+              left: 0,//不支持设置定位，
+              top: 0,
+            }
+          })
+          },300)
+        })
     },
     navigationToggle() { // 切换大纲
       this.$refs.md.toolbar_right_click('navigation');
