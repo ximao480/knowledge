@@ -1,7 +1,7 @@
 
 export const createWatermark = (object) => {
   const defaultSettings = {
-    textContent: ['请设置水印显示文字'], // 每行显示的文本内容
+    textContent: ['R3快速开发平台'], // 每行显示的文本内容
     watermark_intervalWidth: 100, //  间隔宽度
     watermark_intervalheight: 100, // 间隔高度
     style: {
