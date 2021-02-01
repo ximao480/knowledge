@@ -13,10 +13,10 @@
       </div>
       <div class="right">
         <div class="search">
-          <!-- <Input placeholder="搜索知识页、知识本、知识库" style="width: 260px">
+          <Input placeholder="新搜索,试一试" style="width: 260px" readonly @click.native="openSearchModal">
             <Icon type="ios-search" slot="prefix" />
-          </Input> -->
-          <AutoComplete
+          </Input>
+          <!-- <AutoComplete
             icon="ios-search"
             placeholder="搜索知识库"
             style="width:260px"
@@ -44,7 +44,7 @@
             <div class="emptyTips" v-if="query && articleLists.length === 0">
               找不到包含以下关键词的结果<br>"{{query}}"
             </div>
-          </AutoComplete>
+          </AutoComplete> -->
         </div>
         <div class="help">
           <Poptip trigger="hover"  content="content" placement="bottom-end">
@@ -83,54 +83,45 @@
         </div>
       </div>
     </div>
+
+
+    <!-- 模糊搜索弹窗 -->
+    <Modal
+      class="SearchPopups"
+      v-model="fuzzySearch.show"
+      footer-hide
+      mask
+    >
+      <fuzzySearchPopups
+        v-if="fuzzySearch.show"
+        @closeModal="fuzzySearch.show = false"
+        @articleJump="articleJump"
+      >
+      </fuzzySearchPopups>
+    </Modal>
   </div>
 </template>
 <script>
-import { queryList } from '../utils/api';
+
 import axios from 'axios';
-import { DispatchEvent } from '../utils/dispatchEvent'
+import { DispatchEvent } from '../utils/dispatchEvent';
+import fuzzySearchPopups from '../components/fuzzySearchPopups';
 export default {
+  components:{ fuzzySearchPopups },
   data() {
     return {
       img: require("../assets/img/list.png").default,
       query: null, // 模糊搜索数据
       articleLists:[],  //模糊列表
+
+      fuzzySearch:{
+        show: false
+      }
     }
   },
   methods:{
-    searchArticle(query) {  //文件模糊搜索
-
-      if(!query){
-        this.$refs.AutoComplete.currentValue = ''
-        // let AutoComplete = this.$_live_getChildComponent(window.knowledgevm,'AutoComplete')
-        // AutoComplete.currentValue = ''
-        this.articleLists = []
-        this.query = ''
-        return
-      }
-      window.cancle();
-      queryList({
-          content: query
-        }).then(res => {
-          if(res.data.code === 0){
-            this.articleLists = res.data.data
-            this.query = query
-          }
-        }).catch((err) => {
-        if (axios.isCancel(err)) {
-          console.log('Rquest canceled'); // 请求如果被取消，这里是返回取消的message
-        } else {
-          console.log(err);
-        }
-      });
-    },
-    selectJump(value) {
-      if(value){
-        this.articleJump({
-          only_id: value
-        })
-      }
-
+    openSearchModal() {  //打开模糊搜索弹窗
+      this.fuzzySearch.show = true
     },
     articleJump(item) {  //文件跳转
     // console.log(window.knowledgevm)
@@ -140,10 +131,9 @@ export default {
         detail:item.only_id
       })
 
-      var e = document.createEvent("MouseEvents");
-      e.initEvent("click", true, true);
-      document.getElementsByTagName("body")[0].dispatchEvent(e);
-      this.$refs.AutoComplete.currentValue = ''
+      // var e = document.createEvent("MouseEvents");
+      // e.initEvent("click", true, true);
+      // document.getElementsByTagName("body")[0].dispatchEvent(e);
     },
     update() {  //更新日志
       this.$Message.info({

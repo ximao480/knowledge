@@ -4,7 +4,7 @@
 //     'postcss-selector-namespace': {
 //       namespace(css) {
 //         // ark-ui的样式不需要添加命名空间
-//         return '.ark-share-workbench' // 返回要添加的类名
+//         return '.ark-share-knowledge' // 返回要添加的类名
 //       }
 //     },
 //   }

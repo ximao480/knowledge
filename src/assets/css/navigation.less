@@ -64,6 +64,13 @@
       .search{
         margin-right: 16px;
 
+        .ark-input{
+          cursor: pointer;
+          &:hover,&:active,&:focus{
+            border:1px solid #dcdee2
+          }
+        }
+
         .ark-select-dropdown{
           padding: 0;
           margin: 0;
@@ -181,5 +188,11 @@
         right: 2px;
       }
     }
+  }
+}
+
+.SearchPopups{
+  .ark-modal-body{
+    padding: 0;
   }
 }

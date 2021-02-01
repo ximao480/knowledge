@@ -1,0 +1,115 @@
+.fuzzySearchPopups{
+  >.searchContent{
+    display: flex;
+    align-items: center;
+    padding: 16px;
+
+    .ark-icon{
+      font-size: 20px;
+    }
+
+    .ark-input{
+      border: none;
+    }
+
+    .options{
+      width: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      .blank{
+        width: 1px;
+        height: 20px;
+        display: inline-block;
+        background: #eae7e7;
+        margin: 0 10px;
+      }
+
+      .item{
+        cursor: pointer;
+        &:hover{
+          color: #506fe4;
+        }
+      }
+    }
+  }
+
+  >.blank{
+    position: absolute;
+    position: absolute;
+    top: 62px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #e0dddd;
+  }
+
+  >.content{
+    min-height: 300px;
+    max-height: 450px;
+    overflow: auto;
+    padding-bottom: 16px;
+
+    .itemContent{
+      padding: 16px 20px 0 20px;
+      display: flex;
+      cursor: pointer;
+      .logo{
+        width: 30px;
+        span{
+          width: 16px;
+          height: 16px;
+          background: url('../../assets/css/img/zTreeStandard.png');
+          display: inline-block;
+          margin-right: 8px;
+          margin-top: 2px;
+        }
+        .file{
+          background-position: -110px -32px;
+        }
+        .folder{
+          background-position: -110px 0;
+        }
+      }
+
+      .item{
+
+        >p{
+          line-height: 18px;
+          font-size: 13px;
+
+          em{
+            color: #c51028;
+          }
+        }
+        .title{
+          font-weight: bold;
+          font-size: 14px;
+        }
+
+        .directoryfile{
+          cursor: pointer;
+          em{
+            color: #515a6e
+          }
+          
+          &:hover{
+            color: #57a3f3;
+            em{
+              color: #57a3f3
+            }
+          }
+        }
+      }
+    }
+
+    div.tips{
+      width: 100%;
+      height: 284px;
+      text-align: center;
+      line-height: 260px;
+    }
+    
+  }
+}
