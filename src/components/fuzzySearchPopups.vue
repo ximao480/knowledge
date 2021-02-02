@@ -12,22 +12,24 @@
     <div class="blank"></div>
     <div class="content">
       <div class="tips" v-if="articleLists.length === 0 && !query">
-        请输入标题或内容开始搜索
+        <img :src="emptyLogo" alt="">
       </div>
       <div class="tips" v-if="articleLists.length === 0 && query">
-        找不到包含以下关键词的结果<br>"{{query}}"
+        找不到包含以下关键词的结果"{{query}}"
       </div>
-      <div v-for="(item,index) in articleLists" :key="index" class="itemContent" @click="selectJump(item)">
-        <div class="logo">
-          <span class="file" v-if="Number(item.type) === 1 "></span>
-          <span v-else class="folder"></span>
+      <Scroll  v-if="articleLists && articleLists.length > 0" :on-reach-bottom="handleReachBottom">
+        <div v-for="(item,index) in articleLists" :key="index" class="itemContent" @click="selectJump(item)">
+          <div class="logo">
+            <span class="file" v-if="Number(item.type) === 1 "></span>
+            <span v-else class="folder"></span>
+          </div>
+          <div class="item">
+            <p class="title" v-html="item.title"></p>
+            <p class="file" v-html="item.content"></p>
+            <p class="directoryfile" v-html="`R3框架 / ${item.title}`"></p>
+          </div>
         </div>
-        <div class="item">
-          <p class="title" v-html="item.title"></p>
-          <p class="file" v-html="item.content"></p>
-          <p class="directoryfile" v-html="`R3框架 / ${item.title}`"></p>
-        </div>
-      </div>
+      </Scroll>
     </div>
   </div>
 </template>
@@ -47,8 +49,15 @@ export default {
   },
   data() {
     return{
+      emptyLogo: require('../assets/img/empty.png').default,
       query: '', // 模糊搜索数据
       articleLists:[],  //模糊列表
+
+      page:{
+        pageSize: 10,
+        pageNum: 1,
+        maxPageNum: 1
+      }
     }
   },
   methods:{
@@ -58,8 +67,13 @@ export default {
     clearQuery() {  //清空查询条件
       this.query = ''
       this.articleLists = []
+      this.page = {
+        pageSize: 10,
+        pageNum: 1,
+        maxPageNum: 1
+      }
     },
-    searchArticle() {  //文件模糊搜索
+    searchArticle(resolve) {  //文件模糊搜索
 
       if(!this.query){
         this.articleLists = []
@@ -68,10 +82,22 @@ export default {
       }
       window.cancle();
       queryList({
-          content: this.query
+          content: this.query,
+          pageSize: this.page.pageSize,
+          pageNum: this.page.pageNum
         }).then(res => {
           if(res.data.code === 0){
-            this.articleLists = res.data.data
+            this.page.maxPageNum = Math.floor(res.data.data.sum/this.page.pageSize)
+            if(resolve && typeof resolve ===  'function'){
+              setTimeout(() => {
+                this.articleLists = this.articleLists.concat(res.data.data.object)
+                resolve()
+              },1000)
+            }else{
+              this.articleLists = res.data.data.object
+            }
+
+
           }
         }).catch((err) => {
         if (axios.isCancel(err)) {
@@ -79,6 +105,12 @@ export default {
         } else {
           console.log(err);
         }
+      });
+    },
+    handleReachBottom(dir) {  //文档滚动到底部
+      this.page.pageNum++;
+      return new Promise(resolve => {
+          this.searchArticle(resolve)
       });
     },
     selectJump(item) {  //文件跳转
