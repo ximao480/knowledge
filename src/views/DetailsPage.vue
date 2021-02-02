@@ -90,7 +90,12 @@ export default {
                 DispatchEvent('treeTriger', {
                   detail: this.$route.params.id,
                 });
-                window.history.pushState(null, null, '/');
+                if(process.env.NODE_ENV === 'pro'){
+                  window.history.pushState(null, null, '/knowledge');
+                }else{
+                  window.history.pushState(null, null, '/');
+                }
+
               }, 200);
             });
           } else {

@@ -17,7 +17,7 @@
       <div class="tips" v-if="articleLists.length === 0 && query">
         找不到包含以下关键词的结果"{{query}}"
       </div>
-      <Scroll  v-if="articleLists && articleLists.length > 0" :on-reach-bottom="handleReachBottom">
+      <Scroll height="484"  v-if="articleLists && articleLists.length > 0" :on-reach-bottom="handleReachBottom">
         <div v-for="(item,index) in articleLists" :key="index" class="itemContent" @click="selectJump(item)">
           <div class="logo">
             <span class="file" v-if="Number(item.type) === 1 "></span>

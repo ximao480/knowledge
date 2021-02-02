@@ -91,6 +91,7 @@
       v-model="fuzzySearch.show"
       footer-hide
       mask
+      :width="'800px'"
     >
       <fuzzySearchPopups
         v-if="fuzzySearch.show"
