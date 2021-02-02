@@ -92,6 +92,7 @@
       footer-hide
       mask
       :width="'800px'"
+      @on-keydown="keyDown"
     >
       <fuzzySearchPopups
         v-if="fuzzySearch.show"
@@ -140,6 +141,11 @@ export default {
       this.$Message.info({
                     content: '尽情期待'
                 });
+    },
+    keyDown(event) {  //模糊搜索弹框快捷键
+      if(event.keyCode === 27){  //esc快捷键
+        this.fuzzySearch.show = false
+      }
     },
     jumpCommunity() {  //跳转到论坛
       window.basevm.$router.push('/community/forumContent/Consulting/12')

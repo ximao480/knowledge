@@ -2,7 +2,7 @@
   <div class="fuzzySearchPopups">
     <div class="searchContent">
       <Icon type="ios-search"/>
-      <Input v-model="query" @on-change="searchArticle" placeholder="搜索"></Input>
+      <Input v-model="query" autofocus @on-change="searchArticle" placeholder="搜索"></Input>
       <p class="options">
         <span class="item" v-if="query" @click="clearQuery">清空</span>
         <span class="blank" v-if="query"></span>
