@@ -29,7 +29,7 @@
             <p class="directoryfile" v-html="`R3框架 / ${item.title}`"></p>
           </div>
         </div>
-        <div class="list-load-end" v-show="busy">
+        <div class="list-load-end" v-if="busy">
           <Col class="demo-spin-col" v-if="page.pageNum < page.maxPageNum">
               <Spin fix>
                   <Icon type="ios-loading" size=18 class="demo-spin-icon-load"></Icon>
@@ -73,7 +73,7 @@ export default {
         pageNum: 1,
         maxPageNum: 1
       },
-
+      firstSearch: false,
       busy:false
     }
   },
@@ -82,6 +82,7 @@ export default {
       this.$emit('closeModal')
     },
     clearQuery() {  //清空查询条件
+      document.getElementsByClassName('scroll')[0].scrollTop = 0
       this.query = ''
       this.articleLists = []
       this.page = {
@@ -89,9 +90,11 @@ export default {
         pageNum: 1,
         maxPageNum: 1
       }
+      this.busy = false;
+
     },
     searchArticle(resolve) {  //文件模糊搜索
-
+      this.busy = true;
       if(!this.query){
         this.articleLists = []
         this.query = ''
@@ -111,6 +114,7 @@ export default {
             }else{
               this.articleLists = res.data.data.object
             }
+
             this.busy = false
 
           }
@@ -123,6 +127,9 @@ export default {
       });
     },
     loadMore() {  //文档滚动到底部
+      if(!this.query){
+        return
+      }
       if(this.page.pageNum >= this.page.maxPageNum){
         this.busy = true
         return

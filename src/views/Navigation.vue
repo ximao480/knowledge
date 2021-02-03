@@ -139,7 +139,7 @@ export default {
     },
     update() {  //更新日志
       this.$Message.info({
-                    content: '尽情期待'
+                    content: '敬请期待'
                 });
     },
     keyDown(event) {  //模糊搜索弹框快捷键
