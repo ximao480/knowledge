@@ -96,8 +96,7 @@ export default {
     searchArticle(resolve) {  //文件模糊搜索
       this.busy = true;
       if(!this.query){
-        this.articleLists = []
-        this.query = ''
+        this.clearQuery()
         return
       }
       window.cancle();
