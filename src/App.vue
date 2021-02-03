@@ -8,6 +8,10 @@
 <script>
 import navigation from './views/Navigation';
 import Vue from 'vue';
+import infiniteScroll from "vue-infinite-scroll";
+
+Vue.use(infiniteScroll)
+
 export default {
   components: { navigation },
   created() {

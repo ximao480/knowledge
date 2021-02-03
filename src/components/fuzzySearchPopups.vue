@@ -17,7 +17,7 @@
       <div class="tips" v-if="articleLists.length === 0 && query">
         找不到包含以下关键词的结果"{{query}}"
       </div>
-      <Scroll height="484"  v-if="articleLists && articleLists.length > 0" :on-reach-bottom="handleReachBottom">
+      <div class="scroll" v-show="articleLists && articleLists.length > 0" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10" >
         <div v-for="(item,index) in articleLists" :key="index" class="itemContent" @click="selectJump(item)">
           <div class="logo">
             <span class="file" v-if="Number(item.type) === 1 "></span>
@@ -29,13 +29,28 @@
             <p class="directoryfile" v-html="`R3框架 / ${item.title}`"></p>
           </div>
         </div>
-      </Scroll>
+        <div class="list-load-end" v-show="busy">
+          <Col class="demo-spin-col" v-if="page.pageNum < page.maxPageNum">
+              <Spin fix>
+                  <Icon type="ios-loading" size=18 class="demo-spin-icon-load"></Icon>
+                  <div>加载中...</div>
+              </Spin>
+          </Col>
+          <Col class="demo-spin-col" v-else>
+            --我也是有底线的--
+          </Col>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import axios from 'axios';
+import Vue from 'vue';
 import { queryList } from '../utils/api';
+
+
+
 export default {
   props:{
     closeModal:{
@@ -57,7 +72,9 @@ export default {
         pageSize: 10,
         pageNum: 1,
         maxPageNum: 1
-      }
+      },
+
+      busy:false
     }
   },
   methods:{
@@ -86,17 +103,15 @@ export default {
           pageSize: this.page.pageSize,
           pageNum: this.page.pageNum
         }).then(res => {
-          if(res.data.code === 0){
+          if(res && res.data && res.data.code === 0){
             this.page.maxPageNum = Math.floor(res.data.data.sum/this.page.pageSize)
-            if(resolve && typeof resolve ===  'function'){
-              setTimeout(() => {
-                this.articleLists = this.articleLists.concat(res.data.data.object)
-                resolve()
-              },1000)
+            if(resolve && typeof resolve ===  'boolean'){
+              this.articleLists = this.articleLists.concat(res.data.data.object)
+
             }else{
               this.articleLists = res.data.data.object
             }
-
+            this.busy = false
 
           }
         }).catch((err) => {
@@ -107,11 +122,17 @@ export default {
         }
       });
     },
-    handleReachBottom(dir) {  //文档滚动到底部
-      this.page.pageNum++;
-      return new Promise(resolve => {
-          this.searchArticle(resolve)
-      });
+    loadMore() {  //文档滚动到底部
+      if(this.page.pageNum >= this.page.maxPageNum){
+        this.busy = true
+        return
+      }else{
+        this.busy = true;
+        this.page.pageNum++;
+        this.searchArticle(true)
+      }
+
+
     },
     selectJump(item) {  //文件跳转
       this.$emit('articleJump',item)
@@ -119,7 +140,6 @@ export default {
     }
   },
   mounted() {
-
   }
 }
 </script>

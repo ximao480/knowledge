@@ -10,6 +10,7 @@
 
     .ark-input{
       border: none;
+      font-size: 15px;
     }
 
     .options{
@@ -48,7 +49,7 @@
   >.content{
     min-height: 500px;
     max-height: 650px;
-    overflow: auto;
+    overflow: hidden;
     padding-bottom: 16px;
 
     .itemContent{
@@ -121,6 +122,26 @@
         width: 150px;
         height: 150px;
         margin-top: 150px;
+      }
+    }
+
+    div.scroll{
+      height: 484px;
+      overflow: auto;
+
+      .demo-spin-icon-load{
+          animation: ani-demo-spin 1s linear infinite;
+      }
+      @keyframes ani-demo-spin {
+          from { transform: rotate(0deg);}
+          50%  { transform: rotate(180deg);}
+          to   { transform: rotate(360deg);}
+      }
+      .demo-spin-col{
+          height: 40px;
+          position: relative;
+          text-align: center;
+          line-height: 40px;
       }
     }
     
