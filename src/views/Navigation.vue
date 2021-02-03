@@ -139,8 +139,8 @@ export default {
     },
     update() {  //更新日志
       this.$Message.info({
-                    content: '敬请期待'
-                });
+          content: '敬请期待'
+      });
     },
     keyDown(event) {  //模糊搜索弹框快捷键
       if(event.keyCode === 27){  //esc快捷键
