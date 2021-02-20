@@ -12,6 +12,11 @@
         </div>
       </div>
       <div class="right">
+        <div class="chandao">
+          <ButtonGroup>
+              <Button v-for="(item,index) in zenDaoList" :key="index" type="text" :title="item.projectName" @click="zenDaoJump(item)">{{item.projectName}}</Button>
+          </ButtonGroup>
+        </div>
         <div class="search">
           <Input placeholder="新搜索,试一试" style="width: 260px" readonly @click.native="openSearchModal">
             <Icon type="ios-search" slot="prefix" />
@@ -104,8 +109,7 @@
   </div>
 </template>
 <script>
-
-import axios from 'axios';
+import { zenDaoList, zenDaoCookie } from '../utils/api';
 import { DispatchEvent } from '../utils/dispatchEvent';
 import fuzzySearchPopups from '../components/fuzzySearchPopups';
 export default {
@@ -118,7 +122,9 @@ export default {
 
       fuzzySearch:{
         show: false
-      }
+      },
+
+      zenDaoList: []  //禅道地址
     }
   },
   methods:{
@@ -149,7 +155,29 @@ export default {
     },
     jumpCommunity() {  //跳转到论坛
       window.basevm.$router.push('/community/forumContent/Consulting/12')
+    },
+    getZenDao() {  //获取R3和JFLOW禅道地址
+      zenDaoList()
+        .then(res => {
+          this.zenDaoList = res.data.data.filter(item => {
+            let projectNames = ['R3快速开发平台','Jflow']
+            if(projectNames.includes(item.projectName)){
+              return item
+            }
+          })
+        })
+    },
+    zenDaoJump(item) {  //跳转到禅道
+      zenDaoCookie()
+        .then(res => {
+          if(res.data.code === 0){
+            window.open(item.projectUrl)
+          }
+        })
     }
+  },
+  created() {
+    this.getZenDao()
   }
 }
 </script>
