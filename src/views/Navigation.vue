@@ -13,9 +13,15 @@
       </div>
       <div class="right">
         <div class="chandao">
-          <ButtonGroup>
-              <Button v-for="(item,index) in zenDaoList" :key="index" type="text" :title="item.projectName" @click="zenDaoJump(item)">{{item.projectName}}</Button>
-          </ButtonGroup>
+          <Dropdown>
+            <a href="javascript:void(0)">
+                需求提报
+                <Icon type="ios-arrow-down"></Icon>
+            </a>
+            <DropdownMenu slot="list">
+              <DropdownItem v-for="(item,index) in zenDaoList" :key="index" type="text" :title="item.projectName" @click.native="zenDaoJump(item)">{{item.projectName}}</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
         </div>
         <div class="search">
           <Input placeholder="新搜索,试一试" style="width: 260px" readonly @click.native="openSearchModal">
@@ -109,7 +115,8 @@
   </div>
 </template>
 <script>
-import { zenDaoList, zenDaoCookie } from '../utils/api';
+import axios from 'axios';
+import { zenDaoList, zenDaoCookie, zenDaoCheck } from '../utils/api';
 import { DispatchEvent } from '../utils/dispatchEvent';
 import fuzzySearchPopups from '../components/fuzzySearchPopups';
 export default {
@@ -171,7 +178,16 @@ export default {
       zenDaoCookie()
         .then(res => {
           if(res.data.code === 0){
-            window.open(item.projectUrl)
+            zenDaoCheck(`/p/cs/checkUserZendao?domain=${item.projectUrl}`).then(res => {
+              if(res.data.data){
+                window.open(item.projectUrl)
+              }else{
+                this.$Message.warning({
+                  content: `无${item.projectName}禅道项目访问权限,请联系${item.projectName}项目管理员!`
+                })
+              }
+            })
+
           }
         })
     }

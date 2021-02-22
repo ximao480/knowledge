@@ -13,3 +13,5 @@ export const addComment = (postObj?:Object,path='/p/cs/r3/add/comment') => netwo
 export const zenDaoList = (postObj?:Object,path='/p/cs/project_list?domain=http://project.burgeononline.com:9090&projectName=') => network.post(path,postObj);  //获取禅道地址
 
 export const zenDaoCookie = (postObj?:Object,path='/p/cs/zenDaoCookie') => network.get(path,postObj);  //设置禅道Cookie
+
+export const zenDaoCheck = (path:string,postObj?:Object) => network.get(path,postObj);  //设置禅道Cookie
