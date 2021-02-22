@@ -175,21 +175,22 @@ export default {
         })
     },
     zenDaoJump(item) {  //跳转到禅道
-      zenDaoCookie()
-        .then(res => {
-          if(res.data.code === 0){
-            zenDaoCheck(`/p/cs/checkUserZendao?domain=${item.projectUrl}`).then(res => {
-              if(res.data.data){
-                window.open(item.projectUrl)
-              }else{
-                this.$Message.warning({
-                  content: `无${item.projectName}禅道项目访问权限,请联系${item.projectName}项目管理员!`
-                })
-              }
-            })
-
-          }
-        })
+      zenDaoCheck('/p/cs/checkUserZendao',{
+        domain:item.projectUrl
+      }).then(res => {
+        if(res.data.data){
+          zenDaoCookie()
+          .then(res => {
+            if(res.data.code === 0){
+              window.open(item.projectUrl)
+            }
+          })
+        }else{
+          this.$Message.warning({
+            content: `无${item.projectName}禅道项目访问权限,请联系${item.projectName}项目管理员!`
+          })
+        }
+      })
     }
   },
   created() {

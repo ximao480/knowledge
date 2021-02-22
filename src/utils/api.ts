@@ -14,4 +14,4 @@ export const zenDaoList = (postObj?:Object,path='/p/cs/project_list?domain=http:
 
 export const zenDaoCookie = (postObj?:Object,path='/p/cs/zenDaoCookie') => network.get(path,postObj);  //设置禅道Cookie
 
-export const zenDaoCheck = (path:string,postObj?:Object) => network.get(path,postObj);  //设置禅道Cookie
+export const zenDaoCheck = (path:string,postObj?:Object) => network.post(path,postObj);  //设置禅道Cookie
