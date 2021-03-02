@@ -36,16 +36,23 @@ module.exports = {
       //   changeOrigin: true,
       // },
       '/p/cs': {
-        target: 'http://ark-share-base.dev.burgeononline.com/',
+        target: 'http://share.ark.burgeononline.com/',
         pathRewrite: {
           '^/p/cs': '/p/cs',
         },
         changeOrigin: true,
       },
       '/ad-app': {
-        target: 'http://ark-share-base.dev.burgeononline.com/',
+        target: 'http://share.ark.burgeononline.com/',
         pathRewrite: {
           '^/ad-app': '/ad-app',
+        },
+        '/community-app/p/cs': {
+          target: 'http://share.ark.burgeononline.com/',
+          pathRewrite: {
+            '^/p/cs': '/p/cs',
+          },
+          changeOrigin: true,
         },
         changeOrigin: true,
       },
