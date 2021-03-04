@@ -12,11 +12,11 @@ const routes: Array<RouteConfig> = [
   }
 ];
 
-const router = new VueRouter({
-  mode: 'history',
-  base: '/knowledge',
-  routes,
-});
+// const router = new VueRouter({
+//   mode: 'history',
+//   base: '/knowledge',
+//   routes,
+// });
 
 
-export default router;
+export default routes;

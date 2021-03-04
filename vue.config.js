@@ -17,6 +17,7 @@ module.exports = {
       // library的值在所有子应用中需要唯一
       library: 'knowledge',
       libraryTarget: 'umd',
+      jsonpFunction: `webpackJsonp_knowledge`,
     },
   },
   chainWebpack: (config) => {
@@ -27,6 +28,11 @@ module.exports = {
       .tap((options) => Object.assign(options, { limit: 200000 }));
   },
   devServer: {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+    port: 7079,
+    host: '0.0.0.0',
     proxy: {
       // '/p/c': {
       //   target: 'http://192.168.4.92:8081',
@@ -57,8 +63,7 @@ module.exports = {
         changeOrigin: true,
       },
     },
-    port: 8201,
-    host: '0.0.0.0',
+
   },
   css: {
     loaderOptions: {
