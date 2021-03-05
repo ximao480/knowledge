@@ -151,9 +151,7 @@ export default {
       // document.getElementsByTagName("body")[0].dispatchEvent(e);
     },
     update() {  //更新日志
-      this.$Message.info({
-          content: '敬请期待'
-      });
+      window.open('http://share.ark.burgeononline.com/knowledge/documentation_3948')
     },
     keyDown(event) {  //模糊搜索弹框快捷键
       if(event.keyCode === 27){  //esc快捷键
