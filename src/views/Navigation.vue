@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="right">
-        <div class="chandao">
+        <!-- <div class="chandao">
           <Dropdown>
             <a href="javascript:void(0)">
                 需求提报
@@ -22,7 +22,7 @@
               <DropdownItem v-for="(item,index) in zenDaoList" :key="index" type="text" :title="item.projectName" @click.native="zenDaoJump(item)">{{item.projectName}}</DropdownItem>
             </DropdownMenu>
           </Dropdown>
-        </div>
+        </div> -->
         <div class="search">
           <Input placeholder="新搜索,试一试" style="width: 260px" readonly @click.native="openSearchModal">
             <Icon type="ios-search" slot="prefix" />
@@ -151,7 +151,10 @@ export default {
       // document.getElementsByTagName("body")[0].dispatchEvent(e);
     },
     update() {  //更新日志
-      window.open('http://share.ark.burgeononline.com/knowledge/documentation_3948')
+      // window.open('http://share.ark.burgeononline.com/knowledge/documentation_3948')
+      this.$Message.info({
+          content: '敬请期待'
+      });
     },
     keyDown(event) {  //模糊搜索弹框快捷键
       if(event.keyCode === 27){  //esc快捷键
