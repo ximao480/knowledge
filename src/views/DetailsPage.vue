@@ -148,18 +148,18 @@ export default {
   },
   mounted() {
 
-    if(process.env.NODE_ENV === 'pro'){
-      document.body.style.overflow = 'hidden'
-      document.getElementsByClassName('App')[0].style.minWidth = 'auto'
-    }
+    // if(process.env.NODE_ENV === 'pro'){
+    //   document.body.style.overflow = 'hidden'
+    //   document.getElementsByClassName('App')[0].style.minWidth = 'auto'
+    // }
 
   },
   beforeDestroy() {
 
-    if(process.env.NODE_ENV === 'pro'){
-      document.body.style.overflow = 'initial'
-      document.getElementsByClassName('App')[0].style.minWidth = '1180px'
-    }
+    // if(process.env.NODE_ENV === 'pro'){
+    //   document.body.style.overflow = 'initial'
+    //   document.getElementsByClassName('App')[0].style.minWidth = '1180px'
+    // }
 
   }
 };
