@@ -2,7 +2,7 @@
   <div class="DetailsPage" id="DetailsPage">
     <!-- 目录 -->
     <div class="directory">
-      <tree @selectedTree="selectedTree" :treeDatas="treeDatas"></tree>
+      <tree @selectedTree="selectedTree" :treeDatas="treeDatas" @clickVideoIcon="clickVideoIcon"></tree>
       <!-- <div class="flex-box-resizer"></div> -->
     </div>
     <!-- 详情 -->
@@ -14,30 +14,43 @@
       </Spin>
       <doc ref="document" :detail="documentation"></doc>
     </div>
+
+    <!-- 视频 -->
+    <videoModal v-model="showVideo" :videoUrl="videoUrl" :title="modalTitle"></videoModal>
   </div>
 </template>
 <script>
-import tree from "./Tree/Tree";
-import doc from "../components/document";
-import { getDirectory, getDocumentation } from "../utils/api";
-import DateUtil from "../utils/dateApi";
-import axios from "axios";
+import axios from 'axios';
+import tree from './Tree/Tree.vue';
+import doc from '../components/document.vue';
+import videoModal from '../components/videoModal.vue';
+import { getDirectory, getDocumentation } from '../utils/api';
+import DateUtil from '../utils/dateApi';
 import { DispatchEvent } from '../utils/dispatchEvent';
-import createWatermark from '../utils/waterMark';
 // import jsonData from "../../static/js/ztree/treeData.json";
 export default {
   components: {
     tree,
     doc,
+    videoModal,
   },
   data() {
     return {
       treeDatas: [], // 文档目录数据
       documentation: {}, // 文档数据
       detailsLoading: false, // 文档内容loading
+      showVideo: false, // 打开文档视频
+      videoUrl: '', // 视频地址
+      modalTitle: '', // 视频弹框标题
     };
   },
   methods: {
+    clickVideoIcon(node) {
+      this.modalTitle = node.title;
+      this.videoUrl = node.videoOSSPath;
+      this.showVideo = true;
+    },
+
     selectedTree(selected) {
       // 处理点击输查询接口逻辑
       // selected：当前点击节点数据
@@ -57,7 +70,7 @@ export default {
               this.documentation = res.data.data;
             });
             this.$Loading.finish();
-          }else{
+          } else {
             this.$Loading.error();
           }
         })
@@ -76,9 +89,9 @@ export default {
       getDirectory().then((res) => {
         this.detailsLoading = false;
         if (res.data.code === 0) {
-          this.treeDatas = res.data.data.map(item => {
-            item.open = true
-            return item
+          this.treeDatas = res.data.data.map((item) => {
+            item.open = true;
+            return item;
           });
 
           // 处理带默认文件时，默认打开携带的文件
@@ -90,12 +103,11 @@ export default {
                 DispatchEvent('treeTriger', {
                   detail: this.$route.params.id,
                 });
-                if(process.env.NODE_ENV === 'pro'){
+                if (process.env.NODE_ENV === 'pro') {
                   window.history.pushState(null, null, '/knowledge');
-                }else{
+                } else {
                   window.history.pushState(null, null, '/');
                 }
-
               }, 200);
             });
           } else {
@@ -147,20 +159,16 @@ export default {
     // })
   },
   mounted() {
-
-    if(process.env.NODE_ENV === 'pro'){
-      document.body.style.overflow = 'hidden'
-      document.getElementsByClassName('App')[0].style.minWidth = 'auto'
+    if (process.env.NODE_ENV === 'pro') {
+      document.body.style.overflow = 'hidden';
+      document.getElementsByClassName('App')[0].style.minWidth = 'auto';
     }
-
   },
   beforeDestroy() {
-
-    if(process.env.NODE_ENV === 'pro'){
-      document.body.style.overflow = 'initial'
-      document.getElementsByClassName('App')[0].style.minWidth = '1180px'
+    if (process.env.NODE_ENV === 'pro') {
+      document.body.style.overflow = 'initial';
+      document.getElementsByClassName('App')[0].style.minWidth = '1180px';
     }
-
-  }
+  },
 };
 </script>

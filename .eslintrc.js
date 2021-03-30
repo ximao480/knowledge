@@ -3,6 +3,9 @@ module.exports = {
   env: {
     node: true,
   },
+  globals: {
+    '$': true
+  },
   extends: [
     'plugin:vue/essential',
     '@vue/airbnb',
@@ -14,5 +17,8 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-unused-expressions': 'off',
+    'no-param-reassign': 'off',
+    'global-require': 'off'
   },
 };
