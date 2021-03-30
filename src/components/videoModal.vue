@@ -94,9 +94,9 @@ export default {
   .ark-modal-close {
     font-size: 16px;
     transform: scale(1.5);
-    opacity: 0.7;
+    top: 8px !important;
     i {
-      color: #fff;
+      color: #333;
     }
   }
 }
