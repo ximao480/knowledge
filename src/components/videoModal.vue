@@ -1,10 +1,12 @@
 <template>
   <Modal
     mask
+    closable
+    footer-hide
     v-model="showModal"
     :title="title"
     @on-visible-change="change"
-    width="1200"
+    class-name="video-modal"
   >
     <div class="video-wrap">
       <video
@@ -12,16 +14,10 @@
         v-if="videoUrl"
         controls
         autoplay
+        controlsList="nodownload"
+        disablePictureInPicture="true"
       ></video>
       <div v-else>找不到视频地址</div>
-    </div>
-
-    <div slot="footer">
-      <Button
-        type="primary"
-        size="large"
-        @click="close"
-      >关闭</Button>
     </div>
   </Modal>
 </template>
@@ -63,10 +59,6 @@ export default {
   },
 
   methods: {
-    close() {
-      this.change(false);
-    },
-
     change(e) {
       this.$emit('change', e);
     },
@@ -81,7 +73,31 @@ export default {
   align-items: center;
 
   video {
-    width: 1000px;
+    width: 100%;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+</style>
+
+<style lang="less">
+.video-modal {
+  .ark-modal {
+    width: 80% !important;
+  }
+
+  .ark-modal-body {
+    padding: 0;
+  }
+
+  .ark-modal-close {
+    font-size: 16px;
+    transform: scale(1.5);
+    opacity: 0.7;
+    i {
+      color: #fff;
+    }
   }
 }
 </style>

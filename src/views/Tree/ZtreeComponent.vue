@@ -180,5 +180,10 @@ export default {
 <style lang="less">
 .ztree li span.button.video-icon {
   line-height: 30px;
+  color: #76d8ed;
+  &:hover {
+    color: #28c1e2;
+
+  }
 }
 </style>
