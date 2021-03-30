@@ -4,6 +4,12 @@ const path = require('path');
 const resolve = (dir) => path.resolve(__dirname, dir);
 // const CopyWebpackPlugin = require('copy-webpack-plugin');
 
+const target = {
+  dev: 'http://ark-share-base-test.dev.burgeononline.com/', // 开发环境
+  prod: 'http://share.ark.burgeononline.com/', // 生产环境
+};
+const targetUrl = target.dev;
+
 module.exports = {
   // publicPath: '/',
   // outputDir: 'dist', // 默认dist
@@ -42,19 +48,19 @@ module.exports = {
       //   changeOrigin: true,
       // },
       '/p/cs': {
-        target: 'http://share.ark.burgeononline.com/',
+        target: targetUrl,
         pathRewrite: {
           '^/p/cs': '/p/cs',
         },
         changeOrigin: true,
       },
       '/ad-app': {
-        target: 'http://share.ark.burgeononline.com/',
+        target: targetUrl,
         pathRewrite: {
           '^/ad-app': '/ad-app',
         },
         '/community-app/p/cs': {
-          target: 'http://share.ark.burgeononline.com/',
+          target: targetUrl,
           pathRewrite: {
             '^/p/cs': '/p/cs',
           },

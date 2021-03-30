@@ -9,19 +9,20 @@
       <div class="directory"></div>
     </div> -->
     <div class="TreeContent">
-      <treeMD ref="zTree" :z-nodes="treeDatas" @clickTreeNode="selectedTree" />
+      <treeMD ref="zTree" :z-nodes="treeDatas" @clickTreeNode="selectedTree" @clickVideoIcon="clickVideoIcon"/>
     </div>
   </div>
 </template>
 <script>
-import treeMD from "./ZtreeComponent.vue";
+import treeMD from './ZtreeComponent.vue';
+
 export default {
   components: {
     treeMD,
   },
   data() {
     return {
-      img: require("../../assets/img/list.png").default,
+      // img: require('../../assets/img/list.png').default,
     };
   },
   props: {
@@ -31,9 +32,13 @@ export default {
   },
   methods: {
     selectedTree(selected) {
-      //处理点击输查询接口逻辑
+      // 处理点击输查询接口逻辑
       // selected：当前点击节点数据
-      this.$emit("selectedTree", selected);
+      this.$emit('selectedTree', selected);
+    },
+
+    clickVideoIcon(e) {
+      this.$emit('clickVideoIcon', e);
     },
   },
 };
