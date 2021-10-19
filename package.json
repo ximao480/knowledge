@@ -9,7 +9,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@syman/ark-share-md": "^1.1.7",
+    "@syman/ark-share-md": "^1.1.9",
     "@syman/ark-ui": "^1.1.13",
     "axios": "^0.21.1",
     "copy-webpack-plugin": "^6.3.0",

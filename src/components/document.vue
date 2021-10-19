@@ -21,8 +21,11 @@
         :subfield="false"
         :defaultOpen="'preview'"
         :boxShadow="false"
+        :externalLink="externalLink"
+        :navigation="navigation"
         showNavigationClose
         previewBackground="#fff"
+        @navigationToggle="navigationToggle"
       ></mavon-editor>
 
       <!-- 文档页脚 -->
@@ -134,7 +137,7 @@
         <div class="left">
           {{detail.wordCount}}个字
         </div>
-        <div class="right" @click="navigationToggle">
+        <div class="right" @click="toggleNavigation">
           <i class="iconfont iconios-list"></i>
           <span>大纲</span>
         </div>
@@ -160,13 +163,15 @@
 import { getComment, addComment } from '../utils/api';
 import DateUtil from '../utils/dateApi';
 import { DispatchEvent } from '../utils/dispatchEvent';
-import createWatermark from '../utils/waterMark';
+import { createWatermark } from '../utils/waterMark';
 
 export default {
   props: {
     detail: {
       type: Object,
-      default: {},
+      default() {
+        return {};
+      },
     },
   },
   data() {
@@ -177,13 +182,40 @@ export default {
       content: null, // 新增评论内容
 
       commentsLoading: false, // 评论区loading
+      externalLink: {
+        markdown_css() {
+          // 这是你的markdown css文件路径
+          return '/markdown/github-markdown.min.css';
+        },
+        hljs_js() {
+          // 这是你的hljs文件路径
+          return '/highlightjs/highlight.min.js';
+        },
+        hljs_css(css) {
+          // 这是你的代码高亮配色文件路径
+          return `/highlightjs/styles/${css}.min.css`;
+        },
+        hljs_lang(lang) {
+          // 这是你的代码高亮语言解析路径
+          return `/highlightjs/languages/${lang}.min.js`;
+        },
+        katex_css() {
+          // 这是你的katex配色方案路径路径
+          return '/katex/katex.min.css';
+        },
+        katex_js() {
+          // 这是你的katex.js路径
+          return '/katex/katex.min.js';
+        },
+      },
+      navigation: false,
     };
   },
   methods: {
     copyUrl() { // 复制链接
-      let url = window.location.href
-      if(!this.$route.params.id){
-        url = window.location.href.endsWith('/')?`${url}${this.detail.onlyId}`:`${url}/${this.detail.onlyId}`
+      let url = window.location.href;
+      if (!this.$route.params.id) {
+        url = window.location.href.endsWith('/') ? `${url}${this.detail.onlyId}` : `${url}/${this.detail.onlyId}`;
       }
       const input = document.createElement('input');
       input.setAttribute('readonly', 'readonly'); // 防止手机上弹出软键盘
@@ -193,15 +225,15 @@ export default {
       const res = document.execCommand('copy');
       document.body.removeChild(input);
       this.$Message.success({
-                    content: '复制成功'
-                });
+        content: '复制成功',
+      });
     },
     fullScreen() { // 全屏展示
       this.$refs.md.toolbar_right_click('read');
 
-        this.$nextTick(() => {
-          setTimeout(() => {
-            createWatermark( {
+      this.$nextTick(() => {
+        setTimeout(() => {
+          createWatermark({
             id: 'v-note-read-view',
             textContent: ['R3快速开发平台'], // 每行显示的文本内容
             watermark_intervalWidth: 150, //  间隔宽度
@@ -225,18 +257,23 @@ export default {
               width: '200px',
               height: '80px',
               display: 'block',
-              left: 0,//不支持设置定位，
+              left: 0, // 不支持设置定位，
               top: 0,
-            }
-          })
-          },300)
-        })
+            },
+          });
+        }, 300);
+      });
     },
-    navigationToggle() { // 切换大纲
+
+    toggleNavigation() { // 切换大纲
       this.$refs.md.toolbar_right_click('navigation');
     },
+
+    navigationToggle(status) {
+      this.navigation = status;
+    },
     getComm() { // 获取评论
-      this.Drawer = true
+      this.Drawer = true;
       this.commentsLoading = true;
       this.content = null;
       getComment({
@@ -269,13 +306,16 @@ export default {
     articleJump(item) { // 文件跳转
       const tree = this.$_live_getChildComponent(window.basevm, 'treeMD');
       tree.expandNode(item.id);
-    },
-    articleJump(item) { // 文件跳转
-      // let tree = this.$_live_getChildComponent(window.knowledgevm,'treeMD')
       DispatchEvent('treeTriger', {
         detail: item.id,
       });
     },
+    // articleJump(item) { // 文件跳转
+    //   // let tree = this.$_live_getChildComponent(window.knowledgevm,'treeMD')
+    //   DispatchEvent('treeTriger', {
+    //     detail: item.id,
+    //   });
+    // },
   },
 };
 </script>

@@ -8,7 +8,7 @@ const target = {
   dev: 'http://ark-share-base-test.dev.burgeononline.com/', // 开发环境
   prod: 'http://share.ark.burgeononline.com/', // 生产环境
 };
-const targetUrl = target.dev;
+const targetUrl = target.prod;
 
 module.exports = {
   // publicPath: '/',
