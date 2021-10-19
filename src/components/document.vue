@@ -22,8 +22,10 @@
         :defaultOpen="'preview'"
         :boxShadow="false"
         :externalLink="externalLink"
+        :navigation="navigation"
         showNavigationClose
         previewBackground="#fff"
+        @navigationToggle="navigationToggle"
       ></mavon-editor>
 
       <!-- 文档页脚 -->
@@ -135,7 +137,7 @@
         <div class="left">
           {{detail.wordCount}}个字
         </div>
-        <div class="right" @click="navigationToggle">
+        <div class="right" @click="toggleNavigation">
           <i class="iconfont iconios-list"></i>
           <span>大纲</span>
         </div>
@@ -206,6 +208,7 @@ export default {
           return '/katex/katex.min.js';
         },
       },
+      navigation: false,
     };
   },
   methods: {
@@ -261,8 +264,13 @@ export default {
         }, 300);
       });
     },
-    navigationToggle() { // 切换大纲
+
+    toggleNavigation() { // 切换大纲
       this.$refs.md.toolbar_right_click('navigation');
+    },
+
+    navigationToggle(status) {
+      this.navigation = status;
     },
     getComm() { // 获取评论
       this.Drawer = true;

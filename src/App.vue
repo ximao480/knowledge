@@ -6,17 +6,17 @@
 </template>
 
 <script>
-import navigation from './views/Navigation';
 import Vue from 'vue';
-import infiniteScroll from "vue-infinite-scroll";
+import infiniteScroll from 'vue-infinite-scroll';
+import navigation from './views/Navigation';
 
-Vue.use(infiniteScroll)
+Vue.use(infiniteScroll);
 
 export default {
   components: { navigation },
   created() {
-  }
-}
+  },
+};
 </script>
 <style lang="less">
 html,body{
@@ -27,7 +27,7 @@ html,body{
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: 100%;
+  width: calc(100% - 120px);
   height: 100%;
   color: #2c3e50;
   overflow: hidden;
