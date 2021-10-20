@@ -164,6 +164,12 @@ import { getComment, addComment } from '../utils/api';
 import DateUtil from '../utils/dateApi';
 import { DispatchEvent } from '../utils/dispatchEvent';
 import { createWatermark } from '../utils/waterMark';
+import '../assets/highlightjs/highlight.min';
+import '../assets/markdown/markdown.css';
+import '../assets/highlightjs/styles/github.min.css';
+// import '../assets/highlightjs/languages/markdown.min';
+import '../assets/katex/katex.min.css';
+import '../assets/katex/katex.min';
 
 export default {
   props: {
@@ -182,32 +188,33 @@ export default {
       content: null, // 新增评论内容
 
       commentsLoading: false, // 评论区loading
-      externalLink: {
-        markdown_css() {
-          // 这是你的markdown css文件路径
-          return '/markdown/github-markdown.min.css';
-        },
-        hljs_js() {
-          // 这是你的hljs文件路径
-          return '/highlightjs/highlight.min.js';
-        },
-        hljs_css(css) {
-          // 这是你的代码高亮配色文件路径
-          return `/highlightjs/styles/${css}.min.css`;
-        },
-        hljs_lang(lang) {
-          // 这是你的代码高亮语言解析路径
-          return `/highlightjs/languages/${lang}.min.js`;
-        },
-        katex_css() {
-          // 这是你的katex配色方案路径路径
-          return '/katex/katex.min.css';
-        },
-        katex_js() {
-          // 这是你的katex.js路径
-          return '/katex/katex.min.js';
-        },
-      },
+      externalLink: false,
+      // externalLink: {
+      //   markdown_css() {
+      //     // 这是你的markdown css文件路径
+      //     return '/markdown/github-markdown.min.css';
+      //   },
+      //   hljs_js() {
+      //     // 这是你的hljs文件路径
+      //     return '/highlightjs/highlight.min.js';
+      //   },
+      //   hljs_css(css) {
+      //     // 这是你的代码高亮配色文件路径
+      //     return `/highlightjs/styles/${css}.min.css`;
+      //   },
+      //   hljs_lang(lang) {
+      //     // 这是你的代码高亮语言解析路径
+      //     return `/highlightjs/languages/${lang}.min.js`;
+      //   },
+      //   katex_css() {
+      //     // 这是你的katex配色方案路径路径
+      //     return '/katex/katex.min.css';
+      //   },
+      //   katex_js() {
+      //     // 这是你的katex.js路径
+      //     return '/katex/katex.min.js';
+      //   },
+      // },
       navigation: false,
     };
   },
@@ -319,3 +326,8 @@ export default {
   },
 };
 </script>
+
+<style lang="less">
+// @import url('../../publish/markdown/markdown.css');
+// @import '../src/assets/css/reset.css';
+</style>
