@@ -27,7 +27,7 @@ html,body{
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: calc(100% - 120px);
+  width: 100%;
   height: 100%;
   color: #2c3e50;
   overflow: hidden;
